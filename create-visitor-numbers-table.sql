@@ -107,6 +107,7 @@ WHERE aads.destination = 'PS_SOUNDS'
 ;
 
 --Check data
+SELECT distinct week_commencing FROM radio1_sandbox.vb_sounds_int_users;
 SELECT * FROM radio1_sandbox.vb_sounds_int_users
 ORDER BY week_commencing,audience_id, app_type, geo_country_site_visited
 LIMIT 200;
@@ -162,22 +163,33 @@ FROM all_users a
 ORDER BY 1, 2, 3, 4, 5
 ;
 
---Check table
-SELECT * FROM radio1_sandbox.sounds_dashboard_1_page_views_international
-WHERE app_type = 'all' AND geo_country_site_visited = 'United Kingdom' AND id_age_range = '20-24';
-
-SELECT * FROM radio1_sandbox.sounds_dashboard_1_page_views LIMIT 10;
 
 -- Compare
+SELECT * FROM radio1_sandbox.sounds_dashboard_1_page_views_international
+WHERE id_age_range = '25-29' AND geo_country_site_visited = 'United Kingdom'
+;
 
+with uk_table_summary AS (
+    SELECT week_commencing, CAST('United Kingdom' as varchar) as geo_country_site_visited,
+           id_age_range, app_type, sum(signed_in_accounts) as num_si_uk
+    FROM radio1_sandbox.sounds_dashboard_1_page_views
+    WHERE id_age_range = '25-29' AND week_commencing = '2020-08-17'
+    GROUP BY 1, 2, 3,4
+),
+     int_table_summary AS (
+         SELECT week_commencing, geo_country_site_visited, id_age_range, app_type, sum(signed_in_accounts) as num_si_vb
+         FROM radio1_sandbox.sounds_dashboard_1_page_views_international
+         --WHERE geo_country_site_visited = 'United Kingdom'
+         GROUP BY 1, 2, 3,4
+     )
 SELECT a.week_commencing,
+       a.geo_country_site_visited,
        a.id_age_range,
        a.app_type,
-       a.signed_in_accounts as vb_si,
-       b.num_si_uk as si,
-       all_visitors_si_so
-FROM radio1_sandbox.sounds_dashboard_1_page_views_international a
-         JOIN sounds_dashboard_1_page_views_vb b ON a.week_commencing = b.week_commencing
-    AND a.id_age_range = b.id_age_range AND a.app_type = b.app_type
-WHERE (a.id_age_range = '25-29' OR a.id_age_range = '30-34')
+       a.num_si_vb,
+       b.num_si_uk
+FROM int_table_summary a
+         JOIN uk_table_summary b ON a.week_commencing = b.week_commencing
+    AND a.id_age_range = b.id_age_range AND a.app_type = b.app_type and a.geo_country_site_visited = b.geo_country_site_visited
+WHERE a.id_age_range = '25-29'
 ORDER BY 1, 2, 3;
