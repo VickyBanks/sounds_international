@@ -22,43 +22,53 @@ INSERT INTO radio1_sandbox.vb_sounds_int_users
 SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
-                    ELSE 'signed out' END AS signed_in_status,
+                    ELSE 'signed out' END                AS signed_in_status,
                 aads.audience_id,
                 aads.app_type,
                 aads.geo_country_site_visited,
-                p.age_range,
+                CASE
+                    WHEN p.age_range = '0-5' OR p.age_range = '6-10' OR p.age_range = '11-15' THEN 'Under 16'
+                    WHEN p.age_range = '16-19' OR p.age_range = '20-24' OR p.age_range = '25-29' OR
+                         p.age_range = '30-34' THEN '16-34'
+                    WHEN p.age_range ISNULL THEN 'Unknown'
+                    ELSE 'Over 35' END                   AS age_range,
                 p.gender
 FROM s3_audience.audience_activity_daily_summary aads
          LEFT JOIN prez.profile_extension p
-                    ON p.bbc_hid3 = aads.audience_id
+                   ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-      AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
 
 
---2. Some users may be seen on multiple platforms so find distinct users to ALL platfomrs
+--2. Some users may be seen on multiple platforms so find distinct users to ALL platforms
 INSERT INTO radio1_sandbox.vb_sounds_int_users
 SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
-                    ELSE 'signed out' END AS signed_in_status,
+                    ELSE 'signed out' END                AS signed_in_status,
                 aads.audience_id,
-                CAST('all' AS varchar(20)) AS app_type,
+                CAST('all' AS varchar(20))               AS app_type,
                 aads.geo_country_site_visited,
-                p.age_range,
+                CASE
+                    WHEN p.age_range = '0-5' OR p.age_range = '6-10' OR p.age_range = '11-15' THEN 'Under 16'
+                    WHEN p.age_range = '16-19' OR p.age_range = '20-24' OR p.age_range = '25-29' OR
+                         p.age_range = '30-34' THEN '16-34'
+                    WHEN p.age_range ISNULL THEN 'Unknown'
+                    ELSE 'Over 35' END                   AS age_range,
                 p.gender
 FROM s3_audience.audience_activity_daily_summary aads
          LEFT JOIN prez.profile_extension p
-                    ON p.bbc_hid3 = aads.audience_id
+                   ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-      AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
 
@@ -68,20 +78,25 @@ INSERT INTO radio1_sandbox.vb_sounds_int_users
 SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
-                    ELSE 'signed out' END AS signed_in_status,
+                    ELSE 'signed out' END                AS signed_in_status,
                 aads.audience_id,
-                CAST('all' AS varchar(20)) AS app_type,
+                CAST('all' AS varchar(20))               AS app_type,
                 CAST('All International' as varchar(20)) AS geo_country_site_visited, -- combine everyone regardless of country
-                p.age_range,
+                CASE
+                    WHEN p.age_range = '0-5' OR p.age_range = '6-10' OR p.age_range = '11-15' THEN 'Under 16'
+                    WHEN p.age_range = '16-19' OR p.age_range = '20-24' OR p.age_range = '25-29' OR
+                         p.age_range = '30-34' THEN '16-34'
+                    WHEN p.age_range ISNULL THEN 'Unknown'
+                    ELSE 'Over 35' END                   AS age_range,
                 p.gender
 FROM s3_audience.audience_activity_daily_summary aads
          LEFT JOIN prez.profile_extension p
-                    ON p.bbc_hid3 = aads.audience_id
+                   ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-      AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
 -- All countries but split by app
@@ -89,54 +104,55 @@ INSERT INTO radio1_sandbox.vb_sounds_int_users
 SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
-                    ELSE 'signed out' END AS signed_in_status,
+                    ELSE 'signed out' END                AS signed_in_status,
                 aads.audience_id,
                 app_type,
                 CAST('All International' as varchar(20)) AS geo_country_site_visited, -- combine everyone regardless of country
-                p.age_range,
+                CASE
+                    WHEN p.age_range = '0-5' OR p.age_range = '6-10' OR p.age_range = '11-15' THEN 'Under 16'
+                    WHEN p.age_range = '16-19' OR p.age_range = '20-24' OR p.age_range = '25-29' OR
+                         p.age_range = '30-34' THEN '16-34'
+                    WHEN p.age_range ISNULL THEN 'Unknown'
+                    ELSE 'Over 35' END                   AS age_range,
                 p.gender
 FROM s3_audience.audience_activity_daily_summary aads
          LEFT JOIN prez.profile_extension p
-                    ON p.bbc_hid3 = aads.audience_id
+                   ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-      AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
 
 --Check data
-SELECT distinct week_commencing FROM radio1_sandbox.vb_sounds_int_users;
-SELECT * FROM radio1_sandbox.vb_sounds_int_users
-ORDER BY week_commencing,audience_id, app_type, geo_country_site_visited
-LIMIT 200;
+SELECT count(*) FROM radio1_sandbox.vb_sounds_int_users LIMIT 5;
 
 -- Create summary table to hold all data and insert into it weekly
-DROP TABLE IF EXISTS radio1_sandbox.sounds_dashboard_1_page_views_international;
-CREATE TABLE radio1_sandbox.sounds_dashboard_1_page_views_international
+DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
+CREATE TABLE radio1_sandbox.vb_sounds_dashboard_1_page_views_international
 (
     week_commencing          date,
     geo_country_site_visited varchar(400),
-    id_age_range             varchar(40),
+    age_range                varchar(40),
     app_type                 varchar(40),
     gender                   varchar(40),
     signed_in_accounts       integer,
     all_visitors_si_so       integer
 );
 
-INSERT INTO radio1_sandbox.sounds_dashboard_1_page_views_international
+INSERT INTO radio1_sandbox.vb_sounds_dashboard_1_page_views_international
 with si_users AS (
     SELECT week_commencing,
            geo_country_site_visited,
            age_range,
            app_type,
            gender,
-           --week_commencing || geo_country_site_visited || age_range || app_type || gender AS for_join,
            count(distinct audience_id) AS num_si_visitors
     FROM radio1_sandbox.vb_sounds_int_users
     WHERE signed_in_status = 'signed in'
-    GROUP BY 1, 2, 3, 4, 5--, 6
+    GROUP BY 1, 2, 3, 4, 5
 ),
      all_users AS (
          SELECT week_commencing,
@@ -144,11 +160,9 @@ with si_users AS (
                 age_range,
                 app_type,
                 gender,
-                --week_commencing || geo_country_site_visited || age_range || app_type || gender AS for_join,
-
                 count(distinct audience_id) AS num_visitors_si_so
          FROM radio1_sandbox.vb_sounds_int_users
-         GROUP BY 1, 2, 3, 4, 5--, 6
+         GROUP BY 1, 2, 3, 4, 5
      )
 SELECT a.week_commencing,
        a.geo_country_site_visited,
@@ -165,31 +179,39 @@ ORDER BY 1, 2, 3, 4, 5
 
 
 -- Compare
-SELECT * FROM radio1_sandbox.sounds_dashboard_1_page_views_international
-WHERE id_age_range = '25-29' AND geo_country_site_visited = 'United Kingdom'
-;
-
 with uk_table_summary AS (
-    SELECT week_commencing, CAST('United Kingdom' as varchar) as geo_country_site_visited,
-           id_age_range, app_type, sum(signed_in_accounts) as num_si_uk
+    SELECT week_commencing,
+           CAST('United Kingdom' as varchar) as geo_country_site_visited,
+           CAST('16-34' as varchar) as age_range,
+           app_type,
+           sum(signed_in_accounts)           as num_si_uk
     FROM radio1_sandbox.sounds_dashboard_1_page_views
-    WHERE id_age_range = '25-29' AND week_commencing = '2020-08-17'
-    GROUP BY 1, 2, 3,4
+    WHERE ( id_age_range = '16-20'OR id_age_range = '20-24'OR id_age_range = '25-29' OR id_age_range = '30-34' )
+      AND week_commencing = '2020-08-17'
+    GROUP BY 1, 2, 3, 4
 ),
      int_table_summary AS (
-         SELECT week_commencing, geo_country_site_visited, id_age_range, app_type, sum(signed_in_accounts) as num_si_vb
-         FROM radio1_sandbox.sounds_dashboard_1_page_views_international
-         --WHERE geo_country_site_visited = 'United Kingdom'
-         GROUP BY 1, 2, 3,4
+         SELECT week_commencing, geo_country_site_visited, age_range, app_type, sum(signed_in_accounts) as num_si_vb
+         FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international
+         WHERE age_range = '16-34'
+              AND geo_country_site_visited = 'United Kingdom'
+         AND
+         GROUP BY 1, 2, 3, 4
      )
 SELECT a.week_commencing,
        a.geo_country_site_visited,
-       a.id_age_range,
+       a.age_range,
        a.app_type,
        a.num_si_vb,
        b.num_si_uk
 FROM int_table_summary a
          JOIN uk_table_summary b ON a.week_commencing = b.week_commencing
-    AND a.id_age_range = b.id_age_range AND a.app_type = b.app_type and a.geo_country_site_visited = b.geo_country_site_visited
-WHERE a.id_age_range = '25-29'
+    AND a.age_range = b.age_range AND a.app_type = b.app_type and
+                                    a.geo_country_site_visited = b.geo_country_site_visited
 ORDER BY 1, 2, 3;
+
+-- Drop final table
+DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
+
+SELECT DISTINCT age_range FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
+SELECT DISTINCT age_range FROM prez.profile_extension;
