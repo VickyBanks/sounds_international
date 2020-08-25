@@ -47,7 +47,7 @@ FROM s3_audience.audience_activity_daily_summary aads
                    ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
-  AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
+  AND aads.geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
   --AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
    -- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
@@ -77,7 +77,7 @@ FROM s3_audience.audience_activity_daily_summary aads
                    ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
-  AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
+  AND aads.geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
  -- AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
   --  AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
@@ -108,7 +108,7 @@ FROM s3_audience.audience_activity_daily_summary aads
                    ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
-  AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
+  AND aads.geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
   --AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
    -- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
@@ -136,7 +136,7 @@ FROM s3_audience.audience_activity_daily_summary aads
                    ON p.bbc_hid3 = aads.audience_id
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
-  AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
+  AND aads.geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
   AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
   --AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
    -- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
@@ -144,7 +144,7 @@ WHERE aads.destination = 'PS_SOUNDS'
 ;
 
 --Check data
-SELECT count(*) FROM radio1_sandbox.vb_sounds_int_users LIMIT 5;
+SELECT * FROM radio1_sandbox.vb_sounds_int_users LIMIT 5;
 
 -- Create summary table to hold all data and insert into it weekly
 /*DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
@@ -169,7 +169,7 @@ with si_users AS (
            gender,
            count(distinct audience_id) AS num_si_visitors
     FROM radio1_sandbox.vb_sounds_int_users
-    WHERE signed_in_status != 'signed in'
+    WHERE signed_in_status = 'signed in'
     GROUP BY 1, 2, 3, 4, 5
 ),
      all_users AS (
@@ -195,6 +195,7 @@ FROM all_users a
 ORDER BY 1, 2, 3, 4, 5
 ;
 
+SELECT week_commencing, count(*) FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international GROUP BY 1;
 /*
 -- Compare
 with uk_table_summary AS (
@@ -233,6 +234,6 @@ ORDER BY 1, 2, 3;
 -- Drop final table
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
 
-SELECT DISTINCT week_commencing FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
+SELECT DISTINCT week_commencing, geo_country_site_visited, sum(signed_in_accounts) FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international GROUP BY 1,2;
 SELECT DISTINCT age_range FROM prez.profile_extension;
-SELECT DISTINCT week_commencing FROM radio1_sandbox.sounds_dashboard_1_page_views;
+SELECT DISTINCT week_commencing FROM radio1_sandbox.sounds_dashboard_1_page_views;*/
