@@ -8,10 +8,10 @@ CREATE TABLE vb_temp_date (
     min_date varchar(20),
     max_date varchar(20));
 insert into vb_temp_date
---values ('20200817','20200823');
+values ('20200817','20200823');
 --values ('20200810','20200816');
 --values ('20200803','20200809');
-values ('20200727','20200802');
+--values ('20200727','20200802');
 --------------- For Sounds International ---------------------
 -- Create a table to hold the raw un-summarised data
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
@@ -151,7 +151,7 @@ SELECT * FROM radio1_sandbox.vb_sounds_int_users LIMIT 5;
 CREATE TABLE radio1_sandbox.vb_sounds_dashboard_1_page_views_international
 (
     week_commencing          date,
-    geo_country_site_visited varchar(400),
+    country varchar(400),
     age_range                varchar(40),
     app_type                 varchar(40),
     gender                   varchar(40),
@@ -182,15 +182,15 @@ with si_users AS (
          FROM radio1_sandbox.vb_sounds_int_users
          GROUP BY 1, 2, 3, 4, 5
      )
-SELECT a.week_commencing,
-       a.geo_country_site_visited,
-       a.age_range,
-       a.app_type,
-       a.gender,
-       b.num_si_visitors,
-       a.num_visitors_si_so
+SELECT ISNULL(a.week_commencing, b.week_commencing)                   AS week_commencing,
+       ISNULL(a.geo_country_site_visited, b.geo_country_site_visited) AS country,
+       ISNULL(a.age_range, b.age_range) AS age_range,
+       ISNULL(a.app_type, b.app_type) AS app_type,
+       ISNULL(a.gender, b.gender) AS gender,
+       ISNULL(b.num_si_visitors,0) AS num_si_visitors,
+       ISNULL(a.num_visitors_si_so,0) AS num_visitors_si_so
 FROM all_users a
-         JOIN si_users b ON a.geo_country_site_visited = b.geo_country_site_visited
+         FULL OUTER JOIN si_users b ON a.geo_country_site_visited = b.geo_country_site_visited
     AND a.age_range = b.age_range AND a.app_type = b.app_type AND a.gender = b.gender
 ORDER BY 1, 2, 3, 4, 5
 ;
@@ -232,8 +232,8 @@ ORDER BY 1, 2, 3;
 
 
 -- Drop final table
-DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
-
+--DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
+/*
 SELECT DISTINCT week_commencing, geo_country_site_visited, sum(signed_in_accounts) FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international GROUP BY 1,2;
 SELECT DISTINCT age_range FROM prez.profile_extension;
 SELECT DISTINCT week_commencing FROM radio1_sandbox.sounds_dashboard_1_page_views;*/
