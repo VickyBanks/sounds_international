@@ -3,7 +3,15 @@
 In the main Sounds KPI dash on the KPI tab the audience_activity_daily_summary_enriched is used to
 find signed-in user data and feeds the table radio1_sandbox.sounds_dashboard_1_page_views  which powers the dash.
 */
-
+DROP TABLE vb_temp_date;
+CREATE TABLE vb_temp_date (
+    min_date varchar(20),
+    max_date varchar(20));
+insert into vb_temp_date
+--values ('20200817','20200823');
+--values ('20200810','20200816');
+--values ('20200803','20200809');
+values ('20200727','20200802');
 --------------- For Sounds International ---------------------
 -- Create a table to hold the raw un-summarised data
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
@@ -19,7 +27,8 @@ CREATE TABLE radio1_sandbox.vb_sounds_int_users
 );
 -- 1. Get the user, if they're signed in or not, country and metadata for the past week.
 INSERT INTO radio1_sandbox.vb_sounds_int_users
-SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+SELECT DISTINCT --TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+                CAST((SELECT min_date FROM vb_temp_date) as date) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
                     ELSE 'signed out' END                AS signed_in_status,
@@ -39,15 +48,17 @@ FROM s3_audience.audience_activity_daily_summary aads
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
-  AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+  AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
+  --AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+   -- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
 
 
 --2. Some users may be seen on multiple platforms so find distinct users to ALL platforms
 INSERT INTO radio1_sandbox.vb_sounds_int_users
-SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+SELECT DISTINCT --TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+                CAST((SELECT min_date FROM vb_temp_date) as date) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
                     ELSE 'signed out' END                AS signed_in_status,
@@ -67,15 +78,18 @@ FROM s3_audience.audience_activity_daily_summary aads
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
-  AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+  AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
+ -- AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+  --  AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
+
 ;
 
 --3. Some users may be seen in multiple countries so these need deduping for each app type and for all countries
 -- all countries all apps
 INSERT INTO radio1_sandbox.vb_sounds_int_users
-SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+SELECT DISTINCT --TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+                CAST((SELECT min_date FROM vb_temp_date) as date) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
                     ELSE 'signed out' END                AS signed_in_status,
@@ -95,13 +109,15 @@ FROM s3_audience.audience_activity_daily_summary aads
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
-  AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+  AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
+  --AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+   -- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
--- All countries but split by app
+-- 4. All countries but split by app
 INSERT INTO radio1_sandbox.vb_sounds_int_users
-SELECT DISTINCT TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+SELECT DISTINCT --TRUNC(DATE_TRUNC('week', getdate() - 7)) AS week_commencing,
+                CAST((SELECT min_date FROM vb_temp_date) as date) AS week_commencing,
                 CASE
                     WHEN aads.is_signed_in = TRUE AND aads.is_personalisation_on = TRUE THEN 'signed in'
                     ELSE 'signed out' END                AS signed_in_status,
@@ -121,8 +137,9 @@ FROM s3_audience.audience_activity_daily_summary aads
 WHERE aads.destination = 'PS_SOUNDS'
   AND aads.app_name = 'sounds'
   AND aads.geo_country_site_visited IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey') -- Not UK
-  AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-    AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+  AND aads.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
+  --AND aads.dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+   -- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
   AND (aads.app_type = 'responsive' OR aads.app_type = 'mobile-app' OR aads.app_type = 'bigscreen-html')
 ;
 
@@ -130,7 +147,7 @@ WHERE aads.destination = 'PS_SOUNDS'
 SELECT count(*) FROM radio1_sandbox.vb_sounds_int_users LIMIT 5;
 
 -- Create summary table to hold all data and insert into it weekly
-DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
 CREATE TABLE radio1_sandbox.vb_sounds_dashboard_1_page_views_international
 (
     week_commencing          date,
@@ -140,8 +157,9 @@ CREATE TABLE radio1_sandbox.vb_sounds_dashboard_1_page_views_international
     gender                   varchar(40),
     signed_in_accounts       integer,
     all_visitors_si_so       integer
-);
+);*/
 
+-- 5. Insert into summary table
 INSERT INTO radio1_sandbox.vb_sounds_dashboard_1_page_views_international
 with si_users AS (
     SELECT week_commencing,
@@ -151,7 +169,7 @@ with si_users AS (
            gender,
            count(distinct audience_id) AS num_si_visitors
     FROM radio1_sandbox.vb_sounds_int_users
-    WHERE signed_in_status = 'signed in'
+    WHERE signed_in_status != 'signed in'
     GROUP BY 1, 2, 3, 4, 5
 ),
      all_users AS (
@@ -177,7 +195,7 @@ FROM all_users a
 ORDER BY 1, 2, 3, 4, 5
 ;
 
-
+/*
 -- Compare
 with uk_table_summary AS (
     SELECT week_commencing,
@@ -209,9 +227,12 @@ FROM int_table_summary a
     AND a.age_range = b.age_range AND a.app_type = b.app_type and
                                     a.geo_country_site_visited = b.geo_country_site_visited
 ORDER BY 1, 2, 3;
+*/
+
 
 -- Drop final table
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
 
-SELECT DISTINCT age_range FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
+SELECT DISTINCT week_commencing FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
 SELECT DISTINCT age_range FROM prez.profile_extension;
+SELECT DISTINCT week_commencing FROM radio1_sandbox.sounds_dashboard_1_page_views;
