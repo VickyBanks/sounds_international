@@ -182,18 +182,12 @@ with si_users AS (
          FROM radio1_sandbox.vb_sounds_int_users
          GROUP BY 1, 2, 3, 4, 5
      )
-SELECT ISNULL(a.week_commencing, b.week_commencing)                   AS week_commencing,
-       ISNULL(a.geo_country_site_visited, b.geo_country_site_visited) AS country,
-       ISNULL(a.age_range, b.age_range) AS age_range,
-       ISNULL(a.app_type, b.app_type) AS app_type,
-       ISNULL(a.gender, b.gender) AS gender,
-       ISNULL(b.num_si_visitors,0) AS num_si_visitors,
-       ISNULL(a.num_visitors_si_so,0) AS num_visitors_si_so
+-- by definition all si users must be included in the all_users sub-table
+SELECT a.*, b.num_si_visitors
 FROM all_users a
-         FULL OUTER JOIN si_users b ON a.geo_country_site_visited = b.geo_country_site_visited
+         LEFT JOIN si_users b ON a.geo_country_site_visited = b.geo_country_site_visited
     AND a.age_range = b.age_range AND a.app_type = b.app_type AND a.gender = b.gender
-ORDER BY 1, 2, 3, 4, 5
-;
+ORDER BY 1, 2, 3, 4, 5;
 
 SELECT week_commencing, count(*) FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international GROUP BY 1;
 /*
