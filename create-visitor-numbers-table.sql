@@ -8,10 +8,10 @@ CREATE TABLE vb_temp_date (
     min_date varchar(20),
     max_date varchar(20));
 insert into vb_temp_date
-values ('20200817','20200823');
+--values ('20200817','20200823');
 --values ('20200810','20200816');
 --values ('20200803','20200809');
---values ('20200727','20200802');
+values ('20200727','20200802');
 --------------- For Sounds International ---------------------
 -- Create a table to hold the raw un-summarised data
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users;
@@ -155,9 +155,10 @@ CREATE TABLE radio1_sandbox.vb_sounds_dashboard_1_page_views_international
     age_range                varchar(40),
     app_type                 varchar(40),
     gender                   varchar(40),
-    signed_in_accounts       integer,
-    all_visitors_si_so       integer
+    all_visitors_si_so       integer,
+    signed_in_accounts       integer
 );*/
+
 
 -- 5. Insert into summary table
 INSERT INTO radio1_sandbox.vb_sounds_dashboard_1_page_views_international
@@ -189,7 +190,13 @@ FROM all_users a
     AND a.age_range = b.age_range AND a.app_type = b.app_type AND a.gender = b.gender
 ORDER BY 1, 2, 3, 4, 5;
 
-SELECT week_commencing, count(*) FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international GROUP BY 1;
+SELECT
+       week_commencing,
+       sum(signed_in_accounts)         AS num_SI,
+       sum(all_visitors_si_so)         as num_si_so
+FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international
+WHERE country = 'All International' AND app_type = 'all'
+GROUP BY 1;
 /*
 -- Compare
 with uk_table_summary AS (
