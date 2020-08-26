@@ -1,6 +1,4 @@
-SELECT *
-FROM radio1_sandbox.audio_content_enriched
-LIMIT 10;
+--SELECT * FROM radio1_sandbox.audio_content_enriched LIMIT 10;
 
 --0. USe other weeks to fill table to look at
 DROP TABLE vb_temp_date;
@@ -11,17 +9,19 @@ CREATE TABLE vb_temp_date
 );
 insert into vb_temp_date
 --values ('20200817','20200823');
---values ('20200810','20200816');
+values ('20200810','20200816');
 --values ('20200803','20200809');
 --values ('20200727','20200802');
 
 -- 1. Get VMB summary. This table is quicker than using 'with table AS ()'
-DROP TABLE IF EXISTS vb_vmb_summary;
+-- Drop and re-create each week
+/*DROP TABLE IF EXISTS vb_vmb_summary;
 CREATE TABLE vb_vmb_summary AS
 SELECT DISTINCT master_brand_id, version_id
-FROM prez.scv_vmb;
+FROM prez.scv_vmb;*/
 
 -- 2. Get all the listening per users, sum the playback time per episode to ensure 3s of listening later
+-- Drop and re-create each week
 DROP TABLE IF EXISTS vb_users_listening;
 CREATE TABLE vb_users_listening AS
 SELECT DISTINCT dt :: date,
@@ -54,6 +54,7 @@ GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 SELECT count(*) FROM vb_users_listening;
 
 -- 3. Get the time of playing for each piece of content for each user and the number of times they played it
+-- Drop and re-create each week
 DROP TABLE IF EXISTS radio1_sandbox.vb_ace_scv_international_data;
 CREATE TABLE radio1_sandbox.vb_ace_scv_international_data
 (
@@ -63,6 +64,7 @@ CREATE TABLE radio1_sandbox.vb_ace_scv_international_data
     country                  varchar(255),
     signed_in_status         varchar(20),
     age_range                varchar(40),
+    gender                   varchar(255),
     app_type                 VARCHAR(255),
     app_name                 VARCHAR(255),
     version_id               varchar(255),
@@ -84,6 +86,7 @@ SELECT dt,
                 c.age_range = '30-34' THEN '16-34'
            WHEN c.age_range ISNULL THEN 'Unknown'
            ELSE 'Over 35' END                  AS age_range,
+       c.gender,
        app_type,
        app_name,
        a.version_id,
@@ -95,18 +98,20 @@ FROM vb_users_listening a
          LEFT JOIN vb_vmb_summary b ON a.version_id = b.version_id -- Join with the vmb to get the master brand
          LEFT JOIN prez.profile_extension c on a.audience_id = c.bbc_hid3
 WHERE playback_time_total > 3
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12
 ;
 
 
 -- 4. Create summary table for data grouping
-DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_5_listening_international;
+-- Insert into table each week
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_5_listening_international;
 CREATE TABLE radio1_sandbox.vb_sounds_dashboard_5_listening_international
 (
     week_commencing     date DISTKEY,
     country             varchar(255),
     signed_in_status    varchar(255),
     age_range           varchar(255),
+    gender              varchar(255),
     app_type            VARCHAR(255),
     live_aod_split      varchar(255),
     master_brand_id     varchar(255),
@@ -114,6 +119,7 @@ CREATE TABLE radio1_sandbox.vb_sounds_dashboard_5_listening_international
     stream_playing_time BIGINT
 ) SORTKEY (week_commencing );
 ;
+*/
 
 -- 5. Insert in data, differentiating between signed in and signed out
 INSERT INTO radio1_sandbox.vb_sounds_dashboard_5_listening_international
@@ -121,6 +127,7 @@ SELECT week_commencing,
        country,
        signed_in_status,
        age_range,
+       gender,
        app_type,
        CASE
            WHEN broadcast_type = 'Clip' THEN 'on-demand'
@@ -129,7 +136,7 @@ SELECT week_commencing,
        count(stream_starts_min_3_secs)                  as stream_starts,
        sum(stream_playing_time)                         AS stream_playing_time
 FROM radio1_sandbox.vb_ace_scv_international_data
-GROUP BY 1, 2, 3, 4, 5, 6, 7
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
 ;
 
 -- Add in all users with no signed in status split
@@ -138,6 +145,7 @@ SELECT week_commencing,
        country,
        CAST('all' as varchar)                           AS signed_in_status,
        age_range,
+       gender,
        app_type,
        CASE
            WHEN broadcast_type = 'Clip' THEN 'on-demand'
@@ -146,7 +154,7 @@ SELECT week_commencing,
        count(stream_starts_min_3_secs)                  as stream_starts,
        sum(stream_playing_time)                         AS stream_playing_time
 FROM radio1_sandbox.vb_ace_scv_international_data
-GROUP BY 1, 2, 3, 4, 5, 6, 7
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
 ;
 
 -- Add in all users with no app_type split
@@ -155,6 +163,7 @@ SELECT week_commencing,
        country,
        signed_in_status,
        age_range,
+       gender,
        CAST('all' as varchar)                           AS app_type,
        CASE
            WHEN broadcast_type = 'Clip' THEN 'on-demand'
@@ -163,7 +172,7 @@ SELECT week_commencing,
        count(stream_starts_min_3_secs)                  as stream_starts,
        sum(stream_playing_time)                         AS stream_playing_time
 FROM radio1_sandbox.vb_ace_scv_international_data
-GROUP BY 1, 2, 3, 4, 5, 6, 7
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
 ;
 
 --Add in all users with no signed in status split and no app type split
@@ -172,6 +181,7 @@ SELECT week_commencing,
        country,
        CAST('all' as varchar)                           AS signed_in_status,
        age_range,
+       gender,
        CAST('all' as varchar)                           AS app_type,
        CASE
            WHEN broadcast_type = 'Clip' THEN 'on-demand'
@@ -180,17 +190,14 @@ SELECT week_commencing,
        count(stream_starts_min_3_secs)                  as stream_starts,
        sum(stream_playing_time)                         AS stream_playing_time
 FROM radio1_sandbox.vb_ace_scv_international_data
-GROUP BY 1, 2, 3, 4, 5, 6, 7
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
 ;
 
 
-SELECT *
-FROM radio1_sandbox.vb_sounds_dashboard_5_listening_international
-LIMIT 5;
-SELECT *
-FROM radio1_sandbox.audio_content_enriched
-LIMIT 10;
 
 -- Drop tables that are no longer needed
 DROP TABLE IF EXISTS vb_users_listening;
-DROP TABLE IF EXISTS vb_vmb_summary;
+--DROP TABLE IF EXISTS vb_vmb_summary;
+
+
+SELECT week_commencing, sum(stream_playing_time) as total_time FROM radio1_sandbox.vb_sounds_dashboard_5_listening_international GROUP BY 1;
