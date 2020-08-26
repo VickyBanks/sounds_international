@@ -9,9 +9,9 @@ CREATE TABLE vb_temp_date
 );
 insert into vb_temp_date
 --values ('20200817','20200823');
-values ('20200810','20200816');
+--values ('20200810','20200816');
 --values ('20200803','20200809');
---values ('20200727','20200802');
+values ('20200727','20200802');
 
 -- 1. Get VMB summary. This table is quicker than using 'with table AS ()'
 -- Drop and re-create each week
@@ -193,6 +193,58 @@ FROM radio1_sandbox.vb_ace_scv_international_data
 GROUP BY 1, 2, 3, 4, 5, 6, 7,8
 ;
 
+-- For all countries, all apps, all signed in
+INSERT INTO radio1_sandbox.vb_sounds_dashboard_5_listening_international
+SELECT week_commencing,
+       CAST('All International' as varchar) AS country,
+       CAST('all' as varchar)                           AS signed_in_status,
+       age_range,
+       gender,
+       CAST('all' as varchar)                           AS app_type,
+       CASE
+           WHEN broadcast_type = 'Clip' THEN 'on-demand'
+           WHEN broadcast_type = 'Live' then 'live' END as live_aod_split,
+       master_brand_id,
+       count(stream_starts_min_3_secs)                  as stream_starts,
+       sum(stream_playing_time)                         AS stream_playing_time
+FROM radio1_sandbox.vb_ace_scv_international_data
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
+;
+-- All countries and all apps
+INSERT INTO radio1_sandbox.vb_sounds_dashboard_5_listening_international
+SELECT week_commencing,
+       CAST('All International' as varchar) AS country,
+       signed_in_status,
+       age_range,
+       gender,
+       CAST('all' as varchar)                           AS app_type,
+       CASE
+           WHEN broadcast_type = 'Clip' THEN 'on-demand'
+           WHEN broadcast_type = 'Live' then 'live' END as live_aod_split,
+       master_brand_id,
+       count(stream_starts_min_3_secs)                  as stream_starts,
+       sum(stream_playing_time)                         AS stream_playing_time
+FROM radio1_sandbox.vb_ace_scv_international_data
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
+;
+-- all countries
+INSERT INTO radio1_sandbox.vb_sounds_dashboard_5_listening_international
+SELECT week_commencing,
+       CAST('All International' as varchar) AS country,
+       signed_in_status,
+       age_range,
+       gender,
+       app_type,
+       CASE
+           WHEN broadcast_type = 'Clip' THEN 'on-demand'
+           WHEN broadcast_type = 'Live' then 'live' END as live_aod_split,
+       master_brand_id,
+       count(stream_starts_min_3_secs)                  as stream_starts,
+       sum(stream_playing_time)                         AS stream_playing_time
+FROM radio1_sandbox.vb_ace_scv_international_data
+GROUP BY 1, 2, 3, 4, 5, 6, 7,8
+;
+
 
 
 -- Drop tables that are no longer needed
@@ -200,4 +252,6 @@ DROP TABLE IF EXISTS vb_users_listening;
 --DROP TABLE IF EXISTS vb_vmb_summary;
 
 
-SELECT week_commencing, sum(stream_playing_time) as total_time FROM radio1_sandbox.vb_sounds_dashboard_5_listening_international GROUP BY 1;
+SELECT week_commencing, country, sum(stream_playing_time) as total_time FROM radio1_sandbox.vb_sounds_dashboard_5_listening_international
+WHERE app_type = 'all' AND signed_in_status = 'all' AND country = 'All International'
+GROUP BY 1,2;
