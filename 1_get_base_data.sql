@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS vb_vmb_summary;
 CREATE TABLE vb_vmb_summary
     DISTKEY ( master_brand_id )
     SORTKEY (master_brand_id) AS (
-    SELECT DISTINCT a.master_brand_id, a.brand_title, a.series_title, a.version_id, b.speech_music_split
+    SELECT DISTINCT a.master_brand_id, a.brand_title, a.series_title,a.episode_title, a.version_id, b.speech_music_split
     FROM prez.scv_vmb a
              LEFT JOIN radio1_sandbox.vb_speech_music_master_brand_split b ON a.master_brand_id = b.master_brand_id
 )
