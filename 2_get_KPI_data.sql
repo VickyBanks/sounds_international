@@ -22,7 +22,7 @@ FROM radio1_sandbox.vb_sounds_int_users_listening;
 
 --2. Create the table with the summary data and fill it
 --2.a Create table -- This is to be inserted into weekly and NOT dropped
-DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI;
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI;
 CREATE TABLE radio1_sandbox.vb_sounds_int_KPI (
     week_commencing  date,
     country          varchar(400),
@@ -168,7 +168,40 @@ FROM radio1_sandbox.vb_sounds_int_KPI_temp
 GROUP BY 1,2,3,4,5,6
 ;
 
-SELECT DISTINCT week_commencing, signed_in_status, app_type, sum(num_visitors) as num_visitors FROM radio1_sandbox.vb_sounds_int_KPI
-WHERE week_commencing  = '2020-08-17' AND country = 'All International' --AND app_type = 'all' --and signed_in_status = 'all'
-GROUP BY 1,2,3;
 
+-- Stakeholder friendly language
+UPDATE radio1_sandbox.vb_sounds_int_KPI
+SET app_type = (CASE
+                    WHEN app_type = 'bigscreen-html' THEN 'TV'
+                    WHEN app_type = 'mobile-app' THEN 'Mobile'
+                    WHEN app_type = 'responsive' THEN 'Web'
+                    WHEN app_type = 'all' THEN 'All'
+                    ELSE app_type END)
+;
+
+GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI to aron_farmer;
+GRANT ALL ON  radio1_sandbox.vb_listeners_international_weekly_summary to aron_farmer;
+
+/*SELECT DISTINCT week_commencing,
+                country,
+                app_type,
+                signed_in_status,
+                sum(num_visitors)                  as num_visitors_total--,
+                --sum(stream_playing_time)           as stream_playing_time_total
+                /*CAST(round((stream_playing_time_total::double precision / 3600) / num_visitors_total::double precision,
+                           2) as double precision) as hrs_per_visitor*/
+FROM radio1_sandbox.vb_sounds_int_KPI
+WHERE country != 'All International'
+  --AND app_type ILIKE '%bigscreen%'
+  --and signed_in_status = 'all'
+GROUP BY 1,2,3,4
+ORDER BY 3 DESC;*/
+
+SELECT DISTINCT week_commencing
+FROM radio1_sandbox.vb_sounds_int_KPI
+ORDER BY 1;
+
+SELECt week_commencing, sum(num_visitors) as num_visitors, sum(stream_playing_time) as playback_time_total
+FROM radio1_sandbox.vb_sounds_int_KPI
+WHERE app_type = 'Mobile' and country = 'All International' AND signed_in_status = 'all' and age_range = 'Under 16'
+group by 1;
