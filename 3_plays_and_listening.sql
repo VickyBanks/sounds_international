@@ -258,11 +258,5 @@ WHERE country = 'All International' AND app_type = 'All' and signed_in_status = 
 GROUP BY 1
 ORDER BY 1;
 
-/*SELECT * FROM
-FROM radio1_sandbox.vb_listeners_international_weekly_summary
---ORDER BY 1,2,3,4,5,6,7;
-
-SELECT DISTINCT week_commencing FROM
-radio1_sandbox.vb_listeners_international_weekly_summary
-ORDER BY 1;
-*/
+-------------------- Drop TABLES
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;
