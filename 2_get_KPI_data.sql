@@ -179,8 +179,6 @@ SET app_type = (CASE
                     ELSE app_type END)
 ;
 
-GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI to aron_farmer;
-GRANT ALL ON  radio1_sandbox.vb_listeners_international_weekly_summary to aron_farmer;
 
 /*SELECT DISTINCT week_commencing,
                 country,
@@ -201,7 +199,5 @@ SELECT DISTINCT week_commencing
 FROM radio1_sandbox.vb_sounds_int_KPI
 ORDER BY 1;
 
-SELECt week_commencing, sum(num_visitors) as num_visitors, sum(stream_playing_time) as playback_time_total
-FROM radio1_sandbox.vb_sounds_int_KPI
-WHERE app_type = 'Mobile' and country = 'All International' AND signed_in_status = 'all' and age_range = 'Under 16'
-group by 1;
+---- Drop tables
+DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_temp;
