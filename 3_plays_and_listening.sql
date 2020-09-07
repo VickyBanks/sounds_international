@@ -4,10 +4,10 @@
  Group the content by: play,s live/od, speach/music,
  */
 
-SELECT * FROM radio1_sandbox.vb_sounds_int_users_listening WHERE playback_time_total >3 AND playback_time_total IS NOT NULL LIMIT 10;
+--SELECT * FROM radio1_sandbox.vb_sounds_int_users_listening WHERE playback_time_total >3 AND playback_time_total IS NOT NULL LIMIT 10;
 --0. A simplified VMB has been created in script 0 and 1
-SELECT * FROM radio1_sandbox.vb_speech_music_master_brand_split LIMIT 10;
-SELECT * FROM vb_vmb_summary WHERE speech_music_split IS NOT NULL LIMIT 10;
+--SELECT * FROM radio1_sandbox.vb_speech_music_master_brand_split LIMIT 10;
+--SELECT * FROM vb_vmb_summary WHERE speech_music_split IS NOT NULL LIMIT 10;
 
 --1. Create table of listeners only (not just visitors) i.e remove anyone where the playback time was 3s or less
 -- Add in if it's speech or music and add in master_brand
@@ -36,8 +36,6 @@ WHERE playback_time_total > 3
   AND playback_time_total IS NOT NULL
   AND a.id_type = 'master_brand_id'
 ;
-
-SELECT distinct version_id, id_type, count(*) FROM  radio1_sandbox.vb_listeners_international WHERE speech_music_split ISNULL GROUP BY 1,2 LIMIT 20;
 
 
 
@@ -237,6 +235,34 @@ SET broadcast_type = (CASE
                           ELSE broadcast_type END)
 ;
 
-SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary
-WHERE country = 'All International' AND app_type = 'all' and signed_in_status = 'all'
-ORDER BY 1,2,3,4,5,6,7;
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary
+SET speech_music_split = (CASE
+                          WHEN speech_music_split ISNULL THEN 'Speech'
+                          ELSE speech_music_split END)
+;
+
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary
+SET app_type = (CASE
+                    WHEN app_type = 'bigscreen-html' THEN 'TV'
+                    WHEN app_type = 'mobile-app' THEN 'Mobile'
+                    WHEN app_type = 'responsive' THEN 'Web'
+                    WHEN app_type = 'all' THEN 'All'
+                    ELSE app_type END)
+;
+
+
+
+SELECT week_commencing, sum(num_listeners) as num_listeners, sum(playback_time_total) as playback_time_total
+FROM radio1_sandbox.vb_listeners_international_weekly_summary
+WHERE country = 'All International' AND app_type = 'All' and signed_in_status = 'all'
+GROUP BY 1
+ORDER BY 1;
+
+/*SELECT * FROM
+FROM radio1_sandbox.vb_listeners_international_weekly_summary
+--ORDER BY 1,2,3,4,5,6,7;
+
+SELECT DISTINCT week_commencing FROM
+radio1_sandbox.vb_listeners_international_weekly_summary
+ORDER BY 1;
+*/
