@@ -17,6 +17,7 @@ SELECT * FROM radio1_sandbox.vb_listeners_international LIMIT 50;
 SELECT * FROM vb_vmb_summary where brand_title ILIKE '%Archers%' LIMIT 100;
 */
 
+SELECT * FROM vb_vmb_summary LIMIT 5;
 --1. Create table of listeners only (not just visitors) i.e remove anyone where the playback time was 3s or less
 -- Add information about content
 -- Add in if it's speech or music
@@ -26,7 +27,7 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_top_content
     SORTKEY (master_brand_id)
     DISTKEY (master_brand_id)
 AS (
-    SELECT a.*, b.programme_title, b.master_brand_id,b.brand_title, b.series_title, b.episode_title, b.speech_music_split
+    SELECT a.*, b.master_brand_id, b.tleo, b.tleo_id, b.speech_music_split
     FROM radio1_sandbox.vb_sounds_int_users_listening a
              LEFT JOIN vb_vmb_summary b ON a.version_id = b.version_id -- Inserts when the version_id is the an episode pid
     WHERE playback_time_total > 3
@@ -41,10 +42,8 @@ with vmb_subset_mini AS
           FROM vb_vmb_summary) -- This is to just get distinct masterbrands as the main table has lots of entries because of the many version ids
 SELECT a.*,
        b.master_brand_id,
-       CAST(null as varchar) AS programme_title,
-       CAST(null as varchar) AS brand_title,
-       CAST(null as varchar) AS series_title,
-       CAST(null as varchar) AS episode_title,
+       CAST(null as varchar) AS tleo,
+       CAST(null as varchar) AS tleo_id,
        b.speech_music_split
 FROM radio1_sandbox.vb_sounds_int_users_listening a
          LEFT JOIN vmb_subset_mini b ON a.version_id = b.master_brand_id
@@ -66,26 +65,29 @@ FROM radio1_sandbox.vb_listeners_international_top_content a
          LEFT JOIN radio1_sandbox.weekly_frequency_calculations b
                    ON a.week_commencing = b.date_of_segmentation AND a.audience_id = b.bbc_hid3;
 
-
+SELECT * FROM radio1_sandbox.vb_listeners_international_top_content  LIMIT 19;
 
 -- 3.
 /*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
 CREATE TABLE radio1_sandbox.vb_listeners_international_top_content_final
-( week_commencing     date DISTKEY,
-    country             varchar(255),
-    signed_in_status    varchar(10),
-    age_range           varchar(40),
-    app_type            varchar(40),
-    broadcast_type      varchar(40),
-    speech_music_split  varchar(40),
-    master_brand_id varchar(400),
-    programme_title varchar(4000),
-    frequency_band varchar(400),
+(
+    week_commencing            date DISTKEY,
+    country                    varchar(255),
+    signed_in_status           varchar(10),
+    age_range                  varchar(40),
+    app_type                   varchar(40),
+    broadcast_type             varchar(40),
+    speech_music_split         varchar(40),
+    master_brand_id            varchar(400),
+    tleo                       varchar(4000),
+    tleo_id                    varchar(255),
+    frequency_band             varchar(400),
     frequency_group_aggregated varchar(40),
-    num_plays bigint,
-    mum_accounts bigint
+    num_plays                  bigint,
+    mum_accounts               bigint
 ) SORTKEY (week_commencing)
-;*/
+;
+*/
 
 --3.a All splits
 /*
@@ -102,13 +104,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+       tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
  SELECT * fROM radio1_sandbox.vb_listeners_international_top_content_final LIMIT 10;
 --2.b Some splits
@@ -126,13 +129,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+       tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 
 --2.c Some splits
@@ -151,13 +155,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+              tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 --2.d Some splits
 /*
@@ -174,13 +179,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+       tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 
 --2.e Some splits
@@ -199,13 +205,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+       tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 --2.f Some splits
 /*
@@ -222,13 +229,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+              tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 --2.g Some splits
 /*
@@ -245,13 +253,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+              tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 --2.h Some splits
 /*
@@ -268,13 +277,14 @@ SELECT week_commencing,
        broadcast_type,
        speech_music_split,
        master_brand_id,
-       programme_title,
+       tleo,
+       tleo_id,
        frequency_band,
        frequency_group_aggregated,
        count(audience_id) as num_plays,
        count(DISTINCT audience_id) as num_accounts
 FROM radio1_sandbox.vb_listeners_international_top_content_user_info
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 ;
 
 
@@ -285,3 +295,13 @@ DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_user_
 
 --- Check
 SELECT week_commencing, sum(num_plays) as num_plays FROM radio1_sandbox.vb_listeners_international_top_content_final group by 1;
+
+
+
+
+
+
+
+
+
+
