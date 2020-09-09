@@ -344,7 +344,6 @@ SELECT *,
 FROM radio1_sandbox.vb_listeners_international_top_content_final
     WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
 
-
 -- Select only top 20
 /*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20;
 CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20
@@ -363,14 +362,39 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20
     frequency_group_aggregated varchar(40),
     num_plays                  bigint,
     num_accounts               bigint,
-    row_count                  int
+    row_count                  int,
+    master_brand_fancy_name varchar(400)
 ) SORTKEY (week_commencing)
 ;*/
 INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top20
-SELECT *
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp
+SELECT a.*, b.master_brand_fancy_name
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp a
+         LEFT JOIN radio1_sandbox.vb_speech_music_master_brand_split b
+                   ON a.most_common_master_brand = b.master_brand_id
 WHERE row_count <= 20;
 
+-- 7. Change to more stakeholder friendly language
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+SET broadcast_type = (CASE
+                          WHEN broadcast_type = 'Clip' THEN 'On-Demand'
+                          WHEN broadcast_type = 'Live' THEN 'Live'
+                          ELSE broadcast_type END)
+;
+
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+SET speech_music_split = (CASE
+                          WHEN speech_music_split ISNULL THEN 'Speech'
+                          ELSE speech_music_split END)
+;
+
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+SET app_type = (CASE
+                    WHEN app_type = 'bigscreen-html' THEN 'TV'
+                    WHEN app_type = 'mobile-app' THEN 'Mobile'
+                    WHEN app_type = 'responsive' THEN 'Web'
+                    WHEN app_type = 'all' THEN 'All'
+                    ELSE app_type END)
+;
 
 --- Drop TABLEs
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content;
@@ -381,7 +405,7 @@ DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_to
 SELECT week_commencing, count(*) as num_records, sum(num_plays) as num_plays
 FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20 GROUP BY 1;
 
-
+SELECT distinct app_type FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20;
 
 
 
