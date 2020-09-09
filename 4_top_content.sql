@@ -85,12 +85,10 @@ FROM radio1_sandbox.vb_listeners_international_top_content a
 LEFT JOIN radio1_sandbox.master_brand_rename c on a.tleo = c.tleo
 ;
 
-SELECT * FROM radio1_sandbox.vb_listeners_international_top_content_user_info  LIMIT 19;
-
-
+SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info  LIMIT 19;
 
 -- 3.
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
 CREATE TABLE radio1_sandbox.vb_listeners_international_top_content_final
 (
     week_commencing            date DISTKEY,
@@ -335,18 +333,53 @@ SET app_type = (CASE
                     ELSE app_type END)
 ;
 
+
+---6.  The above table is huge to import to tableau so this next part finds just the top 20 tleos for each field combination
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp;
+CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp AS
+SELECT *,
+       row_number()
+       over (PARTITION BY week_commencing, country, signed_in_status, age_range, app_type, broadcast_type,speech_music_split, frequency_band,frequency_group_aggregated
+           ORDER BY num_plays DESC) as row_count
+FROM radio1_sandbox.vb_listeners_international_top_content_final
+    WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
+
+
+-- Select only top 20
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20;
+CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+(
+    week_commencing            date DISTKEY,
+    country                    varchar(255),
+    signed_in_status           varchar(10),
+    age_range                  varchar(40),
+    app_type                   varchar(40),
+    broadcast_type             varchar(40),
+    speech_music_split         varchar(40),
+    most_common_master_brand   varchar(400),
+    tleo                       varchar(4000),
+    tleo_id                    varchar(255),
+    frequency_band             varchar(400),
+    frequency_group_aggregated varchar(40),
+    num_plays                  bigint,
+    num_accounts               bigint,
+    row_count                  int
+) SORTKEY (week_commencing)
+;*/
+INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top20
+SELECT *
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp
+WHERE row_count <= 20;
+
+
 --- Drop TABLEs
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content;
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_user_info;
-
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp;
 
 --- Check
-SELECT week_commencing, sum(num_plays) as num_plays FROM radio1_sandbox.vb_listeners_international_top_content_final group by 1;
-
-
-
-
-
+SELECT week_commencing, count(*) as num_records, sum(num_plays) as num_plays
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20 GROUP BY 1;
 
 
 
