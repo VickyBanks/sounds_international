@@ -1,7 +1,10 @@
+/*
+ Script to find the number of accounts and plays for each episode of content per week.
+ The final table only contains the top 20 most popular episodes
+ */
+
 --0. This table radio1_sandbox.vb_sounds_int_ep_titles is created previously to create a concat title for each episode
-SELECT *
-FROM radio1_sandbox.vb_sounds_int_ep_titles
-LIMIT 10;
+--SELECT * FROM radio1_sandbox.vb_sounds_int_ep_titles LIMIT 10;
 
 --1. Create table of listeners only (not just visitors) i.e remove anyone where the playback time was 3s or less
 -- Add information about content
@@ -21,9 +24,7 @@ AS (
       AND playback_time_total IS NOT NULL
       AND a.id_type = 'version_id')
 ;
-SELECT *
-FROM radio1_sandbox.vb_listeners_international_top_episodes
-LIMIT 10;
+
 
 --2.
 -- Some episodes have a small amount of content under another masterbrand.
@@ -365,3 +366,23 @@ SET app_type = (CASE
                     WHEN app_type = 'all' THEN 'All'
                     ELSE app_type END)
 ;
+
+
+
+--Drop tables
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_user_info;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes_temp;
+
+SELECT week_commencing, count(*) as num_rows, sum(num_plays) as total_plays
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes GROUP BY 1;
+
+SELECT master_brand_fancy_name, concat_title, sum(num_accounts) as total_accounts
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
+WHERE app_type = 'All' and country != 'All International' and signed_in_status = 'all'
+GROUP BY 1,2
+ORDER BY 3 DESC
+;
+
+GRANT ALL ON radio1_sandbox.vb_listeners_international_top_episodes_final to helen_jones;
+GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes to helen_jones;
