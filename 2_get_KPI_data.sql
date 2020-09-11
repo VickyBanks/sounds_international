@@ -195,9 +195,8 @@ WHERE country != 'All International'
 GROUP BY 1,2,3,4
 ORDER BY 3 DESC;*/
 
-SELECT DISTINCT week_commencing
-FROM radio1_sandbox.vb_sounds_int_KPI
-ORDER BY 1;
+SELECT DISTINCT week_commencing FROM radio1_sandbox.vb_sounds_int_KPI ORDER BY 1;
+GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI to helen_jones;
 
 ---- Drop tables
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_temp;

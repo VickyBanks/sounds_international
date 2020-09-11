@@ -67,3 +67,5 @@ SELECT DISTINCT version_id,
                     END AS concatenated_title
 FROM vmb_subset
 ;
+
+GRANT ALL ON radio1_sandbox.vb_sounds_int_ep_titles TO helen_jones;

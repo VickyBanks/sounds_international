@@ -405,7 +405,9 @@ DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_to
 SELECT week_commencing, count(*) as num_records, sum(num_plays) as num_plays
 FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20 GROUP BY 1;
 
-SELECT distinct app_type FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20;
+SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20
+LIMIT 10;
 
-
+GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary_top20 to helen_jones;
+GRANT ALL ON radio1_sandbox.vb_listeners_international_top_content_final to helen_jones;
 

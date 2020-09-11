@@ -258,5 +258,6 @@ WHERE country = 'All International' AND app_type = 'All' and signed_in_status = 
 GROUP BY 1
 ORDER BY 1;
 
+GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary to helen_jones;
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;

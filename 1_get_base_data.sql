@@ -11,18 +11,17 @@ CREATE TABLE vb_temp_date
     max_date varchar(20)
 );
 insert into vb_temp_date
-values ('20200831','20200906')
+--values ('20200831','20200906')
 --values ('20200824','20200830')
 --values ('20200817','20200823');
 --values ('20200810','20200816');
 --values ('20200803','20200809');
---values ('20200727','20200802')
-
-       ;
+values ('20200727','20200802')
+;
 
 -- 1. Get VMB summary. -- create a TLEO field matching the normal Sounds dash
 -- Drop and re-create each week
-DROP TABLE IF EXISTS vb_vmb_summary;
+/*DROP TABLE IF EXISTS vb_vmb_summary;
 CREATE TABLE vb_vmb_summary
     DISTKEY ( master_brand_id )
     SORTKEY (master_brand_id) AS (
@@ -49,6 +48,7 @@ CREATE TABLE vb_vmb_summary
 )
 ;
 */
+
 
 -- 2. Get all the listening per users, sum the playback time per episode to ensure 3s of listening later
 -- Drop and re-create each week

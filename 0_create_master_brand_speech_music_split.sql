@@ -121,3 +121,6 @@ values ('bbc_1xtra','BBC 1Xtra','Music'),
 ('N/A','','Speech'),
 ('null','','Speech')
 ;
+
+
+GRANT ALL ON radio1_sandbox.vb_speech_music_master_brand_split TO helen_jones;
