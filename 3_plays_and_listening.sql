@@ -9,6 +9,12 @@
 --SELECT * FROM radio1_sandbox.vb_speech_music_master_brand_split LIMIT 10;
 --SELECT * FROM vb_vmb_summary WHERE speech_music_split IS NOT NULL LIMIT 10;
 
+--0. Create music mix list
+DROP TABLE IF EXISTS vb_music_mixes;
+CREATE TEMP TABLE vb_music_mixes AS
+SELECT DISTINCT version_id, all_mixes_bool FROM radio1_sandbox.audio_content_enriched
+WHERE all_mixes_bool = TRUE;
+
 --1. Create table of listeners only (not just visitors) i.e remove anyone where the playback time was 3s or less
 -- Add in if it's speech or music and add in master_brand
 -- To be dropped after use
@@ -17,9 +23,10 @@ CREATE TABLE radio1_sandbox.vb_listeners_international
     SORTKEY (master_brand_id)
     DISTKEY ( master_brand_id )
 AS (
-    SELECT a.*, b.master_brand_id, b.speech_music_split
+    SELECT a.*, b.master_brand_id, b.speech_music_split,c.all_mixes_bool
     FROM radio1_sandbox.vb_sounds_int_users_listening a
              LEFT JOIN vb_vmb_summary b ON a.version_id = b.version_id -- Inserts when the version_id is the an episode pid
+    JOIN vb_music_mixes c ON a.version_id = c.version_id
     WHERE playback_time_total > 3
       AND playback_time_total IS NOT NULL
       AND a.id_type = 'version_id')
@@ -39,7 +46,7 @@ WHERE playback_time_total > 3
 
 
 
--- need to summarise with all these fileds for the lsitening tab
+-- need to summarise with all these fields for the listening tab
 
 -- 2. Create a table summarising the number of listeners.
 -- Split by country, signed in status, age range, app_type, live vs od, speech vs music
@@ -61,11 +68,6 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary
 ;*/
 
 --2.a All splits
-/*
- country Y
- signed in status Y
- app type Y
- */
 INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
 SELECT week_commencing,
        country,
@@ -81,143 +83,13 @@ FROM radio1_sandbox.vb_listeners_international
 GROUP BY 1,2,3,4,5,6,7
 ;
 
-
---2.b Some splits
-/*
- country N
- signed in status Y
- app type Y
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
-SELECT week_commencing,
-       cast('All International' as varchar) as country,
-       signed_in_status,
-       age_range,
-       app_type,
-       broadcast_type,
-       speech_music_split,
-       count(distinct audience_id) as num_listeners,
-       count(play_id) as num_plays,
-       sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international
-GROUP BY 1,2,3,4,5,6,7
-;
-
---2.c Some splits
-/*
- country N
- signed in status N
- app type Y
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
-SELECT week_commencing,
-       cast('All International' as varchar) as country,
-       cast('all' as varchar) as signed_in_status,
-       age_range,
-       app_type,
-       broadcast_type,
-       speech_music_split,
-       count(distinct audience_id) as num_listeners,
-       count(play_id) as num_plays,
-       sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international
-GROUP BY 1,2,3,4,5,6,7
-;
---2.d Some splits
-/*
- country N
- signed in status N
- app type N
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
-SELECT week_commencing,
-       cast('All International' as varchar) as country,
-       cast('all' as varchar) as signed_in_status,
-       age_range,
-       cast('all' as varchar) as app_type,
-       broadcast_type,
-       speech_music_split,
-       count(distinct audience_id) as num_listeners,
-       count(play_id) as num_plays,
-       sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international
-GROUP BY 1,2,3,4,5,6,7
-;
-
---2.e Some splits
-/*
- country N
- signed in status Y
- app type N
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
-SELECT week_commencing,
-       cast('All International' as varchar) as country,
-       signed_in_status,
-       age_range,
-       cast('all' as varchar) as app_type,
-       broadcast_type,
-       speech_music_split,
-       count(distinct audience_id) as num_listeners,
-       count(play_id) as num_plays,
-       sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international
-GROUP BY 1,2,3,4,5,6,7
-;
-
-
---2.f Some splits
-/*
- country Y
- signed in status N
- app type N
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
-SELECT week_commencing,
-       country,
-       cast('all' as varchar) as signed_in_status,
-       age_range,
-       cast('all' as varchar) as app_type,
-       broadcast_type,
-       speech_music_split,
-       count(distinct audience_id) as num_listeners,
-       count(play_id) as num_plays,
-       sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international
-GROUP BY 1,2,3,4,5,6,7
-;
---2.g Some splits
-/*
- country Y
- signed in status Y
- app type N
- */
+--2.b - dedup across app type
 INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
 SELECT week_commencing,
        country,
        signed_in_status,
        age_range,
        cast('all' as varchar) as app_type,
-       broadcast_type,
-       speech_music_split,
-       count(distinct audience_id) as num_listeners,
-       count(play_id) as num_plays,
-       sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international
-GROUP BY 1,2,3,4,5,6,7
-;
---2.h Some splits
-/*
- country Y
- signed in status N
- app type Y
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary
-SELECT week_commencing,
-       country,
-       cast('all' as varchar) as signed_in_status,
-       age_range,
-       app_type,
        broadcast_type,
        speech_music_split,
        count(distinct audience_id) as num_listeners,
@@ -250,13 +122,6 @@ SET app_type = (CASE
                     ELSE app_type END)
 ;
 
-
-
-SELECT week_commencing, sum(num_listeners) as num_listeners, sum(playback_time_total) as playback_time_total
-FROM radio1_sandbox.vb_listeners_international_weekly_summary
-WHERE country = 'All International' AND app_type = 'All' and signed_in_status = 'all'
-GROUP BY 1
-ORDER BY 1;
 
 GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary to helen_jones;
 -------------------- Drop TABLES
