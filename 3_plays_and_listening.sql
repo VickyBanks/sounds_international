@@ -26,11 +26,13 @@ AS (
     SELECT a.*, b.master_brand_id, b.speech_music_split,c.all_mixes_bool
     FROM radio1_sandbox.vb_sounds_int_users_listening a
              LEFT JOIN vb_vmb_summary b ON a.version_id = b.version_id -- Inserts when the version_id is the an episode pid
-    JOIN vb_music_mixes c ON a.version_id = c.version_id
+    LEFT JOIN vb_music_mixes c ON a.version_id = c.version_id
     WHERE playback_time_total > 3
       AND playback_time_total IS NOT NULL
       AND a.id_type = 'version_id')
 ;
+SELECT count(*) FROM radio1_sandbox.vb_listeners_international; --was 480,849 now 28,155,399
+
 -- Inserts when the version_id is a master_brand
 INSERT INTO radio1_sandbox.vb_listeners_international
 with vmb_subset_mini AS
@@ -44,14 +46,14 @@ WHERE playback_time_total > 3
   AND a.id_type = 'master_brand_id'
 ;
 
-
+SELECT * FROM radio1_sandbox.vb_listeners_international LIMIT 10;
 
 -- need to summarise with all these fields for the listening tab
 
 -- 2. Create a table summarising the number of listeners.
 -- Split by country, signed in status, age range, app_type, live vs od, speech vs music
 -- Because these will need to be deduped, need to add in 'all' fields
-/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary;
 CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary
 (
     week_commencing     date DISTKEY,
@@ -126,3 +128,15 @@ SET app_type = (CASE
 GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary to helen_jones;
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;
+
+
+/*with visitors AS (SELECT week_commencing, app_type, sum(num_visitors) as num_visitors
+                  FROM radio1_sandbox.vb_sounds_int_KPI
+                  GROUP BY 1, 2),
+     listeners AS (SELECT week_commencing, app_type, sum(num_listeners) AS num_listeners
+                   FROM radio1_sandbox.vb_listeners_international_weekly_summary
+                   GROUP BY 1, 2)
+SELECT a.*, b.num_listeners, round(100*b.num_listeners::double precision/a.num_visitors::double precision, 0) as perc_complete
+FROM visitors a
+         LEFT JOIN listeners b on a.week_commencing = b.week_commencing AND a.app_type = b.app_type
+ORDER BY 1,2;*
