@@ -123,20 +123,15 @@ SET app_type = (CASE
                     WHEN app_type = 'all' THEN 'All'
                     ELSE app_type END)
 ;
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary
+SET signed_in_status = (CASE
+                            WHEN signed_in_status = 'signed in' THEN 'Signed-in'
+                            WHEN signed_in_status = 'signed out' THEN 'Signed-out'
+                            ELSE signed_in_status END);
 
+SELECT distinct signed_in_status FROM radio1_sandbox.vb_listeners_international_weekly_summary;
 
 GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary to helen_jones;
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;
 
-
-/*with visitors AS (SELECT week_commencing, app_type, sum(num_visitors) as num_visitors
-                  FROM radio1_sandbox.vb_sounds_int_KPI
-                  GROUP BY 1, 2),
-     listeners AS (SELECT week_commencing, app_type, sum(num_listeners) AS num_listeners
-                   FROM radio1_sandbox.vb_listeners_international_weekly_summary
-                   GROUP BY 1, 2)
-SELECT a.*, b.num_listeners, round(100*b.num_listeners::double precision/a.num_visitors::double precision, 0) as perc_complete
-FROM visitors a
-         LEFT JOIN listeners b on a.week_commencing = b.week_commencing AND a.app_type = b.app_type
-ORDER BY 1,2;*
