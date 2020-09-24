@@ -120,11 +120,15 @@ SET app_type = (CASE
 ;
 
 UPDATE radio1_sandbox.vb_sounds_int_KPI
-SET signed_in_status = (CASE WHEN signed_in_status = 'signed in' THEN 'Signed-in'
-                            ELSE 'Signed-out' END);
+SET signed_in_status = (CASE
+                            WHEN signed_in_status = 'signed in' THEN 'Signed-in'
+                            WHEN signed_in_status = 'signed out' THEN 'Signed-out'
+                            ELSE signed_in_status END);
 
-SELECT * FROM radio1_sandbox.vb_sounds_int_KPI LIMIT 10;
+SELECT distinct signed_in_status FROM radio1_sandbox.vb_sounds_int_KPI LIMIT 10;
 GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI to helen_jones;
+
+
 /*
 SELECT week_commencing, app_type, signed_in_status,age_range, sum(num_listeners) as num_listeners, sum(num_visitors) as num_visitors,
        round(100 * sum(num_listeners)::double precision/sum(num_visitors)::double precision,0) as perc
