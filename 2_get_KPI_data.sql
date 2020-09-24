@@ -98,7 +98,7 @@ with visitors as (
     FROM radio1_sandbox.vb_sounds_int_KPI_temp
     GROUP BY 1, 2, 3, 4, 5
 )
-SELECT a.*, b.num_listeners
+SELECT a.*, ISNULL(b.num_listeners,0)
 FROM visitors a
          LEFT JOIN radio1_sandbox.vb_sounds_int_KPI_listeners b ON
         a.week_commencing = b.week_commencing AND
@@ -119,11 +119,28 @@ SET app_type = (CASE
                     ELSE app_type END)
 ;
 
+UPDATE radio1_sandbox.vb_sounds_int_KPI
+SET signed_in_status = (CASE WHEN signed_in_status = 'signed in' THEN 'Signed-in'
+                            ELSE 'Signed-out' END);
+
 SELECT * FROM radio1_sandbox.vb_sounds_int_KPI LIMIT 10;
-
 GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI to helen_jones;
+/*
+SELECT week_commencing, app_type, signed_in_status,age_range, sum(num_listeners) as num_listeners, sum(num_visitors) as num_visitors,
+       round(100 * sum(num_listeners)::double precision/sum(num_visitors)::double precision,0) as perc
+    FROM radio1_sandbox.vb_sounds_int_KPI
+        GROUP BY 1,2,3,4
+order by 2,3,4;
 
+SELECT SUM(stream_playing_time) as time_sec,
+       sum(num_visitors) as visitors,
+       (time_sec::double precision/(60*60))/visitors as hrs_per_visitor
+FROM radio1_sandbox.vb_sounds_int_KPI
+WHERE week_commencing = '2020-09-14'
+AND signed_in_status != 'Signed-in'
+;
 
+*/
 ---- Drop tables
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_temp;
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_listeners;
