@@ -85,11 +85,11 @@ SELECT DISTINCT dt :: date,
 FROM s3_audience.audience_activity_daily_summary a
          LEFT JOIN prez.profile_extension b ON a.audience_id = b.bbc_hid3
 WHERE destination = 'PS_SOUNDS'
-  --AND dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-  --AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
-  AND a.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
+  AND dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+  AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+ -- AND a.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
   AND geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey')
 AND (a.app_type = 'responsive' OR a.app_type = 'mobile-app' OR a.app_type = 'bigscreen-html')
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 ;
-select distinct week_commencing from radio1_sandbox.vb_sounds_int_users_listening;
+---- END

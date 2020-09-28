@@ -123,4 +123,7 @@ values ('bbc_1xtra','BBC 1Xtra','Music'),
 ;
 
 
-GRANT ALL ON radio1_sandbox.vb_speech_music_master_brand_split TO helen_jones;
+GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP central_insights;
+GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP central_insights_server;
+GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP dataforce_analysts;

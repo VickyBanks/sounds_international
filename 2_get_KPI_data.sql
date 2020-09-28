@@ -135,3 +135,5 @@ GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP radio;
 GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights;
 GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights_server;
 GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP dataforce_analysts;
+
+SELECT week_commencing, sum(num_visitors) FROM radio1_sandbox.vb_sounds_int_KPI GROUP BY 1;

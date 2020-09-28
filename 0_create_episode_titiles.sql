@@ -68,4 +68,7 @@ SELECT DISTINCT version_id,
 FROM vmb_subset
 ;
 
-GRANT ALL ON radio1_sandbox.vb_sounds_int_ep_titles TO helen_jones;
+GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP radio;
+GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP central_insights;
+GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP central_insights_server;
+GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP dataforce_analysts;

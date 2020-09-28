@@ -31,7 +31,7 @@ AS (
       AND playback_time_total IS NOT NULL
       AND a.id_type = 'version_id')
 ;
-SELECT count(*) FROM radio1_sandbox.vb_listeners_international; --was 480,849 now 28,155,399
+
 
 -- Inserts when the version_id is a master_brand
 INSERT INTO radio1_sandbox.vb_listeners_international
@@ -46,14 +46,11 @@ WHERE playback_time_total > 3
   AND a.id_type = 'master_brand_id'
 ;
 
-SELECT * FROM radio1_sandbox.vb_listeners_international LIMIT 10;
-
--- need to summarise with all these fields for the listening tab
 
 -- 2. Create a table summarising the number of listeners.
 -- Split by country, signed in status, age range, app_type, live vs od, speech vs music
 -- Because these will need to be deduped, need to add in 'all' fields
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary;
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary;
 CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary
 (
     week_commencing     date DISTKEY,
@@ -129,9 +126,7 @@ SET signed_in_status = (CASE
                             WHEN signed_in_status = 'signed out' THEN 'Signed-out'
                             ELSE signed_in_status END);
 
-SELECT distinct signed_in_status FROM radio1_sandbox.vb_listeners_international_weekly_summary;
 
-GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary to helen_jones;
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;
 
@@ -141,3 +136,4 @@ GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GRO
 GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP central_insights_server;
 GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP dataforce_analysts;
 
+SELECT week_commencing, sum(num_listeners) FROM radio1_sandbox.vb_listeners_international_weekly_summary  GROUP BY 1;

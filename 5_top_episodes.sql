@@ -57,11 +57,10 @@ FROM radio1_sandbox.vb_listeners_international_top_episodes a
          LEFT JOIN radio1_sandbox.master_brand_rename_eps c on a.concatenated_title = c.concatenated_title
 ;
 
-SELECT * FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
-LIMIT 20;
 
--- 4.
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_final;
+
+-- 4. Insert into, don't drop and re-creates
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_final;
 CREATE TABLE radio1_sandbox.vb_listeners_international_top_episodes_final
 (
     week_commencing            date DISTKEY,
@@ -160,11 +159,6 @@ FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
 
-SELECT app_type, broadcast_type, sum(num_accounts) as num_accounts
-    FROM radio1_sandbox.vb_listeners_international_top_episodes_final
-    GROUP BY 1,2;
-
-
 
 -- 5. Change to more stakeholder friendly language
 UPDATE radio1_sandbox.vb_listeners_international_top_episodes_final
@@ -203,8 +197,8 @@ SELECT *,
        row_number()
        over (PARTITION BY week_commencing, country, signed_in_status, age_range, app_type, broadcast_type,speech_music_split, frequency_band,frequency_group_aggregated
            ORDER BY num_plays DESC) as row_count
-FROM radio1_sandbox.vb_listeners_international_top_episodes_final;
-    --WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
+FROM radio1_sandbox.vb_listeners_international_top_episodes_final
+    WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
 
 -- Select only top 10
 /*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes;
@@ -228,6 +222,7 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10_epis
     master_brand_fancy_name    varchar(400)
 ) SORTKEY (week_commencing)
 ;*/
+
 INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
 SELECT a.*, b.master_brand_fancy_name
 FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp a
@@ -264,19 +259,11 @@ SET signed_in_status = (CASE
                             WHEN signed_in_status = 'signed out' THEN 'Signed-out'
                             ELSE signed_in_status END);
 
-SELECT app_type,broadcast_type, count(*) FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
-    GROUP BY 1,2;
-
-SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes LIMIT 10;
-
 --Drop tables
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes;
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_user_info;
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp;
 
-SELECT week_commencing, count(*) as num_rows, sum(num_plays) as total_plays
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes GROUP BY 1;
-SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes LIMIT 10;
 
 -- Grants
 GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP radio;
@@ -288,3 +275,4 @@ GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_e
 GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes  TO GROUP central_insights;
 GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes  TO GROUP central_insights_server;
 GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP dataforce_analysts;
+

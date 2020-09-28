@@ -85,10 +85,9 @@ FROM radio1_sandbox.vb_listeners_international_top_content a
 LEFT JOIN radio1_sandbox.master_brand_rename c on a.tleo = c.tleo
 ;
 
-SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info  LIMIT 19;
- SELECT week_commencing, count(*) FROM radio1_sandbox.vb_listeners_international_top_content_user_info  GROUP BY 1;
--- 3.
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
+
+-- 3.Final table for top TLEO to be inserted into not dropped
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
 CREATE TABLE radio1_sandbox.vb_listeners_international_top_content_final
 (
     week_commencing            date DISTKEY,
@@ -188,7 +187,6 @@ FROM radio1_sandbox.vb_listeners_international_top_content_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
 
-SELECT week_commencing,count(*) FROM radio1_sandbox.vb_listeners_international_top_content_final GROUP BY 1;
 ---
 
 -- 5. Change to more stakeholder friendly language
@@ -221,18 +219,19 @@ SET signed_in_status = (CASE
                             WHEN signed_in_status = 'signed out' THEN 'Signed-out'
                             ELSE signed_in_status END);
 
----6.  The above table is HUGE to import to tableau so this next part finds just the top 20 tleos for each field combination
+---6.  The above table is HUGE to import to tableau so this next part finds just the top 10 tleos for each field combination
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_temp;
 CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10_temp AS
 SELECT *,
        row_number()
        over (PARTITION BY week_commencing, country, signed_in_status, age_range, app_type, broadcast_type,speech_music_split, frequency_band,frequency_group_aggregated
            ORDER BY num_plays DESC) as row_count
-FROM radio1_sandbox.vb_listeners_international_top_content_final;
-    --WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
+FROM radio1_sandbox.vb_listeners_international_top_content_final
+    WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
 
--- Select only top 20
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10;
+-- Select only top 10.
+-- to be inserted into not dropped and re-created
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10;
 CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10
 (
     week_commencing            date DISTKEY,
