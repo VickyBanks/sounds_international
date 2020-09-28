@@ -88,20 +88,20 @@
         </style-rule>
       </style>
     </datasource>
-    <datasource caption='top20_episodes' inline='true' name='federated.0wg4yod0t66yem13z0lz00pwv7wa' version='18.1'>
+    <datasource caption='vb_listeners_international_top20_tleos' inline='true' name='federated.0a3f86h05nnajp15sg5531h6l0tm' version='18.1'>
       <connection class='federated'>
         <named-connections>
-          <named-connection caption='localhost' name='redshift.0ab6gmc0pfw2dz1dqy3ga05beucf'>
+          <named-connection caption='localhost' name='redshift.0jv7u8i0lw3r5j10y907v1lbbd9n'>
             <connection class='redshift' dbname='redshiftdb' odbc-connect-string-extras='' one-time-sql='' port='5439' schema='radio1_sandbox' server='localhost' single-node='no' sslmode='' username='vicky_banks' />
           </named-connection>
         </named-connections>
-        <relation connection='redshift.0ab6gmc0pfw2dz1dqy3ga05beucf' name='vb_listeners_international_weekly_summary_top20_episodes' table='[radio1_sandbox].[vb_listeners_international_weekly_summary_top20_episodes]' type='table' />
+        <relation connection='redshift.0jv7u8i0lw3r5j10y907v1lbbd9n' name='vb_listeners_international_weekly_summary_top10' table='[radio1_sandbox].[vb_listeners_international_weekly_summary_top10]' type='table' />
         <metadata-records>
           <metadata-record class='column'>
             <remote-name>week_commencing</remote-name>
             <remote-type>7</remote-type>
             <local-name>[week_commencing]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>week_commencing</remote-alias>
             <ordinal>1</ordinal>
             <local-type>date</local-type>
@@ -116,7 +116,7 @@
             <remote-name>country</remote-name>
             <remote-type>130</remote-type>
             <local-name>[country]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>country</remote-alias>
             <ordinal>2</ordinal>
             <local-type>string</local-type>
@@ -134,7 +134,7 @@
             <remote-name>signed_in_status</remote-name>
             <remote-type>130</remote-type>
             <local-name>[signed_in_status]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>signed_in_status</remote-alias>
             <ordinal>3</ordinal>
             <local-type>string</local-type>
@@ -152,7 +152,7 @@
             <remote-name>age_range</remote-name>
             <remote-type>130</remote-type>
             <local-name>[age_range]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>age_range</remote-alias>
             <ordinal>4</ordinal>
             <local-type>string</local-type>
@@ -170,7 +170,7 @@
             <remote-name>app_type</remote-name>
             <remote-type>130</remote-type>
             <local-name>[app_type]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>app_type</remote-alias>
             <ordinal>5</ordinal>
             <local-type>string</local-type>
@@ -188,7 +188,7 @@
             <remote-name>broadcast_type</remote-name>
             <remote-type>130</remote-type>
             <local-name>[broadcast_type]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>broadcast_type</remote-alias>
             <ordinal>6</ordinal>
             <local-type>string</local-type>
@@ -206,7 +206,7 @@
             <remote-name>speech_music_split</remote-name>
             <remote-type>130</remote-type>
             <local-name>[speech_music_split]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>speech_music_split</remote-alias>
             <ordinal>7</ordinal>
             <local-type>string</local-type>
@@ -224,7 +224,7 @@
             <remote-name>most_common_master_brand</remote-name>
             <remote-type>130</remote-type>
             <local-name>[most_common_master_brand]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>most_common_master_brand</remote-alias>
             <ordinal>8</ordinal>
             <local-type>string</local-type>
@@ -239,11 +239,11 @@
             </attributes>
           </metadata-record>
           <metadata-record class='column'>
-            <remote-name>concat_title</remote-name>
+            <remote-name>tleo</remote-name>
             <remote-type>130</remote-type>
-            <local-name>[concat_title]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
-            <remote-alias>concat_title</remote-alias>
+            <local-name>[tleo]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
+            <remote-alias>tleo</remote-alias>
             <ordinal>9</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
@@ -257,11 +257,11 @@
             </attributes>
           </metadata-record>
           <metadata-record class='column'>
-            <remote-name>version_id</remote-name>
+            <remote-name>tleo_id</remote-name>
             <remote-type>130</remote-type>
-            <local-name>[version_id]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
-            <remote-alias>version_id</remote-alias>
+            <local-name>[tleo_id]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
+            <remote-alias>tleo_id</remote-alias>
             <ordinal>10</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
@@ -278,7 +278,7 @@
             <remote-name>frequency_band</remote-name>
             <remote-type>130</remote-type>
             <local-name>[frequency_band]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>frequency_band</remote-alias>
             <ordinal>11</ordinal>
             <local-type>string</local-type>
@@ -296,7 +296,7 @@
             <remote-name>frequency_group_aggregated</remote-name>
             <remote-type>130</remote-type>
             <local-name>[frequency_group_aggregated]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>frequency_group_aggregated</remote-alias>
             <ordinal>12</ordinal>
             <local-type>string</local-type>
@@ -314,7 +314,7 @@
             <remote-name>num_plays</remote-name>
             <remote-type>20</remote-type>
             <local-name>[num_plays]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>num_plays</remote-alias>
             <ordinal>13</ordinal>
             <local-type>integer</local-type>
@@ -330,7 +330,7 @@
             <remote-name>num_accounts</remote-name>
             <remote-type>20</remote-type>
             <local-name>[num_accounts]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>num_accounts</remote-alias>
             <ordinal>14</ordinal>
             <local-type>integer</local-type>
@@ -346,7 +346,7 @@
             <remote-name>row_count</remote-name>
             <remote-type>3</remote-type>
             <local-name>[row_count]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>row_count</remote-alias>
             <ordinal>15</ordinal>
             <local-type>integer</local-type>
@@ -362,7 +362,7 @@
             <remote-name>master_brand_fancy_name</remote-name>
             <remote-type>130</remote-type>
             <local-name>[master_brand_fancy_name]</local-name>
-            <parent-name>[vb_listeners_international_weekly_summary_top20_episodes]</parent-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10]</parent-name>
             <remote-alias>master_brand_fancy_name</remote-alias>
             <ordinal>16</ordinal>
             <local-type>string</local-type>
@@ -379,24 +379,24 @@
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
-      <column caption='accounts_or_plays' datatype='integer' name='[Calculation_1888204537090949144]' role='measure' type='quantitative'>
+      <column caption='accounts_or_plays' datatype='integer' name='[Calculation_1888204536392105985]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN sum([num_plays])&#10;ELSE sum([num_accounts]) END' />
       </column>
-      <column caption='rank' datatype='integer' name='[Calculation_1888204537091342361]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='RANK([Calculation_1888204537090949144], &apos;desc&apos;)'>
+      <column caption='rank' datatype='integer' name='[Calculation_1888204536392425474]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='RANK([Calculation_1888204536392105985], &apos;desc&apos;)'>
           <table-calc ordering-type='Rows' />
         </calculation>
       </column>
-      <column caption='Last week' datatype='boolean' name='[Calculation_1888204537095602204]' role='dimension' type='nominal'>
-        <calculation class='tableau' formula='[week_commencing] = {max([week_commencing])}' />
+      <column caption='accounts_or_plays_text_label' datatype='string' name='[Calculation_1888204536392945667]' role='measure' type='nominal'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN &#10;(if&#10;len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;3 then left(STR(ROUND([Calculation_1888204536392105985],0)),(len(STR(ROUND([Calculation_1888204536392105985],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204536392105985],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204536392105985],0)) end&#10;)+&apos; plays&apos;&#10;&#10;ELSE &#10;(if&#10;len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;3 then left(STR(ROUND([Calculation_1888204536392105985],0)),(len(STR(ROUND([Calculation_1888204536392105985],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204536392105985],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204536392105985],0)) end&#10;)&#10;  + &apos; accounts&apos; END' />
       </column>
-      <column caption='accounts_or_plays_text_label' datatype='string' name='[Calculation_1888204537096957981]' role='measure' type='nominal'>
-        <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN &#10;(if&#10;len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;3 then left(STR(ROUND([Calculation_1888204537090949144],0)),(len(STR(ROUND([Calculation_1888204537090949144],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204537090949144],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204537090949144],0)) end&#10;)+&apos; plays&apos;&#10;&#10;ELSE &#10;(if&#10;len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;3 then left(STR(ROUND([Calculation_1888204537090949144],0)),(len(STR(ROUND([Calculation_1888204537090949144],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204537090949144],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204537090949144],0)) end&#10;)&#10;  + &apos; accounts&apos; END' />
-      </column>
-      <column caption='rank unique' datatype='integer' name='[Calculation_1888204537105088550]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='RANK_UNIQUE([Calculation_1888204537090949144],&apos;desc&apos;)'>
+      <column caption='Top Content Index' datatype='integer' name='[Calculation_1888204536705220622]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='INDEX()'>
           <table-calc ordering-type='Rows' />
         </calculation>
+      </column>
+      <column caption='Last week' datatype='boolean' name='[Calculation_1888204536707387415]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
       </column>
       <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
         <calculation class='tableau' formula='1' />
@@ -404,7 +404,6 @@
       <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
       <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
       <column caption='Broadcast Type' datatype='string' name='[broadcast_type]' role='dimension' type='nominal' />
-      <column caption='Concat Title' datatype='string' name='[concat_title]' role='dimension' type='nominal' />
       <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
       <column caption='Frequency Band' datatype='string' name='[frequency_band]' role='dimension' type='nominal' />
       <column caption='Frequency Group Aggregated' datatype='string' name='[frequency_group_aggregated]' role='dimension' type='nominal' />
@@ -415,8 +414,10 @@
       <column caption='Row Count' datatype='integer' name='[row_count]' role='measure' type='quantitative' />
       <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
       <column caption='Speech Music Split' datatype='string' name='[speech_music_split]' role='dimension' type='nominal' />
-      <column caption='Version Id' datatype='string' name='[version_id]' role='dimension' type='nominal' />
+      <column caption='Tleo' datatype='string' name='[tleo]' role='dimension' type='nominal' />
+      <column caption='Tleo Id' datatype='string' name='[tleo_id]' role='dimension' type='nominal' />
       <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
+      <column-instance column='[country]' derivation='None' name='[none:country:nk]' pivot='key' type='nominal' />
       <group caption='Action (Age Range)' hidden='true' name='[Action (Age Range)]' name-style='unqualified' user:auto-column='sheet_link'>
         <groupfilter function='crossjoin'>
           <groupfilter function='level-members' level='[age_range]' />
@@ -429,11 +430,8 @@
         </groupfilter>
       </group>
       <extract count='-1' enabled='true' units='records'>
-        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/top20_episodes.hyper' default-settings='yes' schema='Extract' sslmode='' update-time='09/24/2020 10:07:45 AM' username='tableau_internal_user'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/vb_listeners_international_top_content_final.hyper' default-settings='yes' schema='Extract' sslmode='' update-time='' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
-          <refresh>
-            <refresh-event add-from-file-path='top20_episodes' increment-value='%null%' refresh-type='create' rows-inserted='3118712' timestamp-start='2020-09-24 10:07:45.967' />
-          </refresh>
           <metadata-records>
             <metadata-record class='column'>
               <remote-name>week_commencing</remote-name>
@@ -442,10 +440,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>week_commencing</remote-alias>
               <ordinal>0</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>date</local-type>
               <aggregation>Year</aggregation>
-              <approx-count>6</approx-count>
+              <approx-count>7</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -455,10 +453,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>country</remote-alias>
               <ordinal>1</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>323</approx-count>
+              <approx-count>282</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -469,10 +467,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>signed_in_status</remote-alias>
               <ordinal>2</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>3</approx-count>
+              <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -483,7 +481,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>age_range</remote-alias>
               <ordinal>3</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>4</approx-count>
@@ -497,7 +495,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>app_type</remote-alias>
               <ordinal>4</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>4</approx-count>
@@ -511,10 +509,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>broadcast_type</remote-alias>
               <ordinal>5</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>2</approx-count>
+              <approx-count>3</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -525,7 +523,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>speech_music_split</remote-alias>
               <ordinal>6</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>2</approx-count>
@@ -539,38 +537,38 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>most_common_master_brand</remote-alias>
               <ordinal>7</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>106</approx-count>
+              <approx-count>126</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
             <metadata-record class='column'>
-              <remote-name>concat_title</remote-name>
+              <remote-name>tleo</remote-name>
               <remote-type>129</remote-type>
-              <local-name>[concat_title]</local-name>
+              <local-name>[tleo]</local-name>
               <parent-name>[Extract]</parent-name>
-              <remote-alias>concat_title</remote-alias>
+              <remote-alias>tleo</remote-alias>
               <ordinal>8</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>50263</approx-count>
+              <approx-count>5067</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
             <metadata-record class='column'>
-              <remote-name>version_id</remote-name>
+              <remote-name>tleo_id</remote-name>
               <remote-type>129</remote-type>
-              <local-name>[version_id]</local-name>
+              <local-name>[tleo_id]</local-name>
               <parent-name>[Extract]</parent-name>
-              <remote-alias>version_id</remote-alias>
+              <remote-alias>tleo_id</remote-alias>
               <ordinal>9</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>54891</approx-count>
+              <approx-count>5232</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -581,7 +579,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>frequency_band</remote-alias>
               <ordinal>10</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>10</approx-count>
@@ -595,7 +593,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>frequency_group_aggregated</remote-alias>
               <ordinal>11</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>4</approx-count>
@@ -609,10 +607,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>num_plays</remote-alias>
               <ordinal>12</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>1412</approx-count>
+              <approx-count>2595</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -622,10 +620,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>num_accounts</remote-alias>
               <ordinal>13</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>1604</approx-count>
+              <approx-count>1488</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -635,10 +633,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>row_count</remote-alias>
               <ordinal>14</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>20</approx-count>
+              <approx-count>10</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -648,17 +646,101 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>master_brand_fancy_name</remote-alias>
               <ordinal>15</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20_episodes</family>
+              <family>vb_listeners_international_weekly_summary_top10</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>106</approx-count>
+              <approx-count>126</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.519573' measure-ordering='alphabetic' measure-percentage='0.368327' parameter-percentage='0.1121' show-structure='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.565062' measure-ordering='alphabetic' measure-percentage='0.327986' parameter-percentage='0.106952' show-structure='true' user-set-layout='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='shape' field='[none:country:nk]' type='shape'>
+            <map to='Flags/Australia.png'>
+              <bucket>&quot;Australia&quot;</bucket>
+            </map>
+            <map to='Flags/Belgium.png'>
+              <bucket>&quot;Belgium&quot;</bucket>
+            </map>
+            <map to='Flags/Canada.png'>
+              <bucket>&quot;Canada&quot;</bucket>
+            </map>
+            <map to='Flags/France.png'>
+              <bucket>&quot;France&quot;</bucket>
+            </map>
+            <map to='Flags/Germany.png'>
+              <bucket>&quot;Germany&quot;</bucket>
+            </map>
+            <map to='Flags/Greece.png'>
+              <bucket>&quot;Greece&quot;</bucket>
+            </map>
+            <map to='Flags/Ireland.png'>
+              <bucket>&quot;Ireland&quot;</bucket>
+            </map>
+            <map to='Flags/Italy.png'>
+              <bucket>&quot;Italy&quot;</bucket>
+            </map>
+            <map to='Flags/Japan.png'>
+              <bucket>&quot;Japan&quot;</bucket>
+            </map>
+            <map to='Flags/Korea, Republic of.png'>
+              <bucket>&quot;Korea, Republic Of&quot;</bucket>
+            </map>
+            <map to='Flags/Malaysia.png'>
+              <bucket>&quot;Malaysia&quot;</bucket>
+            </map>
+            <map to='Flags/Netherlands.png'>
+              <bucket>&quot;Netherlands&quot;</bucket>
+            </map>
+            <map to='Flags/Poland.png'>
+              <bucket>&quot;Poland&quot;</bucket>
+            </map>
+            <map to='Flags/Portugal.png'>
+              <bucket>&quot;Portugal&quot;</bucket>
+            </map>
+            <map to='Flags/Romania.png'>
+              <bucket>&quot;Romania&quot;</bucket>
+            </map>
+            <map to='Flags/Spain.png'>
+              <bucket>&quot;Spain&quot;</bucket>
+            </map>
+            <map to='Flags/Sweden.png'>
+              <bucket>&quot;Sweden&quot;</bucket>
+            </map>
+            <map to='Flags/Switzerland.png'>
+              <bucket>&quot;Switzerland&quot;</bucket>
+            </map>
+            <map to='Flags/Turkey.png'>
+              <bucket>&quot;Turkey&quot;</bucket>
+            </map>
+            <map to='Flags/United Arab Emirates.png'>
+              <bucket>&quot;United Arab Emirates&quot;</bucket>
+            </map>
+            <map to='Flags/United States.png'>
+              <bucket>&quot;United States&quot;</bucket>
+            </map>
+            <map to='down-triangle'>
+              <bucket>&quot;New Zealand&quot;</bucket>
+            </map>
+            <map to='down-triangle'>
+              <bucket>&quot;Singapore&quot;</bucket>
+            </map>
+            <map to='plus'>
+              <bucket>&quot;Hong Kong&quot;</bucket>
+            </map>
+            <map to='times'>
+              <bucket>&quot;Indonesia&quot;</bucket>
+            </map>
+            <map to='triangle'>
+              <bucket>&quot;Qatar&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;United Kingdom&quot;' />
       </semantic-values>
@@ -819,7 +901,7 @@
       <column caption='SI vs SO text' datatype='string' name='[Calculation_1366561041074135040]' role='dimension' type='nominal'>
         <calculation class='tableau' formula='&apos;Note: Summing all signed-in and signed-out users causes an under-representation of signed in users.&apos;' />
       </column>
-      <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+      <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
         <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
       </column>
       <column caption='Stream Playing Time Hrs' datatype='real' name='[Calculation_474637198364827648]' role='measure' type='quantitative'>
@@ -901,11 +983,8 @@
         </groupfilter>
       </group>
       <extract count='-1' enabled='true' units='records'>
-        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/vb_sounds_dashboard_1_page_views_international.hyper' default-settings='yes' schema='Extract' sslmode='' tablename='Extract' update-time='09/24/2020 12:52:20 PM' username='tableau_internal_user'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/vb_sounds_dashboard_1_page_views_international.hyper' default-settings='yes' schema='Extract' sslmode='' update-time='' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
-          <refresh>
-            <refresh-event add-from-file-path='vb_sounds_int_kpi' increment-value='%null%' refresh-type='create' rows-inserted='15879' timestamp-start='2020-09-24 12:52:20.991' />
-          </refresh>
           <metadata-records>
             <metadata-record class='column'>
               <remote-name>week_commencing</remote-name>
@@ -930,7 +1009,7 @@
               <family>vb_sounds_int_kpi</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>251</approx-count>
+              <approx-count>245</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -986,7 +1065,7 @@
               <family>vb_sounds_int_kpi</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>1221</approx-count>
+              <approx-count>1265</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -999,7 +1078,7 @@
               <family>vb_sounds_int_kpi</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>8383</approx-count>
+              <approx-count>9541</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -1012,13 +1091,13 @@
               <family>vb_sounds_int_kpi</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>760</approx-count>
+              <approx-count>844</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.341637' measure-ordering='alphabetic' measure-percentage='0.38968' parameter-percentage='0.268683' show-structure='true' user-set-layout='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.33871' measure-ordering='alphabetic' measure-percentage='0.392473' parameter-percentage='0.268817' show-structure='true' user-set-layout='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[none:country:nk]' type='palette'>
@@ -2988,34 +3067,315 @@
       </semantic-values>
       <date-options start-of-week='monday' />
     </datasource>
-    <datasource caption='vb_listeners_international_top20_content' inline='true' name='federated.0a3f86h05nnajp15sg5531h6l0tm' version='18.1'>
+    <datasource caption='top10_episodes' inline='true' name='federated.0wg4yod0t66yem13z0lz00pwv7wa' version='18.1'>
       <connection class='federated'>
         <named-connections>
-          <named-connection caption='localhost' name='redshift.0jv7u8i0lw3r5j10y907v1lbbd9n'>
+          <named-connection caption='localhost' name='redshift.0ab6gmc0pfw2dz1dqy3ga05beucf'>
             <connection class='redshift' dbname='redshiftdb' odbc-connect-string-extras='' one-time-sql='' port='5439' schema='radio1_sandbox' server='localhost' single-node='no' sslmode='' username='vicky_banks' />
           </named-connection>
         </named-connections>
-        <relation connection='redshift.0jv7u8i0lw3r5j10y907v1lbbd9n' name='vb_listeners_international_weekly_summary_top20' table='[radio1_sandbox].[vb_listeners_international_weekly_summary_top20]' type='table' />
+        <relation connection='redshift.0ab6gmc0pfw2dz1dqy3ga05beucf' name='vb_listeners_international_weekly_summary_top10_episodes' table='[radio1_sandbox].[vb_listeners_international_weekly_summary_top10_episodes]' type='table' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>week_commencing</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[week_commencing]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>week_commencing</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_DATE&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_DATE&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>country</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[country]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>country</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>signed_in_status</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[signed_in_status]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>signed_in_status</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>10</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>age_range</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[age_range]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>age_range</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>40</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>app_type</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[app_type]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>app_type</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>40</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>broadcast_type</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[broadcast_type]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>broadcast_type</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>40</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>speech_music_split</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[speech_music_split]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>speech_music_split</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>40</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>most_common_master_brand</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[most_common_master_brand]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>most_common_master_brand</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>400</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>concat_title</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[concat_title]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>concat_title</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>4000</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>version_id</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[version_id]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>version_id</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>frequency_band</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[frequency_band]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>frequency_band</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>400</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>frequency_group_aggregated</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[frequency_group_aggregated]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>frequency_group_aggregated</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>40</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>num_plays</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[num_plays]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>num_plays</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>19</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_BIGINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SBIGINT&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>num_accounts</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[num_accounts]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>num_accounts</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>19</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_BIGINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SBIGINT&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>row_count</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[row_count]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>row_count</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_LONG&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>master_brand_fancy_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[master_brand_fancy_name]</local-name>
+            <parent-name>[vb_listeners_international_weekly_summary_top10_episodes]</parent-name>
+            <remote-alias>master_brand_fancy_name</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>400</width>
+            <contains-null>true</contains-null>
+            <cast-to-local-type>true</cast-to-local-type>
+            <collation flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WLONGVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
       </connection>
       <aliases enabled='yes' />
-      <column caption='accounts_or_plays' datatype='integer' name='[Calculation_1888204536392105985]' role='measure' type='quantitative'>
+      <column caption='accounts_or_plays' datatype='integer' name='[Calculation_1888204537090949144]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN sum([num_plays])&#10;ELSE sum([num_accounts]) END' />
       </column>
-      <column caption='rank' datatype='integer' name='[Calculation_1888204536392425474]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='RANK([Calculation_1888204536392105985], &apos;desc&apos;)'>
+      <column caption='rank' datatype='integer' name='[Calculation_1888204537091342361]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='RANK([Calculation_1888204537090949144], &apos;desc&apos;)'>
           <table-calc ordering-type='Rows' />
         </calculation>
       </column>
-      <column caption='accounts_or_plays_text_label' datatype='string' name='[Calculation_1888204536392945667]' role='measure' type='nominal'>
-        <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN &#10;(if&#10;len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;3 then left(STR(ROUND([Calculation_1888204536392105985],0)),(len(STR(ROUND([Calculation_1888204536392105985],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204536392105985],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204536392105985],0)) end&#10;)+&apos; plays&apos;&#10;&#10;ELSE &#10;(if&#10;len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;3 then left(STR(ROUND([Calculation_1888204536392105985],0)),(len(STR(ROUND([Calculation_1888204536392105985],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204536392105985],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204536392105985],0)) end&#10;)&#10;  + &apos; accounts&apos; END' />
+      <column caption='Last week' datatype='boolean' name='[Calculation_1888204537095602204]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[week_commencing] = {max([week_commencing])}' />
       </column>
-      <column caption='Top Content Index' datatype='integer' name='[Calculation_1888204536705220622]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='INDEX()'>
+      <column caption='accounts_or_plays_text_label' datatype='string' name='[Calculation_1888204537096957981]' role='measure' type='nominal'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN &#10;(if&#10;len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;3 then left(STR(ROUND([Calculation_1888204537090949144],0)),(len(STR(ROUND([Calculation_1888204537090949144],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204537090949144],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204537090949144],0)) end&#10;)+&apos; plays&apos;&#10;&#10;ELSE &#10;(if&#10;len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;3 then left(STR(ROUND([Calculation_1888204537090949144],0)),(len(STR(ROUND([Calculation_1888204537090949144],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204537090949144],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204537090949144],0)) end&#10;)&#10;  + &apos; accounts&apos; END' />
+      </column>
+      <column caption='rank unique' datatype='integer' name='[Calculation_1888204537105088550]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='RANK_UNIQUE([Calculation_1888204537090949144],&apos;desc&apos;)'>
           <table-calc ordering-type='Rows' />
         </calculation>
-      </column>
-      <column caption='Last week' datatype='boolean' name='[Calculation_1888204536707387415]' role='dimension' type='nominal'>
-        <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
       </column>
       <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
         <calculation class='tableau' formula='1' />
@@ -3023,13 +3383,19 @@
       <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
       <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
       <column caption='Broadcast Type' datatype='string' name='[broadcast_type]' role='dimension' type='nominal' />
+      <column caption='Concat Title' datatype='string' name='[concat_title]' role='dimension' type='nominal' />
       <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+      <column caption='Frequency Band' datatype='string' name='[frequency_band]' role='dimension' type='nominal' />
+      <column caption='Frequency Group Aggregated' datatype='string' name='[frequency_group_aggregated]' role='dimension' type='nominal' />
+      <column caption='Master Brand Fancy Name' datatype='string' name='[master_brand_fancy_name]' role='dimension' type='nominal' />
+      <column caption='Most Common Master Brand' datatype='string' name='[most_common_master_brand]' role='dimension' type='nominal' />
       <column caption='Num Accounts' datatype='integer' name='[num_accounts]' role='measure' type='quantitative' />
       <column caption='Num Plays' datatype='integer' name='[num_plays]' role='measure' type='quantitative' />
+      <column caption='Row Count' datatype='integer' name='[row_count]' role='measure' type='quantitative' />
+      <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
       <column caption='Speech Music Split' datatype='string' name='[speech_music_split]' role='dimension' type='nominal' />
-      <column caption='Tleo' datatype='string' name='[tleo]' role='dimension' type='nominal' />
+      <column caption='Version Id' datatype='string' name='[version_id]' role='dimension' type='nominal' />
       <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
-      <column-instance column='[country]' derivation='None' name='[none:country:nk]' pivot='key' type='nominal' />
       <group caption='Action (Age Range)' hidden='true' name='[Action (Age Range)]' name-style='unqualified' user:auto-column='sheet_link'>
         <groupfilter function='crossjoin'>
           <groupfilter function='level-members' level='[age_range]' />
@@ -3041,12 +3407,9 @@
           <groupfilter function='level-members' level='[week_commencing]' />
         </groupfilter>
       </group>
-      <extract count='-1' enabled='false' units='records'>
-        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/vb_listeners_international_top_content_final.hyper' default-settings='yes' schema='Extract' sslmode='' update-time='09/23/2020 12:19:34 PM' username='tableau_internal_user'>
+      <extract count='-1' enabled='true' units='records'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/top20_episodes.hyper' default-settings='yes' schema='Extract' sslmode='' update-time='' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
-          <refresh>
-            <refresh-event add-from-file-path='vb_listeners_international_top20_content' increment-value='%null%' refresh-type='create' rows-inserted='2778315' timestamp-start='2020-09-23 12:19:34.021' />
-          </refresh>
           <metadata-records>
             <metadata-record class='column'>
               <remote-name>week_commencing</remote-name>
@@ -3055,10 +3418,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>week_commencing</remote-alias>
               <ordinal>0</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>date</local-type>
               <aggregation>Year</aggregation>
-              <approx-count>6</approx-count>
+              <approx-count>7</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -3068,10 +3431,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>country</remote-alias>
               <ordinal>1</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>269</approx-count>
+              <approx-count>260</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -3082,10 +3445,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>signed_in_status</remote-alias>
               <ordinal>2</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>3</approx-count>
+              <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -3096,7 +3459,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>age_range</remote-alias>
               <ordinal>3</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>4</approx-count>
@@ -3110,7 +3473,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>app_type</remote-alias>
               <ordinal>4</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>4</approx-count>
@@ -3124,10 +3487,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>broadcast_type</remote-alias>
               <ordinal>5</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>2</approx-count>
+              <approx-count>3</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -3138,7 +3501,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>speech_music_split</remote-alias>
               <ordinal>6</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>2</approx-count>
@@ -3152,38 +3515,38 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>most_common_master_brand</remote-alias>
               <ordinal>7</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>112</approx-count>
+              <approx-count>167</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
             <metadata-record class='column'>
-              <remote-name>tleo</remote-name>
+              <remote-name>concat_title</remote-name>
               <remote-type>129</remote-type>
-              <local-name>[tleo]</local-name>
+              <local-name>[concat_title]</local-name>
               <parent-name>[Extract]</parent-name>
-              <remote-alias>tleo</remote-alias>
+              <remote-alias>concat_title</remote-alias>
               <ordinal>8</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>5667</approx-count>
+              <approx-count>46073</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
             <metadata-record class='column'>
-              <remote-name>tleo_id</remote-name>
+              <remote-name>version_id</remote-name>
               <remote-type>129</remote-type>
-              <local-name>[tleo_id]</local-name>
+              <local-name>[version_id]</local-name>
               <parent-name>[Extract]</parent-name>
-              <remote-alias>tleo_id</remote-alias>
+              <remote-alias>version_id</remote-alias>
               <ordinal>9</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>5877</approx-count>
+              <approx-count>51286</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -3194,7 +3557,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>frequency_band</remote-alias>
               <ordinal>10</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>10</approx-count>
@@ -3208,7 +3571,7 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>frequency_group_aggregated</remote-alias>
               <ordinal>11</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
               <approx-count>4</approx-count>
@@ -3222,10 +3585,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>num_plays</remote-alias>
               <ordinal>12</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>3186</approx-count>
+              <approx-count>1412</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -3235,10 +3598,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>num_accounts</remote-alias>
               <ordinal>13</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>2187</approx-count>
+              <approx-count>1154</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -3248,10 +3611,10 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>row_count</remote-alias>
               <ordinal>14</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>20</approx-count>
+              <approx-count>10</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -3261,102 +3624,26 @@
               <parent-name>[Extract]</parent-name>
               <remote-alias>master_brand_fancy_name</remote-alias>
               <ordinal>15</ordinal>
-              <family>vb_listeners_international_weekly_summary_top20</family>
+              <family>vb_listeners_international_weekly_summary_top10_episodes</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>112</approx-count>
+              <approx-count>167</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.435943' measure-ordering='alphabetic' measure-percentage='0.327402' parameter-percentage='0.236655' show-structure='true' user-set-layout='true' />
-      <style>
-        <style-rule element='mark'>
-          <encoding attr='shape' field='[none:country:nk]' type='shape'>
-            <map to='Flags/Australia.png'>
-              <bucket>&quot;Australia&quot;</bucket>
-            </map>
-            <map to='Flags/Canada.png'>
-              <bucket>&quot;Canada&quot;</bucket>
-            </map>
-            <map to='Flags/Croatia.png'>
-              <bucket>&quot;Croatia&quot;</bucket>
-            </map>
-            <map to='Flags/Finland.png'>
-              <bucket>&quot;Finland&quot;</bucket>
-            </map>
-            <map to='Flags/France.png'>
-              <bucket>&quot;France&quot;</bucket>
-            </map>
-            <map to='Flags/Germany.png'>
-              <bucket>&quot;Germany&quot;</bucket>
-            </map>
-            <map to='Flags/Greece.png'>
-              <bucket>&quot;Greece&quot;</bucket>
-            </map>
-            <map to='Flags/India.png'>
-              <bucket>&quot;India&quot;</bucket>
-            </map>
-            <map to='Flags/Indonesia.png'>
-              <bucket>&quot;Indonesia&quot;</bucket>
-            </map>
-            <map to='Flags/Ireland.png'>
-              <bucket>&quot;Ireland&quot;</bucket>
-            </map>
-            <map to='Flags/Italy.png'>
-              <bucket>&quot;Italy&quot;</bucket>
-            </map>
-            <map to='Flags/Japan.png'>
-              <bucket>&quot;Japan&quot;</bucket>
-            </map>
-            <map to='Flags/Korea, Republic of.png'>
-              <bucket>&quot;Korea, Republic Of&quot;</bucket>
-            </map>
-            <map to='Flags/Netherlands.png'>
-              <bucket>&quot;Netherlands&quot;</bucket>
-            </map>
-            <map to='Flags/New Zealand.png'>
-              <bucket>&quot;New Zealand&quot;</bucket>
-            </map>
-            <map to='Flags/Poland.png'>
-              <bucket>&quot;Poland&quot;</bucket>
-            </map>
-            <map to='Flags/Portugal.png'>
-              <bucket>&quot;Portugal&quot;</bucket>
-            </map>
-            <map to='Flags/Qatar.png'>
-              <bucket>&quot;Qatar&quot;</bucket>
-            </map>
-            <map to='Flags/Russian Federation.png'>
-              <bucket>&quot;Russian Federation&quot;</bucket>
-            </map>
-            <map to='Flags/Singapore.png'>
-              <bucket>&quot;Singapore&quot;</bucket>
-            </map>
-            <map to='Flags/Spain.png'>
-              <bucket>&quot;Spain&quot;</bucket>
-            </map>
-            <map to='Flags/Sweden.png'>
-              <bucket>&quot;Sweden&quot;</bucket>
-            </map>
-            <map to='Flags/Switzerland.png'>
-              <bucket>&quot;Switzerland&quot;</bucket>
-            </map>
-            <map to='Flags/United States.png'>
-              <bucket>&quot;United States&quot;</bucket>
-            </map>
-            <map to='circle'>
-              <bucket>&quot;All International&quot;</bucket>
-            </map>
-          </encoding>
-        </style-rule>
-      </style>
+      <layout dim-ordering='alphabetic' dim-percentage='0.561497' measure-ordering='alphabetic' measure-percentage='0.326203' parameter-percentage='0.112299' show-structure='true' />
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;United Kingdom&quot;' />
       </semantic-values>
       <date-options start-of-week='monday' />
+      <datasource-dependencies datasource='Parameters'>
+        <column caption='accounts_or_plays' datatype='string' name='[Parameter 3]' param-domain-type='list' role='measure' type='nominal' value='&quot;Accounts&quot;'>
+          <calculation class='tableau' formula='&quot;Accounts&quot;' />
+        </column>
+      </datasource-dependencies>
     </datasource>
     <datasource caption='vb_listeners_international_weekly_summary' inline='true' name='federated.10aq9761wkmoa61dkah161gvw1jd' version='18.1'>
       <connection class='federated'>
@@ -3641,11 +3928,8 @@
         </groupfilter>
       </group>
       <extract count='-1' enabled='true' units='records'>
-        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/vb_listeners_international_weekly_summary.hyper' default-settings='yes' schema='Extract' sslmode='' tablename='Extract' update-time='09/24/2020 01:35:47 PM' username='tableau_internal_user'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_GB' class='hyper' dbname='/Users/banksv03/Documents/My Tableau Repository/Datasources/vb_listeners_international_weekly_summary.hyper' default-settings='yes' schema='Extract' sslmode='' update-time='' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
-          <refresh>
-            <refresh-event add-from-file-path='vb_listeners_international_weekly_summary' increment-value='%null%' refresh-type='create' rows-inserted='56760' timestamp-start='2020-09-24 13:35:47.492' />
-          </refresh>
           <metadata-records>
             <metadata-record class='column'>
               <remote-name>week_commencing</remote-name>
@@ -3670,7 +3954,7 @@
               <family>vb_listeners_international_weekly_summary</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>291</approx-count>
+              <approx-count>313</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -3684,7 +3968,7 @@
               <family>vb_listeners_international_weekly_summary</family>
               <local-type>string</local-type>
               <aggregation>Count</aggregation>
-              <approx-count>2</approx-count>
+              <approx-count>1</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='binary' />
             </metadata-record>
@@ -3754,7 +4038,7 @@
               <family>vb_listeners_international_weekly_summary</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>1162</approx-count>
+              <approx-count>1206</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -3767,7 +4051,7 @@
               <family>vb_listeners_international_weekly_summary</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>2324</approx-count>
+              <approx-count>2423</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
             <metadata-record class='column'>
@@ -3780,13 +4064,13 @@
               <family>vb_listeners_international_weekly_summary</family>
               <local-type>integer</local-type>
               <aggregation>Sum</aggregation>
-              <approx-count>24504</approx-count>
+              <approx-count>36621</approx-count>
               <contains-null>true</contains-null>
             </metadata-record>
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.368327' measure-ordering='alphabetic' measure-percentage='0.494662' parameter-percentage='0.137011' show-structure='true' user-set-layout='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.366548' measure-ordering='alphabetic' measure-percentage='0.496441' parameter-percentage='0.137011' show-structure='true' user-set-layout='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[none:country:nk]' type='palette'>
@@ -4549,95 +4833,35 @@
       </datasource-dependencies>
     </datasource>
   </datasources>
-  <datasource-relationships>
-    <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-      <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
-      <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
-      <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal'>
-        <semantic-values semantic-role='[Country].[Name]'>
-          <semantic-value key='&quot;Centrafrican Republic&quot;' value='&quot;Central African Republic&quot;' />
-          <semantic-value key='&quot;Kazakstan&quot;' value='&quot;Kazakhstan&quot;' />
-          <semantic-value key='&quot;Nepal, Federal Democratic Republic of&quot;' value='&quot;Nepal&quot;' />
-          <semantic-value key='&quot;Nigeria, Federal Republic of&quot;' value='&quot;Nigeria&quot;' />
-          <semantic-value key='&quot;Palestinian Territory&quot;' value='&quot;Palestinian Territories&quot;' />
-          <semantic-value key='&quot;Plurinational State of  Bolivia&quot;' value='&quot;Bolivia&quot;' />
-          <semantic-value key='&quot;Saint-Martin (Partie Française)&quot;' value='&quot;Saint Martin&quot;' />
-          <semantic-value key='&quot;Saint-Martin (Partie Néerlandaise)&quot;' value='&quot;Saint Martin&quot;' />
-        </semantic-values>
-      </column>
-      <column-instance column='[week_commencing]' derivation='Day' name='[dy:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='MDY' name='[md:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Month' name='[mn:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='MY' name='[my:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[age_range]' derivation='None' name='[none:age_range:nk]' pivot='key' type='nominal' />
-      <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
-      <column-instance column='[country]' derivation='None' name='[none:country:nk]' pivot='key' type='nominal' />
-      <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
-      <column-instance column='[week_commencing]' derivation='None' name='[none:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Quarter' name='[qr:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
-      <column-instance column='[week_commencing]' derivation='Day-Trunc' name='[tdy:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Month-Trunc' name='[tmn:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Quarter-Trunc' name='[tqr:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Week-Trunc' name='[twk:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Year-Trunc' name='[tyr:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Weekday' name='[wd:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Week' name='[wk:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Year' name='[yr:week_commencing:ok]' pivot='key' type='ordinal' />
-    </datasource-dependencies>
-    <datasource-dependencies datasource='federated.0wg4yod0t66yem13z0lz00pwv7wa'>
-      <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
-      <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
-      <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
-      <column-instance column='[week_commencing]' derivation='Day' name='[dy:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='MDY' name='[md:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Month' name='[mn:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='MY' name='[my:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[age_range]' derivation='None' name='[none:age_range:nk]' pivot='key' type='nominal' />
-      <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
-      <column-instance column='[country]' derivation='None' name='[none:country:nk]' pivot='key' type='nominal' />
-      <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
-      <column-instance column='[week_commencing]' derivation='None' name='[none:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Quarter' name='[qr:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
-      <column-instance column='[week_commencing]' derivation='Day-Trunc' name='[tdy:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Month-Trunc' name='[tmn:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Quarter-Trunc' name='[tqr:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Week-Trunc' name='[twk:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Year-Trunc' name='[tyr:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Weekday' name='[wd:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Week' name='[wk:week_commencing:ok]' pivot='key' type='ordinal' />
-      <column-instance column='[week_commencing]' derivation='Year' name='[yr:week_commencing:ok]' pivot='key' type='ordinal' />
-    </datasource-dependencies>
-    <datasource-relationship source='federated.0kxkzky1we5h1f19xd4y10qowwki' target='federated.0wg4yod0t66yem13z0lz00pwv7wa'>
-      <column-mapping>
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[dy:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[dy:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[md:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[md:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[mn:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[mn:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[my:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[my:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:age_range:nk]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:age_range:nk]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:app_type:nk]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:country:nk]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:country:nk]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:signed_in_status:nk]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[qr:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[qr:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[tdy:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[tdy:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[tmn:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[tmn:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[tqr:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[tqr:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[twk:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[twk:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[tyr:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[tyr:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[wd:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[wd:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[wk:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[wk:week_commencing:ok]' />
-        <map key='[federated.0kxkzky1we5h1f19xd4y10qowwki].[yr:week_commencing:ok]' value='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[yr:week_commencing:ok]' />
-      </column-mapping>
-    </datasource-relationship>
-  </datasource-relationships>
   <mapsources>
     <mapsource name='Tableau' />
   </mapsources>
   <shared-views>
+    <shared-view name='federated.0a3f86h05nnajp15sg5531h6l0tm'>
+      <datasources>
+        <datasource caption='vb_listeners_international_top20_tleos' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
+      </datasources>
+      <datasource-dependencies datasource='federated.0a3f86h05nnajp15sg5531h6l0tm'>
+        <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
+        <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
+        <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
+        <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
+      </datasource-dependencies>
+      <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
+        <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
+        <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
+        <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
+        <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
+      </datasource-dependencies>
+      <filter class='categorical' column='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' context='true'>
+        <groupfilter function='member' level='[none:app_type:nk]' member='&quot;All&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+        <target field='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:app_type:nk]' />
+      </filter>
+      <filter class='categorical' column='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' context='true'>
+        <groupfilter function='level-members' level='[none:signed_in_status:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+        <target field='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:signed_in_status:nk]' />
+      </filter>
+    </shared-view>
     <shared-view name='federated.0kxkzky1we5h1f19xd4y10qowwki'>
       <datasources>
         <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
@@ -4659,7 +4883,7 @@
     </shared-view>
     <shared-view name='federated.0wg4yod0t66yem13z0lz00pwv7wa'>
       <datasources>
-        <datasource caption='top20_episodes' name='federated.0wg4yod0t66yem13z0lz00pwv7wa' />
+        <datasource caption='top10_episodes' name='federated.0wg4yod0t66yem13z0lz00pwv7wa' />
       </datasources>
       <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
         <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
@@ -4805,7 +5029,7 @@
             <mapsource name='Tableau' />
           </mapsources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
@@ -5018,7 +5242,7 @@
             <datasource caption='vb_listeners_international_weekly_summary' name='federated.10aq9761wkmoa61dkah161gvw1jd' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='% who listen text' datatype='real' default-format='p0%' name='[Calculation_717831588128407553]' role='measure' type='ordinal'>
@@ -5167,7 +5391,7 @@
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
@@ -5405,7 +5629,7 @@
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
@@ -5533,7 +5757,7 @@
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
@@ -5742,7 +5966,7 @@
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
@@ -6971,7 +7195,7 @@
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
@@ -7079,7 +7303,8 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='vb_listeners_international_top20_content' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
+            <datasource caption='vb_listeners_international_top20_tleos' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
+            <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
@@ -7099,16 +7324,24 @@
             <column caption='accounts_or_plays_text_label' datatype='string' name='[Calculation_1888204536392945667]' role='measure' type='nominal'>
               <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN &#10;(if&#10;len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;3 then left(STR(ROUND([Calculation_1888204536392105985],0)),(len(STR(ROUND([Calculation_1888204536392105985],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204536392105985],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204536392105985],0)) end&#10;)+&apos; plays&apos;&#10;&#10;ELSE &#10;(if&#10;len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;3 then left(STR(ROUND([Calculation_1888204536392105985],0)),(len(STR(ROUND([Calculation_1888204536392105985],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204536392105985],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204536392105985],0)),len(STR(ROUND([Calculation_1888204536392105985],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204536392105985],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204536392105985],0)) end&#10;)&#10;  + &apos; accounts&apos; END' />
             </column>
+            <column caption='Last week' datatype='boolean' name='[Calculation_1888204536707387415]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
+            </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
+            <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
             <column caption='Broadcast Type' datatype='string' name='[broadcast_type]' role='dimension' type='nominal' />
             <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
-            <column datatype='string' name='[master_brand_fancy_name]' role='dimension' type='nominal' />
+            <column caption='Master Brand Fancy Name' datatype='string' name='[master_brand_fancy_name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_1888204536707387415]' derivation='None' name='[none:Calculation_1888204536707387415:nk]' pivot='key' type='nominal' />
+            <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[broadcast_type]' derivation='None' name='[none:broadcast_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[master_brand_fancy_name]' derivation='None' name='[none:master_brand_fancy_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
             <column-instance column='[speech_music_split]' derivation='None' name='[none:speech_music_split:nk]' pivot='key' type='nominal' />
             <column-instance column='[tleo]' derivation='None' name='[none:tleo:nk]' pivot='key' type='nominal' />
             <column caption='Num Accounts' datatype='integer' name='[num_accounts]' role='measure' type='quantitative' />
             <column caption='Num Plays' datatype='integer' name='[num_plays]' role='measure' type='quantitative' />
+            <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
             <column caption='Speech Music Split' datatype='string' name='[speech_music_split]' role='dimension' type='nominal' />
             <column caption='Tleo' datatype='string' name='[tleo]' role='dimension' type='nominal' />
             <column-instance column='[Calculation_1888204536392105985]' derivation='User' name='[usr:Calculation_1888204536392105985:qk]' pivot='key' type='quantitative' />
@@ -7117,6 +7350,12 @@
             </column-instance>
             <column-instance column='[Calculation_1888204536392945667]' derivation='User' name='[usr:Calculation_1888204536392945667:nk]' pivot='key' type='nominal' />
             <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
+            <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
+            <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
+            <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
+            <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
           </datasource-dependencies>
           <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[Action (Age Range)]'>
             <groupfilter function='level-members' level='[age_range]' user:ui-action-filter='[Action7]' user:ui-enumeration='all' user:ui-marker='enumerate' />
@@ -7127,11 +7366,16 @@
               <groupfilter function='level-members' level='[week_commencing]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:broadcast_type:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:Calculation_1888204536707387415:nk]' context='true'>
+            <groupfilter function='member' level='[none:Calculation_1888204536707387415:nk]' member='true' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
-          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' context='true' filter-group='3'>
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' context='true' filter-group='3'>
+            <groupfilter function='member' level='[none:broadcast_type:nk]' member='&quot;All&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <target field='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' />
+          </filter>
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' context='true' filter-group='5'>
             <groupfilter function='level-members' level='[none:speech_music_split:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <target field='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' />
           </filter>
           <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:tleo:nk]' context='true'>
             <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
@@ -7500,12 +7744,15 @@
             </groupfilter>
           </filter>
           <slices>
+            <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:Calculation_1888204536707387415:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:tleo:nk]</column>
+            <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]</column>
+            <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[usr:Calculation_1888204536392425474:ok]</column>
-            <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[Action (Age Range)]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[Action (Country,Week Commencing)]</column>
+            <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[Action (Age Range)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -7599,8 +7846,9 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='top20_episodes' name='federated.0wg4yod0t66yem13z0lz00pwv7wa' />
+            <datasource caption='top10_episodes' name='federated.0wg4yod0t66yem13z0lz00pwv7wa' />
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
+            <datasource caption='vb_listeners_international_top20_tleos' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
@@ -7608,11 +7856,45 @@
               <calculation class='tableau' formula='&quot;Accounts&quot;' />
             </column>
           </datasource-dependencies>
-          <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
+          <datasource-dependencies datasource='federated.0a3f86h05nnajp15sg5531h6l0tm'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_1888204536707387415]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
+            </column>
+            <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
             <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
+            <column caption='Broadcast Type' datatype='string' name='[broadcast_type]' role='dimension' type='nominal' />
+            <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+            <column caption='Frequency Band' datatype='string' name='[frequency_band]' role='dimension' type='nominal' />
+            <column caption='Frequency Group Aggregated' datatype='string' name='[frequency_group_aggregated]' role='dimension' type='nominal' />
+            <column caption='Most Common Master Brand' datatype='string' name='[most_common_master_brand]' role='dimension' type='nominal' />
+            <column-instance column='[broadcast_type]' derivation='None' name='[none:broadcast_type:nk]' pivot='key' type='nominal' />
+            <column-instance column='[speech_music_split]' derivation='None' name='[none:speech_music_split:nk]' pivot='key' type='nominal' />
+            <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
+            <column caption='Speech Music Split' datatype='string' name='[speech_music_split]' role='dimension' type='nominal' />
+            <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
+            </column>
+            <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
+            <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
+            <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal'>
+              <semantic-values semantic-role='[Country].[Name]'>
+                <semantic-value key='&quot;Centrafrican Republic&quot;' value='&quot;Central African Republic&quot;' />
+                <semantic-value key='&quot;Kazakstan&quot;' value='&quot;Kazakhstan&quot;' />
+                <semantic-value key='&quot;Nepal, Federal Democratic Republic of&quot;' value='&quot;Nepal&quot;' />
+                <semantic-value key='&quot;Nigeria, Federal Republic of&quot;' value='&quot;Nigeria&quot;' />
+                <semantic-value key='&quot;Palestinian Territory&quot;' value='&quot;Palestinian Territories&quot;' />
+                <semantic-value key='&quot;Plurinational State of  Bolivia&quot;' value='&quot;Bolivia&quot;' />
+                <semantic-value key='&quot;Saint-Martin (Partie Française)&quot;' value='&quot;Saint Martin&quot;' />
+                <semantic-value key='&quot;Saint-Martin (Partie Néerlandaise)&quot;' value='&quot;Saint Martin&quot;' />
+              </semantic-values>
+            </column>
             <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
             <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
+            <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.0wg4yod0t66yem13z0lz00pwv7wa'>
             <column caption='accounts_or_plays' datatype='integer' name='[Calculation_1888204537090949144]' role='measure' type='quantitative'>
@@ -7622,9 +7904,6 @@
               <calculation class='tableau' formula='RANK([Calculation_1888204537090949144], &apos;desc&apos;)'>
                 <table-calc ordering-type='Rows' />
               </calculation>
-            </column>
-            <column caption='Last week' datatype='boolean' name='[Calculation_1888204537095602204]' role='dimension' type='nominal'>
-              <calculation class='tableau' formula='[week_commencing] = {max([week_commencing])}' />
             </column>
             <column caption='accounts_or_plays_text_label' datatype='string' name='[Calculation_1888204537096957981]' role='measure' type='nominal'>
               <calculation class='tableau' formula='IF [Parameters].[Parameter 3] = &apos;Plays&apos; THEN &#10;(if&#10;len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;3 then left(STR(ROUND([Calculation_1888204537090949144],0)),(len(STR(ROUND([Calculation_1888204537090949144],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204537090949144],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204537090949144],0)) end&#10;)+&apos; plays&apos;&#10;&#10;ELSE &#10;(if&#10;len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;3 then left(STR(ROUND([Calculation_1888204537090949144],0)),(len(STR(ROUND([Calculation_1888204537090949144],0)))-1)%3+1)+&quot;,&quot;&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;9 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-8,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +if len(STR(ROUND([Calculation_1888204537090949144],0)))&gt;6 then mid(STR(ROUND([Calculation_1888204537090949144],0)),len(STR(ROUND([Calculation_1888204537090949144],0)))-5,3)+&quot;,&quot; else &quot;&quot; end&#10;&#10;    +right(STR(ROUND([Calculation_1888204537090949144],0)),3)&#10;&#10;else STR(ROUND([Calculation_1888204537090949144],0)) end&#10;)&#10;  + &apos; accounts&apos; END' />
@@ -7640,12 +7919,9 @@
             <column caption='Concat Title' datatype='string' name='[concat_title]' role='dimension' type='nominal' />
             <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
             <column caption='Master Brand Fancy Name' datatype='string' name='[master_brand_fancy_name]' role='dimension' type='nominal' />
-            <column-instance column='[Calculation_1888204537095602204]' derivation='None' name='[none:Calculation_1888204537095602204:nk]' pivot='key' type='nominal' />
-            <column-instance column='[age_range]' derivation='None' name='[none:age_range:nk]' pivot='key' type='nominal' />
             <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[broadcast_type]' derivation='None' name='[none:broadcast_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[concat_title]' derivation='None' name='[none:concat_title:nk]' pivot='key' type='nominal' />
-            <column-instance column='[country]' derivation='None' name='[none:country:nk]' pivot='key' type='nominal' />
             <column-instance column='[master_brand_fancy_name]' derivation='None' name='[none:master_brand_fancy_name:nk]' pivot='key' type='nominal' />
             <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
             <column-instance column='[speech_music_split]' derivation='None' name='[none:speech_music_split:nk]' pivot='key' type='nominal' />
@@ -7669,41 +7945,21 @@
             </column-instance>
             <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[Action (Age Range)]'>
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' context='true' filter-group='3'>
+            <groupfilter function='member' level='[none:broadcast_type:nk]' member='&quot;All&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <target field='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:broadcast_type:nk]' />
+          </filter>
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' context='true' filter-group='5'>
+            <groupfilter function='level-members' level='[none:speech_music_split:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <target field='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:speech_music_split:nk]' />
+          </filter>
+          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[Action (Age Range)]' context='true'>
             <groupfilter function='level-members' level='[age_range]' user:ui-action-filter='[Action7]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[Action (Country,Week Commencing)]'>
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[country]' />
               <groupfilter function='level-members' level='[week_commencing]' />
-            </groupfilter>
-          </filter>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:Calculation_1888204537095602204:nk]' context='true'>
-            <groupfilter function='member' level='[none:Calculation_1888204537095602204:nk]' member='true' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:age_range:nk]' context='true'>
-            <groupfilter function='level-members' level='[none:age_range:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:broadcast_type:nk]' context='true'>
-            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[none:broadcast_type:nk]' member='&quot;Live&quot;' />
-              <groupfilter function='member' level='[none:broadcast_type:nk]' member='&quot;On-Demand&quot;' />
-            </groupfilter>
-          </filter>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:country:nk]' context='true'>
-            <groupfilter function='level-members' level='[none:country:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:master_brand_fancy_name:nk]' context='true'>
-            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter from='&quot;BBC 1Xtra&quot;' function='range' level='[none:master_brand_fancy_name:nk]' to='&quot;BBC Web Only&quot;' />
-              <groupfilter function='member' level='[none:master_brand_fancy_name:nk]' member='&quot;BBC World Service&quot;' />
-              <groupfilter function='member' level='[none:master_brand_fancy_name:nk]' member='&quot;Cbeebies Radio&quot;' />
-            </groupfilter>
-          </filter>
-          <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:speech_music_split:nk]' context='true'>
-            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[none:speech_music_split:nk]' member='&quot;Music&quot;' />
-              <groupfilter function='member' level='[none:speech_music_split:nk]' member='&quot;Speech&quot;' />
             </groupfilter>
           </filter>
           <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[usr:Calculation_1888204537091342361:ok]'>
@@ -7714,37 +7970,23 @@
               <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='4' />
               <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='5' />
               <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='6' />
+              <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='7' />
               <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='8' />
               <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='9' />
               <groupfilter function='member' level='[usr:Calculation_1888204537091342361:ok]' member='10' />
             </groupfilter>
           </filter>
           <filter class='categorical' column='[federated.0wg4yod0t66yem13z0lz00pwv7wa].[usr:Calculation_1888204537105088550:ok]'>
-            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='1' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='2' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='3' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='4' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='5' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='6' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='7' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='8' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='9' />
-              <groupfilter function='member' level='[usr:Calculation_1888204537105088550:ok]' member='10' />
-            </groupfilter>
+            <groupfilter function='level-members' level='[usr:Calculation_1888204537105088550:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
+            <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]</column>
+            <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]</column>
             <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]</column>
             <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:Calculation_1888204537095602204:nk]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:age_range:nk]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:broadcast_type:nk]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:country:nk]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:master_brand_fancy_name:nk]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:speech_music_split:nk]</column>
+            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[Action (Age Range)]</column>
             <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[usr:Calculation_1888204537091342361:ok]</column>
             <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[Action (Country,Week Commencing)]</column>
-            <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[Action (Age Range)]</column>
             <column>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[usr:Calculation_1888204537105088550:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -7829,6 +8071,25 @@
         </panes>
         <rows>([federated.0wg4yod0t66yem13z0lz00pwv7wa].[usr:Calculation_1888204537091342361:ok:8] / ([federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:master_brand_fancy_name:nk] / [federated.0wg4yod0t66yem13z0lz00pwv7wa].[none:concat_title:nk]))</rows>
         <cols>[federated.0wg4yod0t66yem13z0lz00pwv7wa].[usr:Calculation_1888204537090949144:qk]</cols>
+        <join-lod-include-overrides>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[Calculation_1888204536707387415]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[age_range]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[app_type]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[broadcast_type]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[country]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[frequency_band]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[frequency_group_aggregated]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[most_common_master_brand]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[signed_in_status]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[speech_music_split]</column>
+          <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[week_commencing]</column>
+          <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[Calculation_2540100579997261835]</column>
+          <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[age_range]</column>
+          <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[app_type]</column>
+          <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[country]</column>
+          <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[signed_in_status]</column>
+          <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[week_commencing]</column>
+        </join-lod-include-overrides>
       </table>
       <simple-id uuid='{0A68C721-811A-4B33-9904-2C5604436415}' />
     </worksheet>
@@ -7845,7 +8106,8 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='vb_listeners_international_top20_content' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
+            <datasource caption='vb_listeners_international_top20_tleos' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
+            <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
@@ -7866,15 +8128,19 @@
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
+            <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
             <column caption='Broadcast Type' datatype='string' name='[broadcast_type]' role='dimension' type='nominal' />
             <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
             <column-instance column='[Calculation_1888204536707387415]' derivation='None' name='[none:Calculation_1888204536707387415:nk]' pivot='key' type='nominal' />
+            <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[broadcast_type]' derivation='None' name='[none:broadcast_type:nk]' pivot='key' type='nominal' />
             <column-instance column='[country]' derivation='None' name='[none:country:nk]' pivot='key' type='nominal' />
+            <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
             <column-instance column='[speech_music_split]' derivation='None' name='[none:speech_music_split:nk]' pivot='key' type='nominal' />
             <column-instance column='[week_commencing]' derivation='None' name='[none:week_commencing:qk]' pivot='key' type='quantitative' />
             <column caption='Num Accounts' datatype='integer' name='[num_accounts]' role='measure' type='quantitative' />
             <column caption='Num Plays' datatype='integer' name='[num_plays]' role='measure' type='quantitative' />
+            <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
             <column caption='Speech Music Split' datatype='string' name='[speech_music_split]' role='dimension' type='nominal' />
             <column-instance column='[Calculation_1888204536392105985]' derivation='User' name='[usr:Calculation_1888204536392105985:qk]' pivot='key' type='quantitative' />
             <column-instance column='[Calculation_1888204536705220622]' derivation='User' name='[usr:Calculation_1888204536705220622:qk:14]' pivot='key' type='quantitative'>
@@ -7886,14 +8152,21 @@
             </column-instance>
             <column caption='Week Commencing' datatype='date' name='[week_commencing]' role='dimension' type='ordinal' />
           </datasource-dependencies>
+          <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
+            <column caption='App Type' datatype='string' name='[app_type]' role='dimension' type='nominal' />
+            <column-instance column='[app_type]' derivation='None' name='[none:app_type:nk]' pivot='key' type='nominal' />
+            <column-instance column='[signed_in_status]' derivation='None' name='[none:signed_in_status:nk]' pivot='key' type='nominal' />
+            <column caption='Signed In Status' datatype='string' name='[signed_in_status]' role='dimension' type='nominal' />
+          </datasource-dependencies>
           <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[Action (Age Range)]'>
             <groupfilter function='level-members' level='[age_range]' user:ui-action-filter='[Action7]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:Calculation_1888204536707387415:nk]' context='true'>
             <groupfilter function='member' level='[none:Calculation_1888204536707387415:nk]' member='true' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
-          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:broadcast_type:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' context='true' filter-group='3'>
+            <groupfilter function='member' level='[none:broadcast_type:nk]' member='&quot;All&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <target field='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' />
           </filter>
           <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:country:nk]' context='true'>
             <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
@@ -7907,8 +8180,9 @@
               <groupfilter from='&quot;United Arab Emirates&quot;' function='range' level='[none:country:nk]' to='&quot;Åland Islands&quot;' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' context='true' filter-group='3'>
+          <filter class='categorical' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' context='true' filter-group='5'>
             <groupfilter function='level-members' level='[none:speech_music_split:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <target field='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' />
           </filter>
           <filter class='quantitative' column='[federated.0a3f86h05nnajp15sg5531h6l0tm].[usr:Calculation_1888204536705220622:qk:14]' included-values='in-range'>
             <min>1</min>
@@ -7919,6 +8193,8 @@
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:country:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]</column>
+            <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]</column>
+            <column>[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[usr:Calculation_1888204536705220622:qk:14]</column>
             <column>[federated.0a3f86h05nnajp15sg5531h6l0tm].[Action (Age Range)]</column>
           </slices>
@@ -7998,7 +8274,7 @@
             <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
           </datasources>
           <datasource-dependencies datasource='federated.0kxkzky1we5h1f19xd4y10qowwki'>
-            <column caption='Latest week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
+            <column caption='Last week' datatype='boolean' name='[Calculation_2540100579997261835]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='[week_commencing] = {MAX([week_commencing])}' />
             </column>
             <column caption='index' datatype='integer' name='[Calculation_474637198689964036]' role='measure' type='quantitative'>
@@ -8357,8 +8633,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1700' minheight='1700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='260' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='97334' id='261' param='vert' type='layout-flow' w='98306' x='847' y='1333'>
+            <zone h='100000' id='280' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='97334' id='281' param='vert' type='layout-flow' w='98306' x='847' y='1333'>
                 <zone fixed-size='53' h='10167' id='71' is-fixed='true' is-scaled='1' param='/Users/banksv03/Documents/My Tableau Repository/Shapes/Data Force Logos/b2_Sounds_3.png' type='bitmap' w='25000' x='0' y='0'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -8671,7 +8947,7 @@
                     </zone-style>
                   </zone>
                   <zone h='15333' id='241' name='Listening - Age range split' show-title='false' w='22034' x='0' y='72498'>
-                    <layout-cache fixed-size-h='84' type-h='fixed' type-w='fixed' />
+                    <layout-cache type-h='fixed' type-w='fixed' />
                     <zone-style>
                       <format attr='border-color' value='#000000' />
                       <format attr='border-style' value='none' />
@@ -8790,8 +9066,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1350' minheight='1350' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='285' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='97334' id='286' param='vert' type='layout-flow' w='98306' x='847' y='1333'>
+            <zone h='100000' id='305' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='306' param='vert' type='layout-flow' w='84000' x='8000' y='8000'>
                 <zone fixed-size='53' h='10167' id='71' is-fixed='true' is-scaled='1' param='/Users/banksv03/Documents/My Tableau Repository/Shapes/Data Force Logos/b2_Sounds_3.png' type='bitmap' w='25000' x='0' y='0'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -8931,7 +9207,7 @@
                   </zone-style>
                 </zone>
                 <zone fixed-size='84' h='15333' id='241' is-fixed='true' name='Listening - Age range split' show-title='false' w='22034' x='0' y='72498'>
-                  <layout-cache fixed-size-h='84' type-h='fixed' type-w='fixed' />
+                  <layout-cache type-h='fixed' type-w='fixed' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -9216,8 +9492,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1750' minheight='1750' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='278' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='84000' id='279' param='vert' type='layout-flow' w='84000' x='8000' y='8000'>
+            <zone h='100000' id='298' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='299' param='vert' type='layout-flow' w='84000' x='8000' y='8000'>
                 <zone fixed-size='53' h='10167' id='71' is-fixed='true' is-scaled='1' param='/Users/banksv03/Documents/My Tableau Repository/Shapes/Data Force Logos/b2_Sounds_1.png' type='bitmap' w='25000' x='0' y='0'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -9562,8 +9838,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1150' minheight='1150' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='246' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='97334' id='247' param='vert' type='layout-flow' w='98306' x='847' y='1333'>
+            <zone h='100000' id='266' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='267' param='vert' type='layout-flow' w='84000' x='8000' y='8000'>
                 <zone fixed-size='53' h='10167' id='71' is-fixed='true' is-scaled='1' param='/Users/banksv03/Documents/My Tableau Repository/Shapes/Data Force Logos/b2_Sounds_3.png' type='bitmap' w='25000' x='0' y='0'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -9715,7 +9991,7 @@
       <size maxheight='600' maxwidth='944' minheight='600' minwidth='944' sizing-mode='fixed' />
       <datasources>
         <datasource name='Parameters' />
-        <datasource caption='vb_listeners_international_top20_content' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
+        <datasource caption='vb_listeners_international_top20_tleos' name='federated.0a3f86h05nnajp15sg5531h6l0tm' />
         <datasource caption='vb_sounds_int_kpi' name='federated.0kxkzky1we5h1f19xd4y10qowwki' />
       </datasources>
       <datasource-dependencies datasource='Parameters'>
@@ -9771,7 +10047,7 @@
                       </zone-style>
                     </zone>
                     <zone h='18000' id='231' param='horz' type='layout-flow' w='22034' x='0' y='23000'>
-                      <zone fixed-size='92' h='18000' id='35' is-fixed='true' mode='radiolist' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' show-all='false' show-exclude='false' show-mode='false' show-search='false' type='filter' values='database' w='10593' x='0' y='23000'>
+                      <zone fixed-size='100' h='18000' id='35' is-fixed='true' mode='radiolist' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' show-exclude='false' show-search='false' type='filter' values='database' w='11335' x='0' y='23000'>
                         <zone-style>
                           <format attr='border-color' value='#000000' />
                           <format attr='border-style' value='none' />
@@ -9779,7 +10055,7 @@
                           <format attr='margin' value='4' />
                         </zone-style>
                       </zone>
-                      <zone fixed-size='93' h='18000' id='31' is-fixed='true' mode='radiolist' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' show-all='false' type='filter' values='database' w='10699' x='10593' y='23000'>
+                      <zone fixed-size='93' h='18000' id='31' is-fixed='true' mode='radiolist' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' show-all='false' type='filter' values='database' w='10699' x='11335' y='23000'>
                         <zone-style>
                           <format attr='border-color' value='#000000' />
                           <format attr='border-style' value='none' />
@@ -9799,7 +10075,7 @@
                         <format attr='margin' value='4' />
                       </zone-style>
                     </zone>
-                    <zone h='8666' id='229' mode='dropdown' name='Top Content - top 10 TLEOS' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' type='filter' values='database' w='22034' x='0' y='50166'>
+                    <zone h='8666' id='229' mode='dropdown' name='Top Content - top 10 TLEOS' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' show-all='false' type='filter' values='database' w='22034' x='0' y='50166'>
                       <zone-style>
                         <format attr='border-color' value='#000000' />
                         <format attr='border-style' value='none' />
@@ -9921,8 +10197,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1550' minheight='1550' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='290' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='97334' id='291' param='vert' type='layout-flow' w='98306' x='847' y='1333'>
+            <zone h='100000' id='310' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='97334' id='311' param='vert' type='layout-flow' w='98306' x='847' y='1333'>
                 <zone fixed-size='53' h='10167' id='71' is-fixed='true' is-scaled='1' param='/Users/banksv03/Documents/My Tableau Repository/Shapes/Data Force Logos/b2_Sounds_3.png' type='bitmap' w='25000' x='0' y='0'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -9999,7 +10275,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8666' id='229' mode='dropdown' name='Top Content - top 10 TLEOS' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' type='filter' values='database' w='22034' x='0' y='50166'>
+                <zone h='8666' id='229' mode='dropdown' name='Top Content - top 10 TLEOS' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' show-all='false' type='filter' values='database' w='22034' x='0' y='50166'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -10047,7 +10323,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='92' h='18000' id='35' mode='dropdown' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' show-all='false' show-exclude='false' show-mode='false' show-search='false' type='filter' values='database' w='10593' x='0' y='23000'>
+                <zone fixed-size='100' h='18000' id='35' mode='dropdown' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' show-exclude='false' show-search='false' type='filter' values='database' w='11335' x='0' y='23000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -10056,7 +10332,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='93' h='18000' id='31' mode='dropdown' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' show-all='false' type='filter' values='database' w='10699' x='10593' y='23000'>
+                <zone fixed-size='93' h='18000' id='31' mode='dropdown' name='Top Content - Age range split' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' show-all='false' type='filter' values='database' w='10699' x='11335' y='23000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -10101,7 +10377,7 @@
       <simple-id uuid='{DB49993E-A2F1-4536-9FC9-C9AD95559A9A}' />
     </dashboard>
   </dashboards>
-  <windows source-height='92'>
+  <windows source-height='90'>
     <window class='dashboard' name='Listening (Old)'>
       <viewpoints>
         <viewpoint name='Listening live od donut'>
@@ -10155,7 +10431,7 @@
       <active id='-1' />
       <simple-id uuid='{84905E4E-6DE9-41FC-B3BC-2C4973DE9111}' />
     </window>
-    <window class='dashboard' maximized='true' name='Listening'>
+    <window class='dashboard' name='Listening'>
       <viewpoints>
         <viewpoint name='Listening - Age range split' />
         <viewpoint name='Listening Top Flags'>
@@ -10177,7 +10453,7 @@
       <active id='-1' />
       <simple-id uuid='{8953C2C8-4B4E-4EA5-99D9-999535AF673B}' />
     </window>
-    <window class='dashboard' name='Top Content'>
+    <window class='dashboard' maximized='true' name='Top Content'>
       <viewpoints>
         <viewpoint name='Top Content - Age range split' />
         <viewpoint name='Top Content - top 10 TLEOS'>
@@ -10190,8 +10466,124 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='-1' />
+      <active id='218' />
       <simple-id uuid='{E336410D-B6DE-4759-813B-7C843E15619F}' />
+    </window>
+    <window class='worksheet' name='Top Content - Age range split'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='300'>
+            <card param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{FA943AC4-E79A-45FB-8030-5D9F1B12FC80}' />
+    </window>
+    <window class='worksheet' name='Top Content - top 10 TLEOS'>
+      <cards>
+        <edge name='left'>
+          <strip size='281'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' type='filter' />
+            <card param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' type='filter' />
+            <card mode='radiolist' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' show-all='false' show-morefewerbutton='false' type='filter' />
+            <card mode='compact' param='[Parameters].[Parameter 3]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{99656188-60E6-46E4-B351-15471598458D}' />
+    </window>
+    <window class='worksheet' name='Top Content - top 10 eps'>
+      <cards>
+        <edge name='left'>
+          <strip size='241'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='compact' param='[Parameters].[Parameter 3]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{CC253B48-86D9-4710-91F9-062E2BB10383}' />
+    </window>
+    <window class='worksheet' name='Top Content Flags'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:country:nk]' type='shape' />
+            <card pane-specification-id='0' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[usr:Calculation_1888204536392105985:qk]' type='size' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{72276576-BAA0-4F17-AC04-C0BCE369449A}' />
     </window>
     <window class='worksheet' name='Sheet 23'>
       <cards>
@@ -10710,122 +11102,6 @@
         </edge>
       </cards>
       <simple-id uuid='{992A6862-CC6C-4925-9301-4A5A19A585C1}' />
-    </window>
-    <window class='worksheet' hidden='true' name='Top Content - Age range split'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='31'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='300'>
-            <card mode='radiolist' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:signed_in_status:nk]' type='filter' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{FA943AC4-E79A-45FB-8030-5D9F1B12FC80}' />
-    </window>
-    <window class='worksheet' hidden='true' name='Top Content - top 10 TLEOS'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='31'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card mode='radiolist' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:speech_music_split:nk]' type='filter' />
-            <card mode='radiolist' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:broadcast_type:nk]' type='filter' />
-            <card mode='radiolist' param='[federated.0kxkzky1we5h1f19xd4y10qowwki].[none:app_type:nk]' show-all='false' show-morefewerbutton='false' type='filter' />
-            <card mode='compact' param='[Parameters].[Parameter 3]' type='parameter' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{99656188-60E6-46E4-B351-15471598458D}' />
-    </window>
-    <window class='worksheet' hidden='true' name='Top Content - top 10 eps'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='31'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card mode='compact' param='[Parameters].[Parameter 3]' type='parameter' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{CC253B48-86D9-4710-91F9-062E2BB10383}' />
-    </window>
-    <window class='worksheet' hidden='true' name='Top Content Flags'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='31'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card pane-specification-id='0' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[none:country:nk]' type='shape' />
-            <card pane-specification-id='0' param='[federated.0a3f86h05nnajp15sg5531h6l0tm].[usr:Calculation_1888204536392105985:qk]' type='size' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{72276576-BAA0-4F17-AC04-C0BCE369449A}' />
     </window>
     <window class='worksheet' hidden='true' name='geo top flags'>
       <cards>
@@ -11568,6 +11844,44 @@
         a08Tz28s7WP5KXA+lk8BV8Br4Gr6oyTD/+b62S7LQgH+GcsVK1aseLpI+3p2PxQc/k+8j4yV
         gH0PYN948gT8C+U/0m+FSlYpAAAAAElFTkSuQmCC
       </shape>
+      <shape name='Flags/Iraw.png'>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwY
+        AAAHR0lEQVR4nO2aW2wcVxnHf+fM7I6xnbD2bkKSknYTXAhVQVQiVQURQgFFIPEAEkWRuEh9
+        qQqvPCDxBBIS4g0JwUMREg8UEEiBl/JQKhRxqWgbLqEQJyXUhMSOXTv22nudnTnn8OA947Oz
+        s47tuLls9m/tzuzZc/m+//luc7wwxBBDDDHEEEMMMcQQQ9yPEJ2r//O9D0V3VJLbjNNrV3JA
+        7Hc+jxjg4889i5pfRAoAkbCzHYggjwwC8D2E7623eT6I9dlsWz+YWHVuDEbFG22xQochJmxv
+        WybTedcGvAP7ePHzTwOMADVLgG8AoTTx0jJS7Ez5uxkG0Mbg7yt2CMFP3gCMlERrVaIbg01A
+        rlYDKZN23+0ULy6h643EXAcN2hiiN5esBQAOAQoI5xZAa/SAWoAxhvbcQjYBBoPWCpRCDqAF
+        WBcQWmMcCny3A9qA1h0XGDQSDJh1/bTT6riAwSiFUQqEHET10UYjlc52gfXN16A0RpjeGe5x
+        2BhgTB8LMIDRGpQa6CBIvxgQY1BRjFAKKSQwWFZgEGijMUqjHdU2XAAwRmO0ZgD1x3T+0Brl
+        tCcElJ/7AQ+eOIHneUgpEUIgBigdGmPQWuN5Hkef/AScOgW4WUAplFJdihtjdoWEUMXU45DJ
+        YGxrwmK43ljl0Gjhlte20FonBGi9EQaTojiKoqST1roTMXfn9aPXf88Ls69tuT8GGnHIbH2F
+        WtTi+avnWWs3d7x+Wh+lVC8B1gLSJNwqGX9dusKFyiwfO/hI0tZW8aZjGnGbStjgv9VFbrSq
+        /GLmFWpR65aVtzufSUAcx2itd5WEWhTyw9fP8pVjJ5nMjzntLZ69eBbVZ94R6fPY5IOcW5oh
+        J3z2B3vwheQn/3lpV6wgk4AoihIS0q+dLvr9Cy/yeOkI797zDhpRm+/96wXOXp/GGMO5pZm+
+        45ZbdeYbq1yszKPMet6+0apxqTK/I6XTusRxnE2AdYM4jrssYSdW8NLCv1ltN/ni0Q9hjOFX
+        V/7C5dV5fjnzKpWwwb6RPQjIHPvjy3+kGjXZH4xjHBkK+dEd7XiaBNcCfJeAtbU1crkcuVwu
+        SYdAkhaBm2aFxVaVRtzmW+fOcPLgezlz6c9gDL+79g+++r5P8tM3Xma1ukpYb1CtVnvGzzVW
+        uPrmNeoTUzTqDWq1Gq16k1q1RrNWzxyTBWNMcrVmr5QiDEOiaOP4sysNGmOSNCiESBS/GQHN
+        uM2ltQXK40W+O/1bTj3wKMf3lVmNW7y6fAWAg6N7KYyMo9BIz0N6Hp7XfT640Fzj2//8DToK
+        Cbwc0vPwPR8hBdIT+L6P53mJnNshwN4LIbrSYJcFuCbjDnBrg6yFrzZW+Obff82jhQd4ZWmG
+        Lz38YT5dPt7Tb665wvmVa3xBSM4vX+M7rz3P6aNPUB4vATDbXGG2sUxxZC9f/9sZ6nGL/9WW
+        aKgIKTz+cP0Ca1GTZ97zUSaD8U0JyCLDwo0BPYWQ6yuWLWsFFmkS3rVnP2N+wOGxCb587CQv
+        L77Rp5Q2PFk+TikY57PlD6KMougoUh4r8Y0PfKZTtAqkWK/fR7087xyb4Gvv/xS+9NmbG92S
+        wlm+n84CPRZgO1qFrclZItK4Wl/mZ5f/xPHSET5y4BjTlTmemjqxqYAAp4883iPwZDC2abX4
+        WLHcMyYL/YKifWVaQHqgLYvt4LS/Whx629v53NEnODxe5GLlOofHiptrfpvRLy1abDwOOzWA
+        Vd7uej9XAJBC8lDHhx8pHEoWvZPI2nWrPHRXgtamC57nrUxNTVGpVHoCnrUEKWWXf92tsJvm
+        BnSLYrHI9PQ0SqkJoLJxIuQwZgfbySys6bjf341wlU/L6u4+pGKASwCQ7LrF3ax0FtI5P+3/
+        4BBgO7sdhBAJY9s5F0jHid1EWoF+cIueLCu26LEAGwBdbEV5t89baSnu3FtZJ90n/TkzDbqs
+        pbOB61f9lLYWcLNjta2Qlg66N7MAN3al40C6COohICsF2knT5bBdyH1gSmM7rtCPKNue5Ypp
+        ZaysrszbdoH0s4Bd1LWMzXZOStllAVkEbWYV7nxuTLKFmJvTs2JUWv4dxQAXWfHAtmXtcFpp
+        K7i99nuwynp6s88nruDuprjFjft9elNcpfsS4JaK9rOUsiv3uyynCbJK+76P7/uJ0vY+yxLc
+        +ywh3brdEuEWY+7uZhGQtuC07F0EeJ3ncytwGnZh18SllEn/XC6XXO29S4a9ZpXTLtxNiOO4
+        h4B2u901jz3csPK57pEVWK1V2vkSbX3fp1QqEQRBZpR3/ToIAkZHR8nn8wRBgOd55PN5AIIg
+        6CLDLugS2+/ByipqlbL+bs8rAcIwJAzD5HSnWq12fZ+uZdJWUCqVWF5e3iCy069QKBRW8vl8
+        z3+FdlIT3E6k64KsnXczgtaadrtNpVKZACpWm3HgQOd6P6AGzAO15IeSrP9uLjsADB5ioNW5
+        DjHEEEPcvxD32inPbuOtO7q5RzAk4E4LcKdx3xPwf/fhqhWntJthAAAAAElFTkSuQmCC
+      </shape>
       <shape name='Flags/Ireland.png'>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwY
         AAAGEklEQVR4nO2aPY4kxxGFv8iqmVktlqBDgZRs+csD6BS8AC+gM9CnR4B05cmmoSPIoycZ
@@ -11999,6 +12313,50 @@
         2d//+upSmb74iV7gxQsvrBZ+AkqtT5+89UGOZPp5EywcFFfQO7eRticg2+IHgA+n66OAPeA/
         wF75oiTxe3PNykfeX+iAw3TdYIMNNnh0Ied9dn/eWP9bEO8zbAg47wWcNx55Av4Pc1VCz5BH
         +McAAAAASUVORK5CYII=
+      </shape>
+      <shape name='Flags/Oman.png'>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwY
+        AAAIXElEQVR4nO2ay48cVxXGf+dU9WNm7PEjloVQ2JhEMQSwFwhBIAKiCAUBygIWCCFYgIC/
+        gAX/BEJCASGEiCyBskhAQoqSGGJbCBYJQkLIYguOyfiRGdvT8+ruuuewuLdeM9O2A3704P6k
+        nqqp6qq+57vfedxTBTPMMMMMM8wwwwwzzDDDgwhJ2/x3h4+O7+SN3/f6a3fydnccJ0+e7ABF
+        nv7vO/DkqV9ily6jIggCOJiDJp7M4lYEVCFYpFCkurH0ukivz/4TJ+6dNbeAuwMQQsDdOX/+
+        PEAfWCsJyB2QEAjLy7gIYka2uIh0u4wvXUZUmfv4x9D9+1k/cw5GI7LDh+KNb9yIhEwpRAR3
+        R9JEJULy6g+Aq1KsDgjLy1ia/zBYY/+zX2L0ymsUV67QvXYd3CmWlpB+n/mnn2L91dOEwWAH
+        ASXr0wJ3r8bUHFs1agfC1avY+ga+sYFvbFJcvsLon/9i4XNPE65fZ7y0xPjttxkvX2Hhqc8Q
+        rl1jdOEtfHMLX99ofaYVTSKgQUAARkuXcDPcDCvGOLBx5izZkYfon/gIvQ8cp3v8MfrHP0jn
+        0UdYO/17wON3LbQ/6Yem8WNlLKPpAoBZQEIAIFtYIJufwzY2WXv1NAuf/TSyuIj0euz7wjOs
+        /+F1bH0TXVzEQoFtDuucwvS6wHYFVARYGfHN8OGI+c8/w8KTT2BbW6yf/SPF6irdw4egGGNb
+        Q+h2OfKD76ML82z97e9cf/4U0u3dF+PeDURkdwWYg4cCQoBM2XzjTWwwgFwJly9jgwH5gUVw
+        uPHrF7DxmGLpEtLvE1ZWcNF4bcK0KgDYnYAAeLCY23HG7ywzd/Qo3UePId0u0ungKyu4O/mx
+        Y6yfPUexvAIOkil0OvgeIGCiAqovWUARbGODa8+fQntd9j37RXrHH2Pw4m8Jq6sc+NpXkfl5
+        1l5+Ben3cZXW7Jf3miaUBKjq7jFgjBPGYzQEXATMsOGQuU9+gvzhh1l57meM37oIqiz/+Ccc
+        +u632bcwz+DF34Aokmc7fnCa0AyAoTFZVRo0p0oRFgLe6XDgG1+n96HHWXnup4wuXkTm+kiv
+        S7h+g+Uf/gjdt5+D3/sOurgfK4oqhbrZfU91kz4i0iKgkQWIMg4BD0b3w49TXLnCjV+9gBfj
+        GAOKdKEqNhxz7ee/YP5TT9B95P1svPEmZLVHLX3zW3dxPt89HMcdOgcPcPGll6rjjSAYpSHj
+        gkyVzb/8FRuOyPo9EK2Nb0KFtTPnkDxD8rwVBKcN5o65k5thjeMVAYWDhVgIiRmqgnQ7uBm0
+        Lmmj9H0virs19v8ZDnhycS8C1ghPbQUUBWohrp4MVBSvbrFXEctTI8Y3t0BglywQIAayogAR
+        FMHFqupW2JsoTY0EJAU0zjdcwClCQIuApKVt7HXInjfeqWOAhUCxmwuMSR2TokBUcRGUmgTY
+        WyrY7rQVAWZx3ZPQUsBgOERHQ3JVMtFoPJ5UkEjYIyyUdZjj4CnGuVMMt2g2P9sxIATUHTEH
+        QuwNCog7WqpgckKYKriU0d9xIHNwN8SspY6WAtwMDwETRwW8VIFI0r+zZxzBParWHdwwBPdo
+        X7F7PyAqoPQRU0HwGDFFqsZw/He6Sah6f6QSP2UAg2RfjVoBxAhpRSAAojECRMNjG1x871QF
+        Dnha+rpH4wPgRaBZsrWWw1EBaTnsUsnfBMQtRkCffieIxoNb6gF6ygLEtp/t5gIFVDEgIIgK
+        4lEJimBEMvQ248CXv3L1jht2u/Dk/+6e/AA8OBg8dLDg/PwNeDl+t90SM8OCpa5JKoIcKLeq
+        kQi8codJKOz+rQ0EQVzqNlhscsUHXWYtH250hVMWsNgQ8TTrKpJSitTJ9TbQbDvda5Sz7+6R
+        CEskBAgWdicgkFzAPPq8OOrEbOCC4WQitx0Aze9jwZAGKS71jJcNH5+ogBg0zKx8LBqND7X/
+        V4q41QBSsLwbsJsszYHqd8vZNzPEJVV6TCbAiJUSqSfoIljwWAkiVVqZaJe0CgWC353mSLPX
+        6NtH49v2nVr+6VMFxoSWAqQMGu61QZL0UD5ZpdFIbBq9LT44MRLfrGhqrjN3GFPd1lvnd1WA
+        7/x+Mwg294NPiAFOfC4gFnDRGA+SEty92gewMitA9e6AbH887rGhssOuCXy0Ft2+83ipKPH6
+        e9uNaRLQcgGTSgGTXcDrIOgS4iPytJDw1Ev3pIwyRuBURFT3VEVEyCSLdYNo4qkm6GYdhqYS
+        zK0Kphmx9WbEY2WuD4RUnNXP/t1qEqoYUKbByTHA42IhrZbK1OcieAjl9bEWSCSIakyPNCZW
+        BLIMFUVFySQOPNOsMr7uL+x0gbh6i/vBQjSQWvqVxMsy19qPu6qJKgfczP03U4BHyhFPr0eU
+        BV9DBekXWjMm5Sqp7CLlOWQZHe2QaUau8Sd2U0Jzv5k2y31TqwqqYKG6xos6HpQkGlalupKA
+        kpwyBpTnm6jXAqp4pniW49KQVKQbUnGESu3vqpClJ0KdTrpjjnQ69PM+ueYVAeU2ltOTX6cx
+        rBpkYcUOAkZhBFkcn6KMfVwTQ8zzZQCu3KnR2FRRMs0qZVUESJ6THT5M1u2hqeZXETIgEyFT
+        RZF4rNdF5+aQTic+OM2yigDt9aCT89H3rtLJOpUblARA7Q67IVhgbNGoMgaMw7giYlgMGRZD
+        ggWGxZDBcBDPp7a8mbWLH2IaLKvDI/uOsKIrjBi1CTjQ7/Pnf19Es6xqhGq5TYaXx8Bv2RP4
+        0/rgpuf/a3h72/R3x1tyry9JGcGNC/+4QDfrskF8jae0Yh/wnrR9ELAGXALWqhclie/N5RMv
+        +f9CAWyl7QwzzDDDgwuZtnd57jWm9xXve4QZAfd7APcbDzwB/wG30Fj7uh0qKQAAAABJRU5E
+        rkJggg==
       </shape>
       <shape name='Flags/Poland.png'>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwY

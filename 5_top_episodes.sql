@@ -61,7 +61,7 @@ SELECT * FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
 LIMIT 20;
 
 -- 4.
-/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_final;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_final;
 CREATE TABLE radio1_sandbox.vb_listeners_international_top_episodes_final
 (
     week_commencing            date DISTKEY,
@@ -82,12 +82,7 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_top_episodes_final
 ;
 */
 
---3.a All splits
-/*
- country Y
- signed in status Y
- app type Y
- */
+--3.a Insert data
 INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
 SELECT week_commencing,
        country,
@@ -106,119 +101,13 @@ SELECT week_commencing,
 FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
-SELECT * fROM radio1_sandbox.vb_listeners_international_top_episodes_final LIMIT 10;
---4.b Some splits
-/*
- country N
- signed in status Y
- app type Y
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
-SELECT week_commencing,
-       CAST('All International' AS varchar) AS country,
-       signed_in_status,
-       age_range,
-       app_type,
-       broadcast_type,
-       speech_music_split,
-       most_common_master_brand,
-       concatenated_title,
-       version_id,
-       frequency_band,
-       frequency_group_aggregated,
-       count(audience_id)                   as num_plays,
-       count(DISTINCT audience_id)          as num_accounts
-FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-;
-
---4.c Some splits
-/*
- country N
- signed in status N
- app type Y
- */
-
-INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
-SELECT week_commencing,
-       CAST('All International' AS varchar) AS country,
-       CAST('all' AS varchar)               AS signed_in_status,
-       age_range,
-       app_type,
-       broadcast_type,
-       speech_music_split,
-       most_common_master_brand,
-       concatenated_title,
-       version_id,
-       frequency_band,
-       frequency_group_aggregated,
-       count(audience_id)                   as num_plays,
-       count(DISTINCT audience_id)          as num_accounts
-FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-;
---4.d Some splits
-/*
- country N
- signed in status N
- app type N
- */
-INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
-SELECT week_commencing,
-       CAST('All International' AS varchar) AS country,
-       CAST('all' AS varchar)               AS signed_in_status,
-       age_range,
-       CAST('all' as varchar)               AS app_type,
-       broadcast_type,
-       speech_music_split,
-       most_common_master_brand,
-       concatenated_title,
-       version_id,
-       frequency_band,
-       frequency_group_aggregated,
-       count(audience_id)                   as num_plays,
-       count(DISTINCT audience_id)          as num_accounts
-FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-;
-
---4.e Some splits
-/*
- country N
- signed in status Y
- app type N
- */
-
-INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
-SELECT week_commencing,
-       CAST('All International' AS varchar) AS country,
-       signed_in_status,
-       age_range,
-       CAST('all' as varchar)               AS app_type,
-       broadcast_type,
-       speech_music_split,
-       most_common_master_brand,
-       concatenated_title,
-       version_id,
-       frequency_band,
-       frequency_group_aggregated,
-       count(audience_id)                   as num_plays,
-       count(DISTINCT audience_id)          as num_accounts
-FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-;
---4.f Some splits
-/*
- country Y
- signed in status N
- app type N
- */
+--3b. Dedup app type
 INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
 SELECT week_commencing,
        country,
-       CAST('all' AS varchar)      AS signed_in_status,
+       signed_in_status,
        age_range,
-       CAST('all' as varchar)      AS app_type,
+       CAST('all' as varchar) as app_type,
        broadcast_type,
        speech_music_split,
        most_common_master_brand,
@@ -231,19 +120,15 @@ SELECT week_commencing,
 FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
---4.g Some splits
-/*
- country Y
- signed in status Y
- app type N
- */
+
+--3.c Dedup live and OD as some people might listen to both
 INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
 SELECT week_commencing,
        country,
        signed_in_status,
        age_range,
-       CAST('all' as varchar)      AS app_type,
-       broadcast_type,
+       CAST('all' as varchar) as app_type,
+       CAST('all' as varchar) as broadcast_type,
        speech_music_split,
        most_common_master_brand,
        concatenated_title,
@@ -255,19 +140,14 @@ SELECT week_commencing,
 FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
---4.h Some splits
-/*
- country Y
- signed in status N
- app type Y
- */
+--3.c Dedup live and OD as some people might listen to both
 INSERT INTO radio1_sandbox.vb_listeners_international_top_episodes_final
 SELECT week_commencing,
        country,
-       CAST('all' AS varchar)      AS signed_in_status,
+       signed_in_status,
        age_range,
        app_type,
-       broadcast_type,
+       CAST('all' as varchar) as broadcast_type,
        speech_music_split,
        most_common_master_brand,
        concatenated_title,
@@ -279,6 +159,11 @@ SELECT week_commencing,
 FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
+
+SELECT app_type, broadcast_type, sum(num_accounts) as num_accounts
+    FROM radio1_sandbox.vb_listeners_international_top_episodes_final
+    GROUP BY 1,2;
+
 
 
 -- 5. Change to more stakeholder friendly language
@@ -286,9 +171,9 @@ UPDATE radio1_sandbox.vb_listeners_international_top_episodes_final
 SET broadcast_type = (CASE
                           WHEN broadcast_type = 'Clip' THEN 'On-Demand'
                           WHEN broadcast_type = 'Live' THEN 'Live'
+                          WHEN broadcast_type = 'all' THEN 'All'
                           ELSE broadcast_type END)
 ;
-
 UPDATE radio1_sandbox.vb_listeners_international_top_episodes_final
 SET speech_music_split = (CASE
                           WHEN speech_music_split ISNULL THEN 'Speech'
@@ -304,20 +189,26 @@ SET app_type = (CASE
                     ELSE app_type END)
 ;
 
+UPDATE radio1_sandbox.vb_listeners_international_top_episodes_final
+SET signed_in_status = (CASE
+                            WHEN signed_in_status = 'signed in' THEN 'Signed-in'
+                            WHEN signed_in_status = 'signed out' THEN 'Signed-out'
+                            ELSE signed_in_status END);
+
 
 ---6.  The above table is huge to import to tableau so this next part finds just the top 20 tleos for each field combination
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes_temp;
-CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes_temp AS
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp;
+CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp AS
 SELECT *,
        row_number()
        over (PARTITION BY week_commencing, country, signed_in_status, age_range, app_type, broadcast_type,speech_music_split, frequency_band,frequency_group_aggregated
            ORDER BY num_plays DESC) as row_count
-FROM radio1_sandbox.vb_listeners_international_top_episodes_final
-    WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
+FROM radio1_sandbox.vb_listeners_international_top_episodes_final;
+    --WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_episodes_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
 
--- Select only top 20
-/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes;
-CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
+-- Select only top 10
+/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes;
+CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
 (
     week_commencing            date DISTKEY,
     country                    varchar(255),
@@ -337,28 +228,29 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20_epis
     master_brand_fancy_name    varchar(400)
 ) SORTKEY (week_commencing)
 ;*/
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
+INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
 SELECT a.*, b.master_brand_fancy_name
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes_temp a
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp a
          LEFT JOIN radio1_sandbox.vb_speech_music_master_brand_split b
                    ON a.most_common_master_brand = b.master_brand_id
-WHERE row_count <= 20;
+WHERE row_count <= 10;
 
 -- 7. Change to more stakeholder friendly language
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
 SET broadcast_type = (CASE
                           WHEN broadcast_type = 'Clip' THEN 'On-Demand'
                           WHEN broadcast_type = 'Live' THEN 'Live'
+                          WHEN broadcast_type = 'all' THEN 'All'
                           ELSE broadcast_type END)
 ;
 
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
 SET speech_music_split = (CASE
                           WHEN speech_music_split ISNULL THEN 'Speech'
                           ELSE speech_music_split END)
 ;
 
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
 SET app_type = (CASE
                     WHEN app_type = 'bigscreen-html' THEN 'TV'
                     WHEN app_type = 'mobile-app' THEN 'Mobile'
@@ -366,23 +258,33 @@ SET app_type = (CASE
                     WHEN app_type = 'all' THEN 'All'
                     ELSE app_type END)
 ;
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
+SET signed_in_status = (CASE
+                            WHEN signed_in_status = 'signed in' THEN 'Signed-in'
+                            WHEN signed_in_status = 'signed out' THEN 'Signed-out'
+                            ELSE signed_in_status END);
 
+SELECT app_type,broadcast_type, count(*) FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes
+    GROUP BY 1,2;
 
+SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes LIMIT 10;
 
 --Drop tables
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes;
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_episodes_user_info;
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes_temp;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp;
 
 SELECT week_commencing, count(*) as num_rows, sum(num_plays) as total_plays
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes GROUP BY 1;
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes GROUP BY 1;
+SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes LIMIT 10;
 
-SELECT master_brand_fancy_name, concat_title, sum(num_accounts) as total_accounts
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes
-WHERE app_type = 'All' and country != 'All International' and signed_in_status = 'all'
-GROUP BY 1,2
-ORDER BY 3 DESC
-;
+-- Grants
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP central_insights;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP central_insights_server;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP dataforce_analysts;
 
-GRANT ALL ON radio1_sandbox.vb_listeners_international_top_episodes_final to helen_jones;
-GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary_top20_episodes to helen_jones;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes  TO GROUP central_insights;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes  TO GROUP central_insights_server;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP dataforce_analysts;
