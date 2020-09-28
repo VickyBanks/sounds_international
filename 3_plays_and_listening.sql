@@ -135,3 +135,9 @@ GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary to helen_j
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;
 
+--- Grants
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP radio;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP central_insights;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP central_insights_server;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP dataforce_analysts;
+

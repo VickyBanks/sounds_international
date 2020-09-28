@@ -125,26 +125,13 @@ SET signed_in_status = (CASE
                             WHEN signed_in_status = 'signed out' THEN 'Signed-out'
                             ELSE signed_in_status END);
 
-SELECT distinct signed_in_status FROM radio1_sandbox.vb_sounds_int_KPI LIMIT 10;
-GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI to helen_jones;
 
-
-/*
-SELECT week_commencing, app_type, signed_in_status,age_range, sum(num_listeners) as num_listeners, sum(num_visitors) as num_visitors,
-       round(100 * sum(num_listeners)::double precision/sum(num_visitors)::double precision,0) as perc
-    FROM radio1_sandbox.vb_sounds_int_KPI
-        GROUP BY 1,2,3,4
-order by 2,3,4;
-
-SELECT SUM(stream_playing_time) as time_sec,
-       sum(num_visitors) as visitors,
-       (time_sec::double precision/(60*60))/visitors as hrs_per_visitor
-FROM radio1_sandbox.vb_sounds_int_KPI
-WHERE week_commencing = '2020-09-14'
-AND signed_in_status != 'Signed-in'
-;
-
-*/
 ---- Drop tables
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_temp;
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_listeners;
+
+-- Grants
+GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights;
+GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights_server;
+GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP dataforce_analysts;

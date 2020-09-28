@@ -88,7 +88,7 @@ LEFT JOIN radio1_sandbox.master_brand_rename c on a.tleo = c.tleo
 SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info  LIMIT 19;
  SELECT week_commencing, count(*) FROM radio1_sandbox.vb_listeners_international_top_content_user_info  GROUP BY 1;
 -- 3.
-/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_final;
 CREATE TABLE radio1_sandbox.vb_listeners_international_top_content_final
 (
     week_commencing            date DISTKEY,
@@ -148,6 +148,46 @@ FROM radio1_sandbox.vb_listeners_international_top_content_user_info
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ;
 
+--3.c  dedup by broadcast type for if a show can be viewed live and od
+INSERT INTO radio1_sandbox.vb_listeners_international_top_content_final
+SELECT week_commencing,
+       country,
+       signed_in_status,
+       age_range,
+       CAST('all' as varchar)      AS app_type,
+       CAST('all' as varchar)      AS broadcast_type,
+       speech_music_split,
+       most_common_master_brand,
+       tleo,
+       tleo_id,
+       frequency_band,
+       frequency_group_aggregated,
+       count(audience_id)          as num_plays,
+       count(DISTINCT audience_id) as num_accounts
+FROM radio1_sandbox.vb_listeners_international_top_content_user_info
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+;
+
+--3.d  dedup by broadcast type for if a show can be viewed live and od
+INSERT INTO radio1_sandbox.vb_listeners_international_top_content_final
+SELECT week_commencing,
+       country,
+       signed_in_status,
+       age_range,
+       app_type,
+       CAST('all' as varchar)      AS broadcast_type,
+       speech_music_split,
+       most_common_master_brand,
+       tleo,
+       tleo_id,
+       frequency_band,
+       frequency_group_aggregated,
+       count(audience_id)          as num_plays,
+       count(DISTINCT audience_id) as num_accounts
+FROM radio1_sandbox.vb_listeners_international_top_content_user_info
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+;
+
 SELECT week_commencing,count(*) FROM radio1_sandbox.vb_listeners_international_top_content_final GROUP BY 1;
 ---
 
@@ -156,6 +196,7 @@ UPDATE radio1_sandbox.vb_listeners_international_weekly_summary
 SET broadcast_type = (CASE
                           WHEN broadcast_type = 'Clip' THEN 'On-Demand'
                           WHEN broadcast_type = 'Live' THEN 'Live'
+    WHEN broadcast_type = 'all' THEN 'All'
                           ELSE broadcast_type END)
 ;
 
@@ -181,18 +222,18 @@ SET signed_in_status = (CASE
                             ELSE signed_in_status END);
 
 ---6.  The above table is HUGE to import to tableau so this next part finds just the top 20 tleos for each field combination
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp;
-CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp AS
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_temp;
+CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10_temp AS
 SELECT *,
        row_number()
        over (PARTITION BY week_commencing, country, signed_in_status, age_range, app_type, broadcast_type,speech_music_split, frequency_band,frequency_group_aggregated
            ORDER BY num_plays DESC) as row_count
-FROM radio1_sandbox.vb_listeners_international_top_content_final
-    WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
+FROM radio1_sandbox.vb_listeners_international_top_content_final;
+    --WHERE week_commencing = (SELECT distinct week_commencing FROM radio1_sandbox.vb_listeners_international_top_content_user_info) ;--TRUNC(DATE_TRUNC('week', getdate() - 7));
 
 -- Select only top 20
-/*DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20;
-CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10;
+CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10
 (
     week_commencing            date DISTKEY,
     country                    varchar(255),
@@ -213,28 +254,29 @@ CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top20
 ) SORTKEY (week_commencing)
 ;*/
 
-INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top20
+INSERT INTO radio1_sandbox.vb_listeners_international_weekly_summary_top10
 SELECT a.*, b.master_brand_fancy_name
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp a
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10_temp a
          LEFT JOIN radio1_sandbox.vb_speech_music_master_brand_split b
                    ON a.most_common_master_brand = b.master_brand_id
-WHERE row_count <= 20;
+WHERE row_count <= 10;
 
 -- 7. Change to more stakeholder friendly language
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10
 SET broadcast_type = (CASE
                           WHEN broadcast_type = 'Clip' THEN 'On-Demand'
                           WHEN broadcast_type = 'Live' THEN 'Live'
+    WHEN broadcast_type = 'all' THEN 'All'
                           ELSE broadcast_type END)
 ;
 
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10
 SET speech_music_split = (CASE
                           WHEN speech_music_split ISNULL THEN 'Speech'
                           ELSE speech_music_split END)
 ;
 
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10
 SET app_type = (CASE
                     WHEN app_type = 'bigscreen-html' THEN 'TV'
                     WHEN app_type = 'mobile-app' THEN 'Mobile'
@@ -242,26 +284,29 @@ SET app_type = (CASE
                     WHEN app_type = 'all' THEN 'All'
                     ELSE app_type END)
 ;
-UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top20
+UPDATE radio1_sandbox.vb_listeners_international_weekly_summary_top10
 SET signed_in_status = (CASE
                             WHEN signed_in_status = 'signed in' THEN 'Signed-in'
                             WHEN signed_in_status = 'signed out' THEN 'Signed-out'
                             ELSE signed_in_status END);
+
+
 --- Drop TABLEs
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content;
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_top_content_user_info;
-DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top20_temp;
+DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_temp;
 
 --- Check
 SELECT week_commencing, count(*) as num_records, sum(num_plays) as num_plays
-FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20 GROUP BY 1;
+FROM radio1_sandbox.vb_listeners_international_weekly_summary_top10 GROUP BY 1;
 
-SELECT * FROM radio1_sandbox.vb_listeners_international_weekly_summary_top20
-LIMIT 10;
 
-GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary_top20 to helen_jones;
-GRANT ALL ON radio1_sandbox.vb_listeners_international_top_content_final to helen_jones;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary_top10 TO GROUP radio;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary_top10 TO GROUP central_insights;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary_top10 TO GROUP central_insights_server;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary_top10 TO GROUP dataforce_analysts;
 
-SELECT * FROM radio1_sandbox.vb_listeners_international_top_content_final
-WHERE TLEO ilike '%dance anthems%'
-LIMIT 10;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_top_content_final TO GROUP radio;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_top_content_final TO GROUP central_insights;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_top_content_final TO GROUP central_insights_server;
+GRANT SELECT ON  radio1_sandbox.vb_listeners_international_top_content_final TO GROUP dataforce_analysts;
