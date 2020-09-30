@@ -1,6 +1,6 @@
 -- Create a table of version id and a concatenated episode title
-DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_ep_titles;
-CREATE TABLE radio1_sandbox.vb_sounds_int_ep_titles AS
+DROP TABLE IF EXISTS radio1_sandbox.dataforce_sounds_int_ep_titles;
+CREATE TABLE radio1_sandbox.dataforce_sounds_int_ep_titles AS
 with vmb_subset as (
     SELECT distinct version_id,
                     CASE WHEN clip_title = 'null' THEN null ELSE clip_title END                 as clip_title,
@@ -68,9 +68,9 @@ SELECT DISTINCT version_id,
 FROM vmb_subset
 ;
 
-GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP radio;
-GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP central_insights;
-GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP central_insights_server;
-GRANT ALL ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP dataforce_analysts;
+GRANT SELECT ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP radio;
+GRANT SELECT ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP central_insights;
+GRANT SELECT ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP central_insights_server;
+GRANT ALL ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP dataforce_analysts;
 
-SELECT * FROM radio1_sandbox.vb_sounds_int_ep_titles LIMIT 10;
+SELECT * FROM radio1_sandbox.dataforce_sounds_int_ep_titles LIMIT 10;

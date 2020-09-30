@@ -4,13 +4,13 @@
  */
 
 --0. USe other weeks to fill table to look at
-DROP TABLE IF EXISTS vb_temp_date;
-CREATE TABLE vb_temp_date
+DROP TABLE IF EXISTS dataforce_temp_date;
+CREATE TABLE dataforce_temp_date
 (
     min_date varchar(20),
     max_date varchar(20)
 );
-insert into vb_temp_date
+insert into dataforce_temp_date
 --values ('20200831','20200906')
 --values ('20200824','20200830')
 --values ('20200817','20200823');
@@ -18,13 +18,13 @@ insert into vb_temp_date
 --values ('20200803','20200809');
 --values ('20200727','20200802')
 
-values ( '20200803', '20200927')
+values ( '20200803', '20200920')
 ;
 
 -- 1. Get VMB summary. -- create a TLEO field matching the normal Sounds dash
 -- Drop and re-create each week
-DROP TABLE IF EXISTS vb_vmb_summary;
-CREATE TABLE vb_vmb_summary
+DROP TABLE IF EXISTS dataforce_vmb_summary;
+CREATE TABLE dataforce_vmb_summary
     DISTKEY ( master_brand_id )
     SORTKEY (master_brand_id) AS (
     SELECT DISTINCT
@@ -46,7 +46,7 @@ CREATE TABLE vb_vmb_summary
                     a.master_brand_id,
                     a.version_id
     FROM prez.scv_vmb a
-             LEFT JOIN radio1_sandbox.vb_speech_music_master_brand_split b ON a.master_brand_id = b.master_brand_id
+             LEFT JOIN radio1_sandbox.dataforce_speech_music_master_brand_split b ON a.master_brand_id = b.master_brand_id
 )
 ;
 
@@ -55,11 +55,11 @@ CREATE TABLE vb_vmb_summary
 
 -- 2. Get all the listening per users, sum the playback time per episode to ensure 3s of listening later
 -- Drop and re-create each week
-DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_users_listening;
-CREATE TABLE radio1_sandbox.vb_sounds_int_users_listening AS
+DROP TABLE IF EXISTS radio1_sandbox.dataforce_sounds_int_users_listening;
+CREATE TABLE radio1_sandbox.dataforce_sounds_int_users_listening AS
 SELECT DISTINCT dt :: date,
                 TRUNC(DATE_TRUNC('week', dt::date )) AS week_commencing,
-                --CAST((SELECT min_date FROM vb_temp_date) as date) AS week_commencing,
+                --CAST((SELECT min_date FROM dataforce_temp_date) as date) AS week_commencing,
                 audience_id,
                 geo_country_site_visited                          as country,
                 CASE
@@ -85,25 +85,20 @@ SELECT DISTINCT dt :: date,
 FROM s3_audience.audience_activity_daily_summary a
          LEFT JOIN prez.profile_extension b ON a.audience_id = b.bbc_hid3
 WHERE destination = 'PS_SOUNDS'
-  AND dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
-  --AND a.dt BETWEEN (SELECT min_date FROM vb_temp_date) AND (SELECT max_date FROM vb_temp_date)
+  --AND dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+-- AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+  AND a.dt BETWEEN (SELECT min_date FROM dataforce_temp_date) AND (SELECT max_date FROM dataforce_temp_date)
   AND geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey')
 AND (a.app_type = 'responsive' OR a.app_type = 'mobile-app' OR a.app_type = 'bigscreen-html')
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 ;
 ---- END
 -- Grants
-GRANT SELECT ON radio1_sandbox.vb_sounds_int_users_listening TO GROUP radio;
-GRANT SELECT ON radio1_sandbox.vb_sounds_int_users_listening TO GROUP central_insights;
-GRANT SELECT ON radio1_sandbox.vb_sounds_int_users_listening TO central_insights_server;
-GRANT All ON radio1_sandbox.vb_sounds_int_users_listening TO GROUP dataforce_analysts;
+GRANT SELECT ON radio1_sandbox.dataforce_sounds_int_users_listening TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.dataforce_sounds_int_users_listening TO GROUP central_insights;
+GRANT ALL ON radio1_sandbox.dataforce_sounds_int_users_listening TO GROUP central_insights_server;
+GRANT All ON radio1_sandbox.dataforce_sounds_int_users_listening TO GROUP dataforce_analysts;
 
 
-SELECT DISTINCT country, app_name, week_commencing, signed_in_status, count(distinct audience_id) as num_visitors
-FROM radio1_sandbox.vb_sounds_int_users_listening
-WHERE app_type = 'mobile-app'
-GROUP BY 1,2,3,4
-ORDER BY 1,2,3,4;
 
-SELECT week_commencing, count(*) FROM  radio1_sandbox.vb_sounds_int_users_listening GROUP BY 1;
+SELECT week_commencing, count(*) FROM  radio1_sandbox.dataforce_sounds_int_users_listening GROUP BY 1;

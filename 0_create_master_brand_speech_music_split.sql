@@ -1,12 +1,12 @@
 --0. Create table to split content into speech or music
-DROP TABLE IF EXISTS radio1_sandbox.vb_speech_music_master_brand_split;
-CREATE TABLE IF NOT EXISTS radio1_sandbox.vb_speech_music_master_brand_split
+DROP TABLE IF EXISTS radio1_sandbox.dataforce_speech_music_master_brand_split;
+CREATE TABLE IF NOT EXISTS radio1_sandbox.dataforce_speech_music_master_brand_split
 (
     master_brand_id    varchar(255),
     master_brand_fancy_name varchar (255),
     speech_music_split varchar(40)
 );
-INSERT INTO radio1_sandbox.vb_speech_music_master_brand_split
+INSERT INTO radio1_sandbox.dataforce_speech_music_master_brand_split
 values ('bbc_1xtra','BBC 1Xtra','Music'),
 ('bbc_6music','BBC 6 Music','Music'),
 ('bbc_7','BBC 7','Speech'),
@@ -123,7 +123,7 @@ values ('bbc_1xtra','BBC 1Xtra','Music'),
 ;
 
 
-GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP radio;
-GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP central_insights;
-GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP central_insights_server;
-GRANT ALL ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP dataforce_analysts;
+GRANT SELECT ON radio1_sandbox.dataforce_speech_music_master_brand_split TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.dataforce_speech_music_master_brand_split TO GROUP central_insights;
+GRANT SELECT ON radio1_sandbox.dataforce_speech_music_master_brand_split TO GROUP central_insights_server;
+GRANT ALL ON radio1_sandbox.dataforce_speech_music_master_brand_split TO GROUP dataforce_analysts;
