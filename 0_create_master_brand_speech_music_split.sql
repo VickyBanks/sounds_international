@@ -1,4 +1,4 @@
---0. Create table to split content into speach or music
+--0. Create table to split content into speech or music
 DROP TABLE IF EXISTS radio1_sandbox.vb_speech_music_master_brand_split;
 CREATE TABLE IF NOT EXISTS radio1_sandbox.vb_speech_music_master_brand_split
 (
@@ -126,4 +126,4 @@ values ('bbc_1xtra','BBC 1Xtra','Music'),
 GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP radio;
 GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP central_insights;
 GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP central_insights_server;
-GRANT SELECT ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP dataforce_analysts;
+GRANT ALL ON radio1_sandbox.vb_speech_music_master_brand_split TO GROUP dataforce_analysts;

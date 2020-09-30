@@ -15,6 +15,7 @@ CREATE TEMP TABLE vb_music_mixes AS
 SELECT DISTINCT version_id, all_mixes_bool FROM radio1_sandbox.audio_content_enriched
 WHERE all_mixes_bool = TRUE;
 
+
 --1. Create table of listeners only (not just visitors) i.e remove anyone where the playback time was 3s or less
 -- Add in if it's speech or music and add in master_brand
 -- To be dropped after use
@@ -129,11 +130,11 @@ SET signed_in_status = (CASE
 
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international;
+DROP TABLE IF EXISTS vb_music_mixes;
 
 --- Grants
 GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP radio;
 GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP central_insights;
-GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP central_insights_server;
+GRANT ALL ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP central_insights_server;
 GRANT SELECT ON  radio1_sandbox.vb_listeners_international_weekly_summary TO GROUP dataforce_analysts;
 
-SELECT week_commencing, sum(num_listeners) FROM radio1_sandbox.vb_listeners_international_weekly_summary  GROUP BY 1;

@@ -71,4 +71,6 @@ FROM vmb_subset
 GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP radio;
 GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP central_insights;
 GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP central_insights_server;
-GRANT SELECT ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP dataforce_analysts;
+GRANT ALL ON  radio1_sandbox.vb_sounds_int_ep_titles TO GROUP dataforce_analysts;
+
+SELECT * FROM radio1_sandbox.vb_sounds_int_ep_titles LIMIT 10;

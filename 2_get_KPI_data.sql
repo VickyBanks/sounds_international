@@ -22,6 +22,7 @@ SELECT week_commencing,
 FROM radio1_sandbox.vb_sounds_int_users_listening;
 
 -- 2. Count listeners
+
 DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_listeners;
 CREATE TABLE radio1_sandbox.vb_sounds_int_KPI_listeners AS
 SELECT week_commencing,
@@ -133,7 +134,13 @@ DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_int_KPI_listeners;
 -- Grants
 GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP radio;
 GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights;
-GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights_server;
-GRANT SELECT ON radio1_sandbox.vb_sounds_int_KPI TO GROUP dataforce_analysts;
+GRANT ALL ON radio1_sandbox.vb_sounds_int_KPI TO GROUP central_insights_server;
+GRANT All ON radio1_sandbox.vb_sounds_int_KPI TO GROUP dataforce_analysts;
 
-SELECT week_commencing, sum(num_visitors) FROM radio1_sandbox.vb_sounds_int_KPI GROUP BY 1;
+SELECT week_commencing, count(*)
+FROM radio1_sandbox.vb_sounds_int_KPI
+GROUP BY 1
+ORDER BY week_commencing DESC
+LIMIT 10;
+
+DELETE FROM radio1_sandbox.vb_sounds_int_KPI WHERE week_commencing = '2020-09-21';

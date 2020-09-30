@@ -190,7 +190,13 @@ SET signed_in_status = (CASE
                             ELSE signed_in_status END);
 
 
----6.  The above table is huge to import to tableau so this next part finds just the top 20 tleos for each field combination
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP radio;
+GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP central_insights;
+GRANT ALL ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP central_insights_server;
+GRANT ALL ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP dataforce_analysts;
+
+
+---6.  The above table is huge to import to tableau so this next part finds just the top 10 eps for each field combination
 DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp;
 CREATE TABLE radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes_temp AS
 SELECT *,
@@ -266,13 +272,11 @@ DROP TABLE IF EXISTS radio1_sandbox.vb_listeners_international_weekly_summary_to
 
 
 -- Grants
-GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP radio;
-GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP central_insights;
-GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP central_insights_server;
-GRANT SELECT ON radio1_sandbox.vb_listeners_international_top_episodes_final TO GROUP dataforce_analysts;
+
 
 GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP radio;
 GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes  TO GROUP central_insights;
-GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes  TO GROUP central_insights_server;
-GRANT SELECT ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP dataforce_analysts;
+GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP central_insights_server;
+GRANT ALL ON radio1_sandbox.vb_listeners_international_weekly_summary_top10_episodes TO GROUP dataforce_analysts;
 
+DELETE FROM radio1_sandbox.vb_listeners_international_top_episodes_final WHERE week_commencing = '2020-09-21';
