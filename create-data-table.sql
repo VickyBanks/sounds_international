@@ -1,4 +1,7 @@
---SELECT * FROM radio1_sandbox.audio_content_enriched LIMIT 10;
+------------------ Script 1 ------------------
+/*
+ This finds the all the visitors and what content they viewed and for how long.
+ */
 
 --0. USe other weeks to fill table to look at
 DROP TABLE vb_temp_date;

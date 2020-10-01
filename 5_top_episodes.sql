@@ -60,7 +60,7 @@ FROM radio1_sandbox.dataforce_listeners_international_top_episodes a
 
 
 -- 4. Insert into, don't drop and re-creates
-DROP TABLE IF EXISTS radio1_sandbox.dataforce_listeners_international_top_episodes_final;
+/*DROP TABLE IF EXISTS radio1_sandbox.dataforce_listeners_international_top_episodes_final;
 CREATE TABLE radio1_sandbox.dataforce_listeners_international_top_episodes_final
 (
     week_commencing            date DISTKEY,

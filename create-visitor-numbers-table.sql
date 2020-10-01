@@ -1,8 +1,7 @@
---https://github.com/bbc/sounds-analytics/blob/master/sounds-product/dashboards/signed-in-accounts/main_dashboad_scv_users_with_voice_and_tv_weekly_enriched.sql
+------------------ Script 2 ------------------
 /*
-In the main Sounds KPI dash on the KPI tab the audience_activity_daily_summary_enriched is used to
-find signed-in user data and feeds the table radio1_sandbox.sounds_dashboard_1_page_views  which powers the dash.
-*/
+ This finds the all the visitors
+ */
 DROP TABLE vb_temp_date;
 CREATE TABLE vb_temp_date (
     min_date varchar(20),
@@ -150,53 +149,64 @@ SELECT * FROM radio1_sandbox.vb_sounds_int_users LIMIT 5;
 /*DROP TABLE IF EXISTS radio1_sandbox.vb_sounds_dashboard_1_page_views_international;
 CREATE TABLE radio1_sandbox.vb_sounds_dashboard_1_page_views_international
 (
-    week_commencing          date,
-    country varchar(400),
-    age_range                varchar(40),
-    app_type                 varchar(40),
-    gender                   varchar(40),
-    all_visitors_si_so       integer,
-    signed_in_accounts       integer
-);*/
-
+    week_commencing  date,
+    country          varchar(400),
+    age_range        varchar(40),
+    app_type         varchar(40),
+    gender           varchar(40),
+    signed_in_status varchar(40),
+    num_visitors     integer
+);
+*/
 
 -- 5. Insert into summary table
 INSERT INTO radio1_sandbox.vb_sounds_dashboard_1_page_views_international
-with si_users AS (
-    SELECT week_commencing,
-           geo_country_site_visited,
-           age_range,
-           app_type,
-           gender,
-           count(distinct audience_id) AS num_si_visitors
-    FROM radio1_sandbox.vb_sounds_int_users
-    WHERE signed_in_status = 'signed in'
-    GROUP BY 1, 2, 3, 4, 5
-),
-     all_users AS (
-         SELECT week_commencing,
-                geo_country_site_visited,
-                age_range,
-                app_type,
-                gender,
-                count(distinct audience_id) AS num_visitors_si_so
-         FROM radio1_sandbox.vb_sounds_int_users
-         GROUP BY 1, 2, 3, 4, 5
-     )
--- by definition all si users must be included in the all_users sub-table
-SELECT a.*, b.num_si_visitors
-FROM all_users a
-         LEFT JOIN si_users b ON a.geo_country_site_visited = b.geo_country_site_visited
-    AND a.age_range = b.age_range AND a.app_type = b.app_type AND a.gender = b.gender
-ORDER BY 1, 2, 3, 4, 5;
+-- All users SI and SO
+SELECT week_commencing,
+       geo_country_site_visited,
+       age_range,
+       app_type,
+       gender,
+       CAST('all' as varchar)      AS signed_in_status,
+       count(distinct audience_id) AS num_visitors
+FROM radio1_sandbox.vb_sounds_int_users
+GROUP BY 1, 2, 3, 4, 5, 6
 
-SELECT
-       week_commencing,
-       sum(signed_in_accounts)         AS num_SI,
-       sum(all_visitors_si_so)         as num_si_so
+UNION
+--Signed in
+SELECT week_commencing,
+       geo_country_site_visited,
+       age_range,
+       app_type,
+       gender,
+       signed_in_status,
+       count(distinct audience_id) AS num_visitors
+FROM radio1_sandbox.vb_sounds_int_users
+WHERE signed_in_status = 'signed in'
+GROUP BY 1, 2, 3, 4, 5, 6
+
+UNION
+--Signed out
+SELECT week_commencing,
+       geo_country_site_visited,
+       age_range,
+       app_type,
+       gender,
+       signed_in_status,
+       count(distinct audience_id) AS num_visitors
+FROM radio1_sandbox.vb_sounds_int_users
+WHERE signed_in_status != 'signed in'
+GROUP BY 1, 2, 3, 4, 5, 6
+;
+
+--
+SELECT app_type,
+       sum(num_visitors) as total_visitors
 FROM radio1_sandbox.vb_sounds_dashboard_1_page_views_international
-WHERE country = 'All International' AND app_type = 'all'
-GROUP BY 1;
+WHERE country = 'All International'
+GROUP BY 1
+ORDER BY 1
+;
 /*
 -- Compare
 with uk_table_summary AS (
