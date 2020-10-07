@@ -279,3 +279,4 @@ GRANT SELECT ON radio1_sandbox.dataforce_listeners_international_weekly_summary_
 GRANT ALL ON radio1_sandbox.dataforce_listeners_international_weekly_summary_top10_episodes TO GROUP central_insights_server;
 GRANT ALL ON radio1_sandbox.dataforce_listeners_international_weekly_summary_top10_episodes TO GROUP dataforce_analysts;
 
+

@@ -22,7 +22,8 @@ SELECT week_commencing,
 FROM radio1_sandbox.dataforce_sounds_int_users_listening;
 
 -- 2. Count listeners
-
+SELECT * FROM radio1_sandbox.dataforce_sounds_int_KPI_listeners LIMIT 5;
+SELECT week_commencing, count(*) FROM radio1_sandbox.dataforce_sounds_int_KPI_listeners GROUP BY 1;
 DROP TABLE IF EXISTS radio1_sandbox.dataforce_sounds_int_KPI_listeners;
 CREATE TABLE radio1_sandbox.dataforce_sounds_int_KPI_listeners AS
 SELECT week_commencing,
@@ -143,3 +144,8 @@ GROUP BY 1
 ORDER BY week_commencing DESC
 LIMIT 10;
 
+SELECT week_commencing,signed_in_status, sum(num_listeners) as num_listeners, sum(num_visitors) as num_visitors
+FROM radio1_sandbox.dataforce_sounds_int_KPI
+where app_type = 'Mobile'
+GROUP BY 1,2
+ORDER BY 1,2;

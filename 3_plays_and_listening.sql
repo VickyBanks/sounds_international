@@ -51,7 +51,7 @@ WHERE playback_time_total > 3
 -- 2. Create a table summarising the number of listeners.
 -- Split by country, signed in status, age range, app_type, live vs od, speech vs music
 -- Because these will need to be deduped, need to add in 'all' fields
-DROP TABLE IF EXISTS radio1_sandbox.dataforce_listeners_international_weekly_summary;
+/*DROP TABLE IF EXISTS radio1_sandbox.dataforce_listeners_international_weekly_summary;
 CREATE TABLE radio1_sandbox.dataforce_listeners_international_weekly_summary
 (
     week_commencing     date DISTKEY,
@@ -138,5 +138,7 @@ GRANT SELECT ON  radio1_sandbox.dataforce_listeners_international_weekly_summary
 GRANT ALL ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP central_insights_server;
 GRANT SELECT ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP dataforce_analysts;
 
-SELECT week_commencing, count(*) FROM radio1_sandbox.dataforce_listeners_international_weekly_summary GROUP BY 1;
+SELECT week_commencing, count(*)
+FROM radio1_sandbox.dataforce_listeners_international_weekly_summary
+GROUP BY 1;
 
