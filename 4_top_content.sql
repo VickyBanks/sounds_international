@@ -193,7 +193,7 @@ GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
 ---
 
 -- 5. Change to more stakeholder friendly language
-UPDATE radio1_sandbox.dataforce_listeners_international_weekly_summary
+UPDATE radio1_sandbox.dataforce_listeners_international_top_content_final
 SET broadcast_type = (CASE
                           WHEN broadcast_type = 'Clip' THEN 'On-Demand'
                           WHEN broadcast_type = 'Live' THEN 'Live'
@@ -201,13 +201,13 @@ SET broadcast_type = (CASE
                           ELSE broadcast_type END)
 ;
 
-UPDATE radio1_sandbox.dataforce_listeners_international_weekly_summary
+UPDATE radio1_sandbox.dataforce_listeners_international_top_content_final
 SET speech_music_split = (CASE
                           WHEN speech_music_split ISNULL THEN 'Speech'
                           ELSE speech_music_split END)
 ;
 
-UPDATE radio1_sandbox.dataforce_listeners_international_weekly_summary
+UPDATE radio1_sandbox.dataforce_listeners_international_top_content_final
 SET app_type = (CASE
                     WHEN app_type = 'bigscreen-html' THEN 'TV'
                     WHEN app_type = 'mobile-app' THEN 'Mobile'
@@ -216,7 +216,7 @@ SET app_type = (CASE
                     ELSE app_type END)
 ;
 
-UPDATE radio1_sandbox.dataforce_listeners_international_weekly_summary
+UPDATE radio1_sandbox.dataforce_listeners_international_top_content_final
 SET signed_in_status = (CASE
                             WHEN signed_in_status = 'signed in' THEN 'Signed-in'
                             WHEN signed_in_status = 'signed out' THEN 'Signed-out'
