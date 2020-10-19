@@ -61,6 +61,7 @@ CREATE TABLE radio1_sandbox.dataforce_listeners_international_weekly_summary
     app_type            varchar(40),
     broadcast_type      varchar(40),
     speech_music_split  varchar(40),
+    masterbrand         varchar(255),
     num_listeners       bigint,
     num_plays           bigint,
     playback_time_total bigint
@@ -76,11 +77,12 @@ SELECT week_commencing,
        app_type,
        broadcast_type,
        speech_music_split,
+       master_brand_id,
        count(distinct audience_id) as num_listeners,
        count(play_id) as num_plays,
        sum(playback_time_total) as playback_time_total
 FROM radio1_sandbox.dataforce_listeners_international
-GROUP BY 1,2,3,4,5,6,7
+GROUP BY 1,2,3,4,5,6,7,8
 ;
 
 --2.b - dedup across app type
@@ -92,11 +94,12 @@ SELECT week_commencing,
        cast('all' as varchar) as app_type,
        broadcast_type,
        speech_music_split,
+       master_brand_id,
        count(distinct audience_id) as num_listeners,
        count(play_id) as num_plays,
        sum(playback_time_total) as playback_time_total
 FROM radio1_sandbox.dataforce_listeners_international
-GROUP BY 1,2,3,4,5,6,7
+GROUP BY 1,2,3,4,5,6,7,8
 ;
 
 -- 3. Change to more stakeholder friendly language
@@ -136,7 +139,7 @@ DROP TABLE IF EXISTS dataforce_music_mixes;
 GRANT SELECT ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP radio;
 GRANT SELECT ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP central_insights;
 GRANT ALL ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP central_insights_server;
-GRANT SELECT ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP dataforce_analysts;
+GRANT ALL ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP dataforce_analysts;
 
 SELECT week_commencing, count(*)
 FROM radio1_sandbox.dataforce_listeners_international_weekly_summary
