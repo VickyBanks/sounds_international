@@ -18,13 +18,13 @@ insert into dataforce_temp_date
 --values ('20200803','20200809');
 --values ('20200727','20200802')
 
-values ( '20200803', '20201004')
+values ( '20200803', '20201011')
 ;
 
 -- 1. Get VMB summary. -- create a TLEO field matching the normal Sounds dash
 -- Drop and re-create each week
-DROP TABLE IF EXISTS dataforce_vmb_summary;
-CREATE TABLE dataforce_vmb_summary
+DROP TABLE IF EXISTS dataforce_sandbox.dataforce_vmb_summary;
+CREATE TABLE dataforce_sandbox.dataforce_vmb_summary
     DISTKEY ( master_brand_id )
     SORTKEY (master_brand_id) AS (
     SELECT DISTINCT
@@ -49,10 +49,10 @@ CREATE TABLE dataforce_vmb_summary
              LEFT JOIN radio1_sandbox.dataforce_speech_music_master_brand_split b ON a.master_brand_id = b.master_brand_id
 )
 ;
-GRANT SELECT ON dataforce_vmb_summary TO GROUP radio;
-GRANT SELECT ON dataforce_vmb_summary TO GROUP central_insights;
-GRANT ALL ON dataforce_vmb_summary TO GROUP central_insights_server;
-GRANT All ON dataforce_vmb_summary TO GROUP dataforce_analysts;
+GRANT SELECT ON dataforce_sandbox.dataforce_vmb_summary TO GROUP radio;
+GRANT SELECT ON dataforce_sandbox.dataforce_vmb_summary TO GROUP central_insights;
+GRANT ALL ON dataforce_sandbox.dataforce_vmb_summary TO GROUP central_insights_server;
+GRANT All ON dataforce_sandbox.dataforce_vmb_summary TO GROUP dataforce_analysts;
 
 
 
@@ -88,9 +88,9 @@ SELECT DISTINCT dt :: date,
 FROM s3_audience.audience_activity_daily_summary a
          LEFT JOIN prez.profile_extension b ON a.audience_id = b.bbc_hid3
 WHERE destination = 'PS_SOUNDS'
-  AND dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
-AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
- --AND a.dt BETWEEN (SELECT min_date FROM dataforce_temp_date) AND (SELECT max_date FROM dataforce_temp_date)
+  --AND dt BETWEEN TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7)), 'yyyymmdd') -- limits to the past week (Mon-Sun)
+--AND TO_CHAR(TRUNC(DATE_TRUNC('week', getdate() - 7) + 6), 'yyyymmdd')
+ AND a.dt BETWEEN (SELECT min_date FROM dataforce_temp_date) AND (SELECT max_date FROM dataforce_temp_date)
   AND geo_country_site_visited NOT IN ('United Kingdom', 'Jersey', 'Isle of Man', 'Guernsey')
 AND (a.app_type = 'responsive' OR a.app_type = 'mobile-app' OR a.app_type = 'bigscreen-html')
 AND app_name = 'sounds'
@@ -112,5 +112,3 @@ SELECT week_commencing, count(*)
 FROM radio1_sandbox.dataforce_sounds_int_users_listening
 GROUP BY 1
 ORDER BY 1;
-
-SELECT DISTINCT app_type, app_name FROM radio1_sandbox.dataforce_sounds_int_users_listening;

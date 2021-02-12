@@ -17,7 +17,7 @@ CREATE TABLE radio1_sandbox.dataforce_listeners_international_top_episodes
 AS (
     SELECT a.*, b.master_brand_id, b.speech_music_split, c.concatenated_title
     FROM radio1_sandbox.dataforce_sounds_int_users_listening a
-             LEFT JOIN dataforce_vmb_summary b
+             LEFT JOIN dataforce_sandbox.dataforce_vmb_summary b
                        ON a.version_id = b.version_id -- Inserts when the version_id is the an episode pid
              LEFT JOIN radio1_sandbox.dataforce_sounds_int_ep_titles c on a.version_id = c.version_id
     WHERE playback_time_total > 3

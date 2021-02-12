@@ -73,4 +73,3 @@ GRANT SELECT ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP central_
 GRANT SELECT ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP central_insights_server;
 GRANT ALL ON  radio1_sandbox.dataforce_sounds_int_ep_titles TO GROUP dataforce_analysts;
 
-SELECT * FROM radio1_sandbox.dataforce_sounds_int_ep_titles LIMIT 10;

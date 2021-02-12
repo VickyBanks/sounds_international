@@ -10,7 +10,7 @@
 --SELECT * FROM dataforce_vmb_summary WHERE speech_music_split IS NOT NULL LIMIT 10;
 
 --0. Create music mix list
-DROP TABLE IF EXISTS dataforce_music_mixes;
+DROP TABLE IF EXISTS dataforce_sandbox.dataforce_music_mixes;
 CREATE TEMP TABLE dataforce_music_mixes AS
 SELECT DISTINCT version_id, all_mixes_bool FROM radio1_sandbox.audio_content_enriched
 WHERE all_mixes_bool = TRUE;
@@ -26,7 +26,7 @@ CREATE TABLE radio1_sandbox.dataforce_listeners_international
 AS (
     SELECT a.*, b.master_brand_id, b.speech_music_split,c.all_mixes_bool
     FROM radio1_sandbox.dataforce_sounds_int_users_listening a
-             LEFT JOIN dataforce_vmb_summary b ON a.version_id = b.version_id -- Inserts when the version_id is the an episode pid
+             LEFT JOIN dataforce_sandbox.dataforce_vmb_summary b ON a.version_id = b.version_id -- Inserts when the version_id is the an episode pid
     LEFT JOIN dataforce_music_mixes c ON a.version_id = c.version_id
     WHERE playback_time_total > 3
       AND playback_time_total IS NOT NULL
@@ -38,7 +38,7 @@ AS (
 INSERT INTO radio1_sandbox.dataforce_listeners_international
 with vmb_subset_mini AS
          (SELECT DISTINCT master_brand_id, speech_music_split
-          FROM dataforce_vmb_summary) -- This is to just get distinct masterbrands as the main table has lots of entries because of the many version ids
+          FROM dataforce_sandbox.dataforce_vmb_summary) -- This is to just get distinct masterbrands as the main table has lots of entries because of the many version ids
 SELECT a.*, b.master_brand_id, b.speech_music_split
 FROM radio1_sandbox.dataforce_sounds_int_users_listening a
          LEFT JOIN vmb_subset_mini b ON a.version_id = b.master_brand_id
@@ -133,7 +133,7 @@ SET signed_in_status = (CASE
 
 -------------------- Drop TABLES
 DROP TABLE IF EXISTS radio1_sandbox.dataforce_listeners_international;
-DROP TABLE IF EXISTS dataforce_music_mixes;
+DROP TABLE IF EXISTS dataforce_sandbox.dataforce_music_mixes;
 
 --- Grants
 GRANT SELECT ON  radio1_sandbox.dataforce_listeners_international_weekly_summary TO GROUP radio;
